@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة الإدارة — شموخ كير</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: #f5f4f2;
+      color: #2c2420;
+      min-height: 100vh;
+    }
+
+    /* ── LOGIN SCREEN ── */
+    #loginScreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fdfaf7;
+    }
+
+    .login-box {
+      background: #fff;
+      border: 1.5px solid #ede8e1;
+      border-radius: 16px;
+      padding: 40px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.07);
+      text-align: center;
+    }
+
+    .login-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #c4956a, #f0d9d0);
+      margin: 0 auto 16px;
+    }
+
+    .login-title { font-size: 22px; font-weight: 700; margin-bottom: 4px; color: #2c2420; }
+    .login-sub   { font-size: 13px; color: #8c7b72; margin-bottom: 28px; }
+
+    .login-box input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #ede8e1;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 14px;
+      transition: border-color .2s;
+    }
+    .login-box input:focus { border-color: #c4956a; box-shadow: 0 0 0 3px #f5ede3; }
+
+    .btn-login {
+      width: 100%;
+      background: #2c2420;
+      color: #fff;
+      border: none;
+      padding: 13px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .2s;
+    }
+    .btn-login:hover { background: #c4956a; }
+
+    .login-error {
+      background: #fdecea;
+      border: 1px solid #e8a0a0;
+      color: #c0392b;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    /* ── DASHBOARD ── */
+    #dashboard { display: none; }
+
+    .top-bar {
+      background: #fff;
+      border-bottom: 1px solid #ede8e1;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .top-bar-brand { font-weight: 700; font-size: 17px; color: #c4956a; }
+    .top-bar-sub   { font-size: 12px; color: #8c7b72; }
+
+    .btn-logout {
+      background: #fdfaf7;
+      border: 1.5px solid #ede8e1;
+      color: #8c7b72;
+      padding: 7px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-logout:hover { background: #fdecea; color: #c0392b; border-color: #e8a0a0; }
+
+    .dash-container { max-width: 1100px; margin: 0 auto; padding: 28px 20px; }
+
+    /* STATS ROW */
+    .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 28px; }
+    .stat-card {
+      background: #fff;
+      border: 1.5px solid #ede8e1;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .stat-label { font-size: 12px; color: #8c7b72; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .stat-value { font-size: 32px; font-weight: 700; color: #c4956a; }
+
+    /* CONTROLS */
+    .controls {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .search-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 10px 14px;
+      border: 1.5px solid #ede8e1;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+    }
+    .search-input:focus { border-color: #c4956a; }
+    .filter-select {
+      padding: 10px 14px;
+      border: 1.5px solid #ede8e1;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      background: #fff;
+      outline: none;
+    }
+    .btn-refresh {
+      background: #c4956a;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .2s;
+    }
+    .btn-refresh:hover { background: #b07a50; }
+    .btn-export {
+      background: #fdfaf7;
+      color: #2c2420;
+      border: 1.5px solid #ede8e1;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-export:hover { background: #f5ede3; }
+
+    /* TABLE */
+    .table-wrap {
+      background: #fff;
+      border: 1.5px solid #ede8e1;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      background: #fdfaf7;
+      padding: 13px 16px;
+      text-align: right;
+      font-size: 12px;
+      font-weight: 700;
+      color: #8c7b72;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 1.5px solid #ede8e1;
+    }
+    tbody tr { border-bottom: 1px solid #f0ece8; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #fdfaf7; }
+    td {
+      padding: 13px 16px;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+    .td-email { color: #5a4a42; font-size: 13px; }
+    .td-date { color: #8c7b72; font-size: 12px; font-family: 'Inter', sans-serif; }
+    .theme-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .theme-minimal { background: #f0ece8; color: #5a4a42; }
+    .theme-elegant { background: #1a1209; color: #c4a55a; }
+    .theme-bold     { background: #1a0008; color: #e8334a; }
+    .btn-view {
+      background: #f5ede3;
+      color: #c4956a;
+      border: 1px solid #c4956a;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-view:hover { background: #c4956a; color: #fff; }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #8c7b72;
+    }
+    .empty-state p { font-size: 36px; margin-bottom: 10px; }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.5);
+      display: none;
+      z-index: 200;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 16px;
+      overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 680px;
+      box-shadow: 0 16px 48px rgba(0,0,0,.18);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      border-bottom: 1.5px solid #ede8e1;
+      background: #fdfaf7;
+    }
+    .modal-title { font-weight: 700; font-size: 16px; }
+    .btn-close {
+      background: none;
+      border: none;
+      font-size: 22px;
+      color: #8c7b72;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .modal-body { padding: 22px; }
+
+    .detail-section { margin-bottom: 22px; }
+    .detail-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #c4956a;
+      margin-bottom: 12px;
+    }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .detail-item { font-size: 13px; }
+    .detail-key { color: #8c7b72; font-size: 12px; margin-bottom: 2px; }
+    .detail-val { font-weight: 600; word-break: break-all; }
+
+    .raw-json {
+      background: #1a1a1a;
+      color: #d4c8b8;
+      padding: 16px;
+      border-radius: 8px;
+      font-family: 'Inter', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+
+    .products-list { display: flex; flex-direction: column; gap: 10px; }
+    .product-item {
+      background: #fdfaf7;
+      border: 1px solid #ede8e1;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 13px;
+    }
+    .product-item strong { display: block; margin-bottom: 4px; }
+
+    @media (max-width: 640px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .detail-grid { grid-template-columns: 1fr; }
+      .top-bar { flex-direction: column; gap: 8px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════
+       LOGIN SCREEN
+  ════════════════════════════════ -->
+  <div id="loginScreen">
+    <div class="login-box">
+      <div class="login-logo"></div>
+      <h1 class="login-title">لوحة الإدارة</h1>
+      <p class="login-sub">أدخل كلمة المرور للوصول</p>
+      <input
+        type="password"
+        id="passwordInput"
+        placeholder="••••••••"
+        onkeydown="if(event.key==='Enter') doLogin()"
+      />
+      <button class="btn-login" onclick="doLogin()">دخول</button>
+      <div class="login-error" id="loginError">كلمة المرور غير صحيحة</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       DASHBOARD
+  ════════════════════════════════ -->
+  <div id="dashboard">
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+      <div>
+        <div class="top-bar-brand">شموخ كير — الإدارة</div>
+        <div class="top-bar-sub">آخر تحديث: <span id="lastRefresh">—</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:13px;color:#a08c7a;font-weight:500;">👤 shmoukh-admin</span>
+        <button class="btn-logout" onclick="doLogout()">تسجيل الخروج</button>
+      </div>
+    </div>
+
+    <div class="dash-container">
+
+      <!-- STATS -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">إجمالي المتاجر</div>
+          <div class="stat-value" id="statTotal">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">آخر 7 أيام</div>
+          <div class="stat-value" id="statWeek">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">التصميم الأشهر</div>
+          <div class="stat-value" id="statTopTheme" style="font-size:18px;">—</div>
+        </div>
+      </div>
+
+      <!-- CONTROLS -->
+      <div class="controls">
+        <input
+          type="text"
+          class="search-input"
+          id="searchInput"
+          placeholder="ابحث باسم المتجر أو البريد الإلكتروني..."
+          oninput="renderTable()"
+        />
+        <select class="filter-select" id="themeFilter" onchange="renderTable()">
+          <option value="">كل التصاميم</option>
+          <option value="minimal">مينيمال</option>
+          <option value="elegant">إليجانت</option>
+          <option value="bold">بولد</option>
+        </select>
+        <button class="btn-refresh" onclick="loadData()">↻ تحديث</button>
+        <button class="btn-export" onclick="exportCSV()">⬇ تصدير CSV</button>
+      </div>
+
+      <!-- TABLE -->
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>اسم المتجر</th>
+              <th>البريد الإلكتروني</th>
+              <th>التصميم</th>
+              <th>تاريخ الإنشاء</th>
+              <th>آخر تعديل</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="recordsBody">
+            <tr>
+              <td colspan="7" style="text-align:center;padding:40px;color:#8c7b72;">
+                جاري التحميل...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div><!-- /.dash-container -->
+  </div><!-- /#dashboard -->
+
+  <!-- ═══════════════════════════════
+       DETAIL MODAL
+  ════════════════════════════════ -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <span class="modal-title" id="modalTitle">تفاصيل المتجر</span>
+        <button class="btn-close" onclick="closeModalDirect()">×</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       JAVASCRIPT
+  ════════════════════════════════ -->
+  <script>
+    // ── CONFIG ─────────────────────────────────────────────────────────────────
+    const WORKER_URL = "https://shmoukh-care.com/api";
+
+    // ── STATE ──────────────────────────────────────────────────────────────────
+    let adminPassword = "";
+    let allRecords    = [];
+    const SESSION_KEY = "shmoukh_admin_token";
+
+    // ── SHOW DASHBOARD ─────────────────────────────────────────────────────────
+    function showDashboard(pwd) {
+      adminPassword = pwd;
+      document.getElementById("loginScreen").style.display  = "none";
+      document.getElementById("dashboard").style.display    = "block";
+      loadData();
+    }
+
+    // ── LOGIN ──────────────────────────────────────────────────────────────────
+    async function doLogin() {
+      const pwd = document.getElementById("passwordInput").value.trim();
+      if (!pwd) return;
+
+      document.querySelector(".btn-login").textContent = "جاري التحقق...";
+      document.getElementById("loginError").style.display = "none";
+
+      try {
+        const res = await fetch(`${WORKER_URL}/admin-login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password: pwd }),
+        });
+
+        if (!res.ok) throw new Error("Unauthorized");
+
+        sessionStorage.setItem(SESSION_KEY, pwd);
+        showDashboard(pwd);
+
+      } catch {
+        document.getElementById("loginError").style.display = "block";
+      } finally {
+        document.querySelector(".btn-login").textContent = "دخول";
+      }
+    }
+
+    function doLogout() {
+      sessionStorage.removeItem(SESSION_KEY);
+      adminPassword = "";
+      allRecords = [];
+      document.getElementById("passwordInput").value = "";
+      document.getElementById("loginScreen").style.display = "flex";
+      document.getElementById("dashboard").style.display   = "none";
+    }
+
+    // ── AUTO-LOGIN ON PAGE LOAD ────────────────────────────────────────────────
+    window.addEventListener("DOMContentLoaded", () => {
+      const saved = sessionStorage.getItem(SESSION_KEY);
+      if (saved) showDashboard(saved);
+    });
+
+    // ── LOAD DATA ──────────────────────────────────────────────────────────────
+    async function loadData() {
+      document.getElementById("lastRefresh").textContent = "جاري التحميل...";
+      try {
+        const res = await fetch(`${WORKER_URL}/get-configs`, {
+          headers: { "Authorization": `Bearer ${adminPassword}` },
+        });
+        if (res.status === 401) { doLogout(); return; }
+        if (!res.ok) throw new Error("Load failed");
+
+        const data = await res.json();
+        allRecords = data.records || [];
+        renderStats();
+        renderTable();
+        document.getElementById("lastRefresh").textContent =
+          new Date().toLocaleString("ar-PS", { hour12: true });
+      } catch (err) {
+        document.getElementById("recordsBody").innerHTML =
+          `<tr><td colspan="7" style="text-align:center;padding:40px;color:#c0392b;">
+            ❌ تعذّر تحميل البيانات — ${err.message}
+          </td></tr>`;
+      }
+    }
+
+    // ── STATS ──────────────────────────────────────────────────────────────────
+    function renderStats() {
+      document.getElementById("statTotal").textContent = allRecords.length;
+
+      const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+      const weekCount = allRecords.filter(r =>
+        new Date(r.created_at).getTime() > weekAgo
+      ).length;
+      document.getElementById("statWeek").textContent = weekCount;
+
+      // Theme frequency (supports both themes[] array and legacy theme string)
+      const freq = {};
+      allRecords.forEach(r => {
+        const themes = r.data?.themes || (r.data?.theme ? [r.data.theme] : ["—"]);
+        themes.forEach(t => { freq[t] = (freq[t] || 0) + 1; });
+      });
+      const top = Object.entries(freq).filter(([k]) => k !== "—").sort((a,b) => b[1]-a[1])[0];
+      const themeLabels = { minimal: "مينيمال", elegant: "إليجانت", bold: "بولد" };
+      document.getElementById("statTopTheme").textContent =
+        top ? (themeLabels[top[0]] || top[0]) + ` (${top[1]})` : "—";
+    }
+
+    // ── TABLE ──────────────────────────────────────────────────────────────────
+    function renderTable() {
+      const search      = document.getElementById("searchInput").value.toLowerCase();
+      const themeFilter = document.getElementById("themeFilter").value;
+
+      const filtered = allRecords.filter(r => {
+        const name  = (r.data?.business?.nameAr || "") + (r.data?.business?.nameEn || "");
+        const email = r.email || "";
+        const matchSearch = !search || name.toLowerCase().includes(search) || email.includes(search);
+        const matchTheme  = !themeFilter || (r.data?.themes || (r.data?.theme ? [r.data.theme] : [])).includes(themeFilter);
+        return matchSearch && matchTheme;
+      });
+
+      const tbody = document.getElementById("recordsBody");
+      if (!filtered.length) {
+        tbody.innerHTML = `
+          <tr><td colspan="7">
+            <div class="empty-state">
+              <p>🔍</p>
+              <p>لا توجد نتائج مطابقة</p>
+            </div>
+          </td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map((r, i) => {
+        const b = r.data?.business || {};
+        const themes = r.data?.themes || (r.data?.theme ? [r.data.theme] : []);
+        const themeLabel = { minimal: "مينيمال", elegant: "إليجانت", bold: "بولد" };
+        const themeBadges = themes.length
+          ? themes.map(t => `<span class="theme-badge theme-${t}">${themeLabel[t] || esc(t)}</span>`).join(" ")
+          : `<span class="theme-badge">—</span>`;
+        return `
+          <tr>
+            <td style="color:#8c7b72;font-size:12px;">${i+1}</td>
+            <td><strong>${esc(b.nameAr || "—")}</strong>${b.nameEn ? `<br><small style="color:#8c7b72;">${esc(b.nameEn)}</small>` : ""}</td>
+            <td class="td-email">${esc(r.email || "—")}</td>
+            <td>${themeBadges}</td>
+            <td class="td-date">${formatDate(r.created_at)}</td>
+            <td class="td-date">${formatDate(r.updated_at)}</td>
+            <td><button class="btn-view" onclick="openModal(${i}, ${JSON.stringify(filtered).replace(/"/g, '&quot;')})">عرض</button></td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    // ── MODAL ──────────────────────────────────────────────────────────────────
+    function openModal(idx, records) {
+      const r = records[idx];
+      const d = r.data || {};
+      const b = d.business || {};
+      const s = d.social || {};
+
+      document.getElementById("modalTitle").textContent =
+        `${b.nameAr || "—"} ${b.nameEn ? "· " + b.nameEn : ""}`;
+
+      const products = (d.products || []).map((p, pi) => {
+        const imgs = (p.images || []).map(url => `
+          <a href="${esc(url)}" target="_blank" download title="تنزيل الصورة">
+            <img src="${esc(url)}" alt="صورة المنتج" style="width:72px;height:72px;object-fit:cover;border-radius:6px;border:1px solid #e8e0d8;cursor:pointer;">
+          </a>`).join("");
+        const imgStrip = imgs ? `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">${imgs}</div>` : "";
+        return `
+        <div class="product-item">
+          <strong>${esc(p.nameAr || "")} ${p.nameEn ? "· " + esc(p.nameEn) : ""}</strong>
+          <span style="color:#8c7b72;">${esc(p.category || "")} — ${p.price ? p.price + " ₪" : ""}</span>
+          ${imgStrip}
+        </div>`;
+      }).join("") || "<p style='color:#8c7b72;font-size:13px;'>لا توجد منتجات</p>";
+
+      document.getElementById("modalBody").innerHTML = `
+        <div class="detail-section">
+          <p class="detail-section-title">بيانات المتجر</p>
+          <div class="detail-grid">
+            <div class="detail-item"><div class="detail-key">الاسم</div><div class="detail-val">${esc(b.nameAr||"—")} / ${esc(b.nameEn||"—")}</div></div>
+            <div class="detail-item"><div class="detail-key">الشعار</div><div class="detail-val">${esc(b.tagline||"—")}</div></div>
+            <div class="detail-item"><div class="detail-key">البريد</div><div class="detail-val">${esc(r.email||"—")}</div></div>
+            <div class="detail-item"><div class="detail-key">الهاتف</div><div class="detail-val">${esc(b.phone||"—")}</div></div>
+            <div class="detail-item"><div class="detail-key">الموقع</div><div class="detail-val">${esc(b.location||"—")}</div></div>
+            <div class="detail-item"><div class="detail-key">ساعات العمل</div><div class="detail-val">${esc(b.hours||"—")}</div></div>
+            <div class="detail-item"><div class="detail-key">Instagram</div><div class="detail-val">${s.instagram ? `<a href="${esc(s.instagram)}" target="_blank" style="color:#c4956a;">${esc(s.instagram)}</a>` : "—"}</div></div>
+            <div class="detail-item"><div class="detail-key">WhatsApp</div><div class="detail-val">${esc(s.whatsapp||"—")}</div></div>
+          </div>
+        </div>
+        <div class="detail-section">
+          <p class="detail-section-title">طرق الدفع</p>
+          <p style="font-size:14px;">${(d.payments||[]).join(" · ") || "—"}</p>
+        </div>
+        <div class="detail-section">
+          <p class="detail-section-title">المنتجات (${(d.products||[]).length})</p>
+          <div class="products-list">${products}</div>
+        </div>
+        <div class="detail-section">
+          <p class="detail-section-title">JSON الكامل</p>
+          <pre class="raw-json">${JSON.stringify(d, null, 2)}</pre>
+        </div>
+      `;
+
+      document.getElementById("modalOverlay").classList.add("open");
+    }
+
+    function closeModal(e) {
+      if (e.target === document.getElementById("modalOverlay")) {
+        closeModalDirect();
+      }
+    }
+
+    function closeModalDirect() {
+      document.getElementById("modalOverlay").classList.remove("open");
+    }
+
+    // ── EXPORT CSV ─────────────────────────────────────────────────────────────
+    function exportCSV() {
+      const cols = ["id", "email", "business_name_ar", "business_name_en", "theme", "phone", "location", "created_at", "updated_at"];
+      const rows = allRecords.map(r => [
+        r.id,
+        r.email,
+        r.data?.business?.nameAr || "",
+        r.data?.business?.nameEn || "",
+        r.data?.theme || "",
+        r.data?.business?.phone || "",
+        r.data?.business?.location || "",
+        r.created_at,
+        r.updated_at,
+      ].map(v => `"${String(v).replace(/"/g,'""')}"`).join(","));
+
+      const csv = [cols.join(","), ...rows].join("\n");
+      const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement("a");
+      a.href = url;
+      a.download = `shmoukh-care-submissions-${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // ── UTILS ──────────────────────────────────────────────────────────────────
+    function formatDate(iso) {
+      if (!iso) return "—";
+      try {
+        return new Date(iso).toLocaleString("ar-PS", { year:"numeric", month:"short", day:"numeric", hour:"2-digit", minute:"2-digit" });
+      } catch { return iso; }
+    }
+
+    function esc(str) {
+      if (!str) return "";
+      return String(str)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;");
+    }
+  </script>
+
+</body>
+</html>

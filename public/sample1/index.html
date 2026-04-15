@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>معاينة: التصميم المينيمال — شموخ كير</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Tajawal', sans-serif; background: #fff; color: #2c2420; }
+
+    /* ── PREVIEW BANNER ── */
+    .preview-bar {
+      background: #2c2420;
+      color: #fff;
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .preview-bar .pb-label { opacity: .7; white-space: nowrap; }
+    .preview-bar .pb-themes { display: flex; gap: 6px; }
+    .preview-bar .pb-themes a {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.35);
+      padding: 4px 12px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: background .15s;
+    }
+    .preview-bar .pb-themes a.active,
+    .preview-bar .pb-themes a:hover { background: #c4956a; border-color: #c4956a; }
+    .preview-bar .pb-back {
+      background: rgba(255,255,255,.12);
+      color: #fff;
+      padding: 4px 14px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ── NAV ── */
+    .site-nav {
+      border-bottom: 1px solid #ede8e1;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand { font-size: 20px; font-weight: 700; color: #2c2420; letter-spacing: 1px; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { text-decoration: none; color: #5a4a42; font-size: 14px; font-weight: 500; }
+    .nav-links a:hover { color: #c4956a; }
+    .nav-cart {
+      background: #2c2420;
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 480px;
+      align-items: center;
+    }
+    .hero-text { padding: 60px 40px; }
+    .hero-eyebrow {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #c4956a;
+      margin-bottom: 14px;
+    }
+    .hero-title {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: #2c2420;
+    }
+    .hero-subtitle { font-size: 16px; color: #7a6a62; line-height: 1.7; margin-bottom: 28px; }
+    .hero-cta {
+      display: inline-block;
+      background: #2c2420;
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .hero-image {
+      background: #f5f0eb;
+      height: 100%;
+      min-height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-image-placeholder {
+      width: 240px;
+      height: 300px;
+      background: #ede8e1;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+    }
+
+    /* ── CATEGORIES ── */
+    .categories { padding: 60px 40px; background: #fdfaf7; }
+    .section-title {
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #c4956a;
+      margin-bottom: 8px;
+    }
+    .section-heading { font-size: 28px; font-weight: 700; margin-bottom: 32px; color: #2c2420; }
+    .cat-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+    .cat-card {
+      background: #fff;
+      border: 1px solid #ede8e1;
+      border-radius: 10px;
+      padding: 28px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: box-shadow .2s;
+    }
+    .cat-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+    .cat-icon { font-size: 36px; margin-bottom: 10px; }
+    .cat-name { font-size: 15px; font-weight: 600; }
+
+    /* ── PRODUCTS ── */
+    .products { padding: 60px 40px; }
+    .products-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .product-card {
+      border: 1px solid #ede8e1;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .product-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.09); transform: translateY(-3px); }
+    .product-img {
+      background: #f5f0eb;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+    }
+    .product-info { padding: 16px; }
+    .product-name { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+    .product-desc { font-size: 13px; color: #8c7b72; margin-bottom: 12px; line-height: 1.5; }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; }
+    .product-price { font-weight: 700; font-size: 16px; color: #c4956a; }
+    .btn-add-cart {
+      background: #2c2420;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-add-cart:hover { background: #c4956a; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials { background: #fdfaf7; padding: 60px 40px; }
+    .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .testi-card {
+      background: #fff;
+      border: 1px solid #ede8e1;
+      border-radius: 10px;
+      padding: 24px;
+    }
+    .stars { color: #e8b84b; font-size: 18px; margin-bottom: 10px; }
+    .testi-text { font-size: 14px; color: #5a4a42; line-height: 1.7; margin-bottom: 14px; }
+    .testi-name { font-weight: 700; font-size: 13px; }
+
+    /* ── CONTACT STRIP ── */
+    .contact-strip {
+      background: #2c2420;
+      color: #fff;
+      padding: 40px;
+      text-align: center;
+    }
+    .contact-strip p { font-size: 14px; opacity: .7; margin-bottom: 8px; }
+    .contact-strip h3 { font-size: 24px; font-weight: 700; margin-bottom: 20px; }
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #25d366;
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid #ede8e1;
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #8c7b72;
+    }
+
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-image { min-height: 260px; }
+      .hero-text { padding: 40px 20px; }
+      .hero-title { font-size: 30px; }
+      .cat-grid { grid-template-columns: repeat(2,1fr); }
+      .products-grid { grid-template-columns: repeat(2,1fr); }
+      .testi-grid { grid-template-columns: 1fr; }
+      .categories, .products, .testimonials, footer { padding-left: 20px; padding-right: 20px; }
+      .site-nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preview banner -->
+  <div class="preview-bar">
+    <span class="pb-label">🎨 غيّري التصميم:</span>
+    <div class="pb-themes">
+      <a href="/sample1" class="active">مينيمال</a>
+      <a href="/sample2">إليجانت</a>
+      <a href="/sample3">بولد</a>
+    </div>
+    <a href="/questionnaire" class="pb-back">← العودة</a>
+  </div>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <span class="nav-brand">شموخ كير</span>
+    <div class="nav-links">
+      <a href="#">الرئيسية</a>
+      <a href="#">المنتجات</a>
+      <a href="#">عن المتجر</a>
+      <a href="#">تواصلي معنا</a>
+    </div>
+    <a href="#" class="nav-cart">🛒 السلة</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">العناية الفاخرة بالبشرة</p>
+      <h1 class="hero-title">جمالك<br />سرّ شموخك</h1>
+      <p class="hero-subtitle">منتجات عناية طبيعية مختارة بعناية لتمنحك بشرة مشرقة وشعراً صحياً طوال اليوم.</p>
+      <a href="#" class="hero-cta">تسوّقي الآن</a>
+    </div>
+    <div class="hero-image">
+      <div class="hero-image-placeholder">🌿</div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="categories">
+    <p class="section-title">تسوّقي حسب الفئة</p>
+    <h2 class="section-heading">اكتشفي تشكيلتنا</h2>
+    <div class="cat-grid">
+      <div class="cat-card"><div class="cat-icon">✨</div><p class="cat-name">العناية بالبشرة</p></div>
+      <div class="cat-card"><div class="cat-icon">💆</div><p class="cat-name">العناية بالشعر</p></div>
+      <div class="cat-card"><div class="cat-icon">🌿</div><p class="cat-name">الزيوت الطبيعية</p></div>
+      <div class="cat-card"><div class="cat-icon">🧴</div><p class="cat-name">الكريمات</p></div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products">
+    <p class="section-title">الأكثر مبيعاً</p>
+    <h2 class="section-heading">منتجاتنا المميّزة</h2>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img">🧴</div>
+        <div class="product-info">
+          <p class="product-name">كريم مرطّب يومي</p>
+          <p class="product-desc">ترطيب عميق لمدة 24 ساعة مع فيتامين E وحمض الهيالورونيك</p>
+          <div class="product-footer"><span class="product-price">49.90 ₪</span><button class="btn-add-cart">أضيفي للسلة</button></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">🌹</div>
+        <div class="product-info">
+          <p class="product-name">زيت الورد الطبيعي</p>
+          <p class="product-desc">زيت ورد أصيل يجدّد البشرة ويمنحها نضارة طبيعية رائعة</p>
+          <div class="product-footer"><span class="product-price">79.90 ₪</span><button class="btn-add-cart">أضيفي للسلة</button></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">💆</div>
+        <div class="product-info">
+          <p class="product-name">كريم السدر للشعر</p>
+          <p class="product-desc">علاج مكثّف للشعر التالف بخلاصة السدر الطبيعي وزبدة الشيا</p>
+          <div class="product-footer"><span class="product-price">64.90 ₪</span><button class="btn-add-cart">أضيفي للسلة</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <p class="section-title">آراء عميلاتنا</p>
+    <h2 class="section-heading">ماذا يقلن عننا</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">المنتج رائع جداً! بشرتي أصبحت أكثر نضارة وإشراقاً بعد أسبوع واحد فقط.</p>
+        <p class="testi-name">— سارة محمد، رام الله</p>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">كريم السدر أنقذ شعري! أوصي به بشدة لكل من تعاني من الشعر التالف.</p>
+        <p class="testi-name">— نور خالد، الخليل</p>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★☆</div>
+        <p class="testi-text">زيت الورد خفيف جداً على البشرة ورائحته جميلة. التوصيل كان سريعاً.</p>
+        <p class="testi-name">— لينا يوسف، نابلس</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-strip">
+    <p>هل لديكِ سؤال؟</p>
+    <h3>تواصلي معنا على واتساب</h3>
+    <a href="https://wa.me/970500000000" class="contact-btn">
+      <span>💬</span> واتساب
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2025 شموخ كير. جميع الحقوق محفوظة.</span>
+    <span>فلسطين 🇵🇸</span>
+  </footer>
+
+</body>
+</html>

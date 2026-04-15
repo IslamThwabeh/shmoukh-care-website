@@ -1,0 +1,23 @@
+name = "shmoukh-care-worker"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+account_id = "79e9ff531db92d17c6579430b86a5f3c"
+
+# ── Routes ────────────────────────────────────────────────────────────────────
+[[routes]]
+pattern = "shmoukh-care.com/api/*"
+zone_name = "shmoukh-care.com"
+
+# ── D1 Database ───────────────────────────────────────────────────────────────
+[[d1_databases]]
+binding  = "DB"
+database_name = "shmoukh-care-db"
+database_id   = "06a6136e-fcb0-4575-af60-3b4957ba24d3"
+
+# ── R2 Bucket ─────────────────────────────────────────────────────────────────
+[[r2_buckets]]
+binding     = "MEDIA"
+bucket_name = "shmoukh-care-media"
+
+# ── Secrets (set via `wrangler secret put`) ───────────────────────────────────
+# ADMIN_PASSWORD  ← run: wrangler secret put ADMIN_PASSWORD

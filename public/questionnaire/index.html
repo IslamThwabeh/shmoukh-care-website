@@ -1,0 +1,1961 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>شموخ كير — استبيان المتجر</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* ══════════════════════════════════════════════
+       CSS CUSTOM PROPERTIES
+    ══════════════════════════════════════════════ */
+    :root {
+      --clr-bg:        #fdfaf7;
+      --clr-surface:   #ffffff;
+      --clr-border:    #ede8e1;
+      --clr-accent:    #c4956a;
+      --clr-accent-lt: #f5ede3;
+      --clr-blush:     #f0d9d0;
+      --clr-text:      #2c2420;
+      --clr-muted:     #8c7b72;
+      --clr-error:     #c0392b;
+      --clr-success:   #2e7d5a;
+      --radius:        14px;
+      --shadow:        0 2px 16px rgba(0,0,0,.07);
+      --font-ar:       'Tajawal', sans-serif;
+      --font-en:       'Inter', sans-serif;
+      --transition:    .22s ease;
+    }
+
+    /* ══════════════════════════════════════════════
+       RESET & BASE
+    ══════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-ar);
+      background: var(--clr-bg);
+      color: var(--clr-text);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* english mode */
+    body.lang-en { direction: ltr; font-family: var(--font-en); }
+
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; font-family: inherit; }
+    input, textarea, select { font-family: inherit; font-size: 14px; }
+
+    /* ══════════════════════════════════════════════
+       LAYOUT
+    ══════════════════════════════════════════════ */
+    .page-header {
+      background: var(--clr-surface);
+      border-bottom: 1px solid var(--clr-border);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--clr-accent), var(--clr-blush));
+    }
+
+    .brand-name {
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--clr-accent);
+      letter-spacing: .3px;
+    }
+
+    #langToggle {
+      background: var(--clr-accent-lt);
+      border: 1px solid var(--clr-border);
+      color: var(--clr-accent);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background var(--transition);
+    }
+    #langToggle:hover { background: var(--clr-blush); }
+
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 32px 16px 80px;
+    }
+
+    /* ══════════════════════════════════════════════
+       PROGRESS BAR
+    ══════════════════════════════════════════════ */
+    .progress-wrapper {
+      margin-bottom: 36px;
+    }
+
+    .progress-steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 10px;
+    }
+
+    .step-dot {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--clr-border);
+      color: var(--clr-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: background var(--transition), color var(--transition);
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-dot.active {
+      background: var(--clr-accent);
+      color: #fff;
+      box-shadow: 0 0 0 4px var(--clr-accent-lt);
+    }
+
+    .step-dot.done {
+      background: var(--clr-success);
+      color: #fff;
+    }
+
+    .step-dot.done::after {
+      content: '✓';
+    }
+
+    .step-dot.done .dot-num { display: none; }
+
+    .step-line {
+      flex: 1;
+      height: 2px;
+      background: var(--clr-border);
+      transition: background var(--transition);
+    }
+
+    .step-line.done { background: var(--clr-success); }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .progress-label {
+      font-size: 11px;
+      color: var(--clr-muted);
+      text-align: center;
+      flex: 1;
+      transition: color var(--transition);
+    }
+
+    .progress-label.active { color: var(--clr-accent); font-weight: 600; }
+    .progress-label.done   { color: var(--clr-success); }
+
+    /* ══════════════════════════════════════════════
+       STEP PANELS
+    ══════════════════════════════════════════════ */
+    .step-panel {
+      display: none;
+      animation: fadeIn .3s ease;
+    }
+
+    .step-panel.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--clr-accent);
+      margin-bottom: 4px;
+    }
+
+    .step-subtitle {
+      font-size: 14px;
+      color: var(--clr-muted);
+      margin-bottom: 28px;
+    }
+
+    /* ══════════════════════════════════════════════
+       FORM ELEMENTS
+    ══════════════════════════════════════════════ */
+    .field-group {
+      display: grid;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 520px) {
+      .field-row { grid-template-columns: 1fr; }
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--clr-text);
+    }
+
+    label .en-label {
+      font-weight: 400;
+      color: var(--clr-muted);
+      font-size: 12px;
+      margin-right: 4px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="url"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--clr-border);
+      border-radius: 10px;
+      background: var(--clr-surface);
+      color: var(--clr-text);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--clr-accent);
+      box-shadow: 0 0 0 3px var(--clr-accent-lt);
+    }
+
+    textarea { resize: vertical; min-height: 90px; }
+
+    select { appearance: none; }
+
+    .required-mark { color: var(--clr-accent); }
+
+    /* ══════════════════════════════════════════════
+       CARDS (products, testimonials)
+    ══════════════════════════════════════════════ */
+    .card {
+      background: var(--clr-surface);
+      border: 1.5px solid var(--clr-border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--clr-accent);
+    }
+
+    .btn-remove-card {
+      background: #fdecea;
+      border: none;
+      color: var(--clr-error);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      font-size: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition);
+    }
+
+    .btn-remove-card:hover { background: #fbd0cc; }
+
+    .btn-add {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--clr-accent-lt);
+      border: 1.5px dashed var(--clr-accent);
+      color: var(--clr-accent);
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      width: 100%;
+      justify-content: center;
+      transition: background var(--transition);
+      margin-top: 4px;
+    }
+
+    .btn-add:hover { background: var(--clr-blush); }
+
+    /* ══════════════════════════════════════════════
+       FILE UPLOAD
+    ══════════════════════════════════════════════ */
+    .upload-zone {
+      border: 2px dashed var(--clr-border);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color var(--transition), background var(--transition);
+      background: var(--clr-bg);
+    }
+
+    .upload-zone:hover { border-color: var(--clr-accent); background: var(--clr-accent-lt); }
+    .upload-zone.dragover { border-color: var(--clr-accent); background: var(--clr-blush); }
+
+    .upload-icon { font-size: 28px; margin-bottom: 6px; }
+    .upload-hint { font-size: 13px; color: var(--clr-muted); }
+
+    .upload-input { display: none; }
+
+    .upload-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .preview-thumb {
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1.5px solid var(--clr-border);
+    }
+
+    .preview-file {
+      background: var(--clr-accent-lt);
+      border: 1.5px solid var(--clr-border);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 12px;
+      color: var(--clr-accent);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Upload progress */
+    .progress-bar-wrap {
+      background: var(--clr-border);
+      border-radius: 6px;
+      height: 6px;
+      margin-top: 10px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--clr-accent), var(--clr-blush));
+      width: 0%;
+      transition: width .3s ease;
+      border-radius: 6px;
+    }
+
+    .upload-status { font-size: 12px; color: var(--clr-muted); margin-top: 6px; }
+
+    /* ══════════════════════════════════════════════
+       STAR RATING
+    ══════════════════════════════════════════════ */
+    .star-rating {
+      display: flex;
+      gap: 4px;
+      direction: ltr;
+    }
+
+    .star-rating input { display: none; }
+
+    .star-rating label {
+      font-size: 24px;
+      color: var(--clr-border);
+      cursor: pointer;
+      transition: color var(--transition);
+      line-height: 1;
+    }
+
+    .star-rating input:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+      color: #e8b84b;
+    }
+
+    /* ══════════════════════════════════════════════
+       CHECKBOXES
+    ══════════════════════════════════════════════ */
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 16px;
+      border: 1.5px solid var(--clr-border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: border-color var(--transition), background var(--transition);
+    }
+
+    .checkbox-item:hover { border-color: var(--clr-accent); background: var(--clr-accent-lt); }
+
+    .checkbox-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--clr-accent);
+      flex-shrink: 0;
+    }
+
+    .checkbox-item.checked {
+      border-color: var(--clr-accent);
+      background: var(--clr-accent-lt);
+    }
+
+    /* ══════════════════════════════════════════════
+       DESIGN SELECTION CARDS
+    ══════════════════════════════════════════════ */
+    .design-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    @media (max-width: 580px) {
+      .design-grid { grid-template-columns: 1fr; }
+    }
+
+    .design-card {
+      border: 2px solid var(--clr-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      position: relative;
+    }
+
+    .design-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.1);
+    }
+
+    .design-card.selected {
+      border-color: var(--clr-accent);
+      box-shadow: 0 0 0 3px var(--clr-accent-lt), 0 8px 24px rgba(0,0,0,.1);
+    }
+
+    .design-card.selected .design-check {
+      opacity: 1;
+    }
+
+    .design-check {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      width: 24px;
+      height: 24px;
+      background: var(--clr-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 13px;
+      opacity: 0;
+      transition: opacity var(--transition);
+      z-index: 2;
+    }
+
+    .design-thumb {
+      width: 100%;
+      height: 130px;
+      overflow: hidden;
+    }
+
+    .design-info {
+      padding: 12px;
+    }
+
+    .design-name {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+
+    .design-desc {
+      font-size: 12px;
+      color: var(--clr-muted);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .btn-preview {
+      display: block;
+      text-align: center;
+      background: var(--clr-accent-lt);
+      color: var(--clr-accent);
+      border: 1px solid var(--clr-accent);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background var(--transition);
+    }
+
+    .btn-preview:hover { background: var(--clr-blush); }
+
+    /* ── Minimal thumbnail ── */
+    .thumb-minimal {
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      padding: 8px;
+      gap: 4px;
+    }
+
+    .thumb-minimal .t-bar { height: 8px; background: #f0ece8; border-radius: 4px; }
+    .thumb-minimal .t-bar.wide { width: 60%; }
+    .thumb-minimal .t-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .thumb-minimal .t-box {
+      height: 40px;
+      background: #f5f0eb;
+      border-radius: 4px;
+    }
+
+    /* ── Elegant thumbnail ── */
+    .thumb-elegant {
+      background: #1a1209;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px;
+    }
+
+    .thumb-elegant .t-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid #c4a35a;
+    }
+
+    .thumb-elegant .t-title {
+      height: 6px;
+      width: 70%;
+      background: #c4a35a;
+      border-radius: 3px;
+    }
+
+    .thumb-elegant .t-sub {
+      height: 4px;
+      width: 50%;
+      background: #4a3c20;
+      border-radius: 2px;
+    }
+
+    .thumb-elegant .t-strip {
+      display: flex;
+      gap: 4px;
+      width: 100%;
+    }
+
+    .thumb-elegant .t-strip div {
+      flex: 1;
+      height: 28px;
+      background: #2a1f0a;
+      border-radius: 4px;
+      border: 1px solid #3a2c10;
+    }
+
+    /* ── Bold thumbnail ── */
+    .thumb-bold {
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .thumb-bold .t-hero {
+      background: linear-gradient(135deg, #e8334a, #ff6b35);
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .thumb-bold .t-hero-txt {
+      width: 55%;
+      height: 7px;
+      background: rgba(255,255,255,.8);
+      border-radius: 3px;
+    }
+
+    .thumb-bold .t-row {
+      display: flex;
+      gap: 3px;
+      padding: 3px 5px;
+    }
+
+    .thumb-bold .t-row div {
+      flex: 1;
+      height: 32px;
+      background: #1e1e1e;
+      border-radius: 3px;
+      border: 1px solid #333;
+    }
+
+    /* ══════════════════════════════════════════════
+       NAVIGATION BUTTONS
+    ══════════════════════════════════════════════ */
+    .step-nav {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      justify-content: space-between;
+    }
+
+    .btn {
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .btn:active { transform: scale(.97); }
+
+    .btn-primary {
+      background: var(--clr-accent);
+      color: #fff;
+      flex: 1;
+      box-shadow: 0 4px 14px rgba(196,149,106,.4);
+    }
+
+    .btn-primary:hover { background: #b07a50; }
+
+    .btn-secondary {
+      background: var(--clr-surface);
+      color: var(--clr-muted);
+      border: 1.5px solid var(--clr-border);
+    }
+
+    .btn-secondary:hover { background: var(--clr-accent-lt); }
+
+    .btn-submit {
+      background: linear-gradient(135deg, #c4956a, #e8b89a);
+      color: #fff;
+      flex: 1;
+      font-size: 17px;
+      padding: 16px 28px;
+      box-shadow: 0 6px 20px rgba(196,149,106,.5);
+    }
+
+    .btn-submit:hover { background: linear-gradient(135deg, #b07a50, #d4a07a); }
+
+    /* ══════════════════════════════════════════════
+       LOAD PREVIOUS DATA
+    ══════════════════════════════════════════════ */
+    .load-section {
+      background: var(--clr-accent-lt);
+      border: 1.5px solid var(--clr-accent);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .load-section .field { flex: 1; }
+
+    .btn-load {
+      background: var(--clr-accent);
+      color: #fff;
+      border: none;
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: background var(--transition);
+      flex-shrink: 0;
+    }
+
+    .btn-load:hover { background: #b07a50; }
+
+    /* ══════════════════════════════════════════════
+       SUCCESS / DEMO BANNERS
+    ══════════════════════════════════════════════ */
+    .banner {
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-top: 24px;
+      display: none;
+      animation: fadeIn .4s ease;
+    }
+
+    .banner-success {
+      background: #e8f5ed;
+      border: 1.5px solid #a8d5b8;
+      color: var(--clr-success);
+    }
+
+    .banner-demo {
+      background: #fff8ec;
+      border: 1.5px solid #f0c060;
+      color: #7a5c00;
+    }
+
+    .banner-error {
+      background: #fdecea;
+      border: 1.5px solid #e8a0a0;
+      color: var(--clr-error);
+    }
+
+    .banner-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .banner-body { font-size: 14px; }
+
+    /* ══════════════════════════════════════════════
+       SECTION DIVIDER
+    ══════════════════════════════════════════════ */
+    .section-divider {
+      border: none;
+      border-top: 1.5px solid var(--clr-border);
+      margin: 28px 0;
+    }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--clr-muted);
+      margin-bottom: 14px;
+    }
+
+    /* ══════════════════════════════════════════════
+       GLOBAL UPLOAD STATUS BAR
+    ══════════════════════════════════════════════ */
+    #globalUploadStatus {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--clr-text);
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 20px;
+      font-size: 13px;
+      display: none;
+      z-index: 999;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────────────────────────────── -->
+  <header class="page-header">
+    <div class="brand">
+      <div class="brand-logo"></div>
+      <span class="brand-name">شموخ كير</span>
+    </div>
+    <button id="langToggle" onclick="toggleLang()">English</button>
+  </header>
+
+  <!-- ── GLOBAL UPLOAD TOAST ─────────────────────────────────────────────── -->
+  <div id="globalUploadStatus"></div>
+
+  <!-- ── MAIN ───────────────────────────────────────────────────────────────── -->
+  <main class="container">
+
+    <!-- Progress -->
+    <div class="progress-wrapper">
+      <div class="progress-steps" id="progressSteps">
+        <div class="step-dot active" id="dot-1"><span class="dot-num">1</span></div>
+        <div class="step-line" id="line-1"></div>
+        <div class="step-dot" id="dot-2"><span class="dot-num">2</span></div>
+        <div class="step-line" id="line-2"></div>
+        <div class="step-dot" id="dot-3"><span class="dot-num">3</span></div>
+        <div class="step-line" id="line-3"></div>
+        <div class="step-dot" id="dot-4"><span class="dot-num">4</span></div>
+        <div class="step-line" id="line-4"></div>
+        <div class="step-dot" id="dot-5"><span class="dot-num">5</span></div>
+        <div class="step-line" id="line-5"></div>
+        <div class="step-dot" id="dot-6"><span class="dot-num">6</span></div>
+      </div>
+      <div class="progress-labels">
+        <span class="progress-label active" id="label-1" data-ar="بيانات المتجر" data-en="Business Info">بيانات المتجر</span>
+        <span class="progress-label" id="label-2" data-ar="المنتجات" data-en="Products">المنتجات</span>
+        <span class="progress-label" id="label-3" data-ar="الآراء والدفع" data-en="Reviews & Payment">الآراء والدفع</span>
+        <span class="progress-label" id="label-4" data-ar="الهوية والسوشيال" data-en="Branding & Social">الهوية والسوشيال</span>
+        <span class="progress-label" id="label-5" data-ar="المصداقية والتفاصيل" data-en="Trust & Details">المصداقية والتفاصيل</span>
+        <span class="progress-label" id="label-6" data-ar="التصميم والإطلاق" data-en="Design & Launch">التصميم والإطلاق</span>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         STEP 1 — BUSINESS INFO
+    ═══════════════════════════════════════════════ -->
+    <section class="step-panel active" id="step-1">
+      <h1 class="step-title" data-ar="بيانات متجرك" data-en="Your Business Info">بيانات متجرك</h1>
+      <p class="step-subtitle" data-ar="أدخل المعلومات الأساسية لمتجرك" data-en="Enter the core details about your store">أدخل المعلومات الأساسية لمتجرك</p>
+
+      <!-- Load previous -->
+      <div class="load-section">
+        <div class="field">
+          <label data-ar="البريد الإلكتروني لاسترجاع بياناتك" data-en="Email to restore your data">البريد الإلكتروني لاسترجاع بياناتك</label>
+          <input type="email" id="loadEmail" placeholder="you@example.com" inputmode="email" />
+        </div>
+        <button class="btn-load" onclick="loadPreviousData()" data-ar="تحميل البيانات" data-en="Load Data">تحميل البيانات</button>
+      </div>
+
+      <div class="field-group">
+        <div class="field-row">
+          <div class="field">
+            <label>اسم المتجر (عربي) <span class="required-mark">*</span></label>
+            <input type="text" id="bizNameAr" placeholder="شموخ كير" required />
+          </div>
+          <div class="field">
+            <label>Business Name (English)</label>
+            <input type="text" id="bizNameEn" placeholder="Shmoukh Care" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label data-ar="الشعار (Tagline)" data-en="Tagline / Slogan">الشعار (Tagline)</label>
+          <input type="text" id="bizTagline" placeholder="جمالك سرّ شموخك" />
+        </div>
+
+        <div class="field">
+          <label>البريد الإلكتروني <span class="required-mark">*</span></label>
+          <input type="email" id="bizEmail" placeholder="info@shmoukh-care.com" required />
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label data-ar="رقم الهاتف / واتساب" data-en="Phone / WhatsApp">رقم الهاتف / واتساب</label>
+            <input type="tel" id="bizPhone" placeholder="+970 5x xxx xxxx" />
+          </div>
+          <div class="field">
+            <label data-ar="الموقع / المدينة" data-en="Location / City">الموقع / المدينة</label>
+            <input type="text" id="bizLocation" placeholder="رام الله، فلسطين" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label data-ar="ساعات العمل" data-en="Business Hours">ساعات العمل</label>
+          <input type="text" id="bizHours" placeholder="السبت – الخميس: 9 ص – 9 م" />
+        </div>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn btn-primary" onclick="goStep(2)" data-ar="التالي →" data-en="Next →">التالي →</button>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         STEP 2 — PRODUCTS
+    ═══════════════════════════════════════════════ -->
+    <section class="step-panel" id="step-2">
+      <h1 class="step-title" data-ar="المنتجات" data-en="Products">المنتجات</h1>
+      <p class="step-subtitle" data-ar="أضف منتجاتك واحداً تلو الآخر" data-en="Add your products one by one">أضف منتجاتك واحداً تلو الآخر</p>
+
+      <div id="productsContainer"></div>
+
+      <button class="btn-add" onclick="addProduct()" data-ar="+ إضافة منتج جديد" data-en="+ Add new product">+ إضافة منتج جديد</button>
+
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goStep(1)" data-ar="← السابق" data-en="← Back">← السابق</button>
+        <button class="btn btn-primary" onclick="goStep(3)" data-ar="التالي →" data-en="Next →">التالي →</button>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         STEP 3 — TESTIMONIALS & PAYMENT
+    ═══════════════════════════════════════════════ -->
+    <section class="step-panel" id="step-3">
+      <h1 class="step-title" data-ar="آراء العملاء والدفع" data-en="Reviews & Payment">آراء العملاء والدفع</h1>
+      <p class="step-subtitle" data-ar="أضف شهادات العملاء واختر طرق الدفع" data-en="Add testimonials and choose payment methods">أضف شهادات العملاء واختر طرق الدفع</p>
+
+      <p class="section-label" data-ar="شهادات العملاء" data-en="Customer Testimonials">شهادات العملاء</p>
+      <div id="testimonialsContainer"></div>
+      <button class="btn-add" onclick="addTestimonial()" data-ar="+ إضافة شهادة عميل" data-en="+ Add testimonial">+ إضافة شهادة عميل</button>
+
+      <hr class="section-divider" />
+
+      <p class="section-label" data-ar="طرق الدفع المتاحة" data-en="Payment Methods">طرق الدفع المتاحة</p>
+      <div class="checkbox-group" id="paymentMethods">
+        <label class="checkbox-item" onclick="toggleCheck(this)">
+          <input type="checkbox" value="cod" id="pay_cod" />
+          <span data-ar="الدفع عند الاستلام (COD)" data-en="Cash on Delivery (COD)">الدفع عند الاستلام (COD)</span>
+        </label>
+        <label class="checkbox-item" onclick="toggleCheck(this)">
+          <input type="checkbox" value="stripe" id="pay_stripe" />
+          <span data-ar="بطاقة الائتمان (Stripe)" data-en="Credit Card (Stripe)">بطاقة الائتمان (Stripe)</span>
+        </label>
+        <label class="checkbox-item" onclick="toggleCheck(this)">
+          <input type="checkbox" value="bank_transfer" id="pay_bank" />
+          <span data-ar="التحويل البنكي" data-en="Bank Transfer">التحويل البنكي</span>
+        </label>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goStep(2)" data-ar="← السابق" data-en="← Back">← السابق</button>
+        <button class="btn btn-primary" onclick="goStep(4)" data-ar="التالي →" data-en="Next →">التالي →</button>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         STEP 4 — BRANDING & SOCIAL
+    ═══════════════════════════════════════════════ -->
+    <section class="step-panel" id="step-4">
+      <h1 class="step-title" data-ar="الهوية البصرية والسوشيال ميديا" data-en="Branding & Social Media">الهوية البصرية والسوشيال ميديا</h1>
+      <p class="step-subtitle" data-ar="ارفع شعارك وبانر الصفحة الرئيسية وأدخل روابط السوشيال" data-en="Upload logo, hero banner, and social media links">ارفع شعارك وبانر الصفحة الرئيسية وأدخل روابط السوشيال</p>
+
+      <!-- Logo upload -->
+      <p class="section-label" data-ar="الشعار (Logo)" data-en="Logo">الشعار (Logo)</p>
+      <div class="upload-zone" id="logoZone" onclick="document.getElementById('logoInput').click()" ondragover="onDragOver(event,this)" ondragleave="onDragLeave(this)" ondrop="onDrop(event,'logoInput','logoPreview','logoProgressWrap','logoStatus','logo',false)">
+        <div class="upload-icon">🖼</div>
+        <p class="upload-hint" data-ar="اضغط أو اسحب الشعار هنا (PNG, SVG, JPG)" data-en="Tap or drag logo here (PNG, SVG, JPG)">اضغط أو اسحب الشعار هنا (PNG, SVG, JPG)</p>
+        <input type="file" id="logoInput" class="upload-input" accept="image/*" onchange="handleFileSelect(this,'logoPreview','logoProgressWrap','logoStatus','logo',false)" />
+        <div class="progress-bar-wrap" id="logoProgressWrap"><div class="progress-bar-fill" id="logoProgressFill"></div></div>
+        <p class="upload-status" id="logoStatus"></p>
+        <div class="upload-preview" id="logoPreview"></div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- Hero banner upload -->
+      <p class="section-label" data-ar="بانر الصفحة الرئيسية (Hero Banner)" data-en="Hero Banner">بانر الصفحة الرئيسية (Hero Banner)</p>
+      <div class="upload-zone" onclick="document.getElementById('heroInput').click()" ondragover="onDragOver(event,this)" ondragleave="onDragLeave(this)" ondrop="onDrop(event,'heroInput','heroPreview','heroProgressWrap','heroStatus','hero',false)">
+        <div class="upload-icon">🌄</div>
+        <p class="upload-hint" data-ar="اضغط أو اسحب البانر هنا (JPG, PNG, WEBP)" data-en="Tap or drag banner here (JPG, PNG, WEBP)">اضغط أو اسحب البانر هنا (JPG, PNG, WEBP)</p>
+        <input type="file" id="heroInput" class="upload-input" accept="image/*" onchange="handleFileSelect(this,'heroPreview','heroProgressWrap','heroStatus','hero',false)" />
+        <div class="progress-bar-wrap" id="heroProgressWrap"><div class="progress-bar-fill" id="heroProgressFill"></div></div>
+        <p class="upload-status" id="heroStatus"></p>
+        <div class="upload-preview" id="heroPreview"></div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- Social media -->
+      <p class="section-label" data-ar="السوشيال ميديا" data-en="Social Media">السوشيال ميديا</p>
+      <div class="field-group">
+        <div class="field-row">
+          <div class="field">
+            <label>📸 Instagram</label>
+            <input type="url" id="socialInsta" placeholder="https://instagram.com/shmoukh" />
+          </div>
+          <div class="field">
+            <label>🎵 TikTok</label>
+            <input type="url" id="socialTiktok" placeholder="https://tiktok.com/@shmoukh" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>💬 WhatsApp</label>
+            <input type="tel" id="socialWhatsapp" placeholder="+970 5x xxx xxxx" />
+          </div>
+          <div class="field">
+            <label>📘 Facebook</label>
+            <input type="url" id="socialFb" placeholder="https://facebook.com/shmoukh" />
+          </div>
+        </div>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goStep(3)" data-ar="← السابق" data-en="← Back">← السابق</button>
+        <button class="btn btn-primary" onclick="goStep(5)" data-ar="التالي →" data-en="Next →">التالي →</button>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         STEP 5 — DESIGN + SUBMIT
+    ═══════════════════════════════════════════════ -->
+    <!-- ════════════════════════════════════════════
+         STEP 5 — TRUST & DETAILS
+    ═══════════════════════════════════════════════ -->
+    <section class="step-panel" id="step-5">
+      <h1 class="step-title" data-ar="المصداقية والتفاصيل" data-en="Trust & Details">المصداقية والتفاصيل</h1>
+      <p class="step-subtitle" data-ar="هاي المعلومات بتخلي متجرك احترافي وبتكسب ثقة الزبونة" data-en="These details build trust and make your store stand out">هاي المعلومات بتخلي متجرك احترافي وبتكسب ثقة الزبونة</p>
+
+      <!-- FOUNDER -->
+      <p class="section-label" data-ar="قصة المؤسسة" data-en="Founder Story">قصة المؤسسة</p>
+      <div class="field-group">
+        <div class="field-row">
+          <div class="field">
+            <label data-ar="اسمك / لقبك" data-en="Your name / title">اسمك / لقبك <span style="color:var(--clr-muted);font-weight:400;">اختياري</span></label>
+            <input type="text" id="founderName" placeholder="روان — خبيرة عناية بشرة" />
+          </div>
+          <div class="field">
+            <label data-ar="صورتك الشخصية" data-en="Your photo">صورتك الشخصية <span style="color:var(--clr-muted);font-weight:400;">اختياري</span></label>
+            <div class="upload-zone" style="padding:12px;" onclick="document.getElementById('founderPhotoInput').click()">
+              <div class="upload-icon" style="font-size:20px;">👤</div>
+              <p class="upload-hint">اضغطي لرفع صورتك</p>
+              <input type="file" id="founderPhotoInput" class="upload-input" accept="image/*" onchange="handleFileSelect(this,'founderPhotoPreview','founderPhotoProgressWrap','founderPhotoStatus','founder_photo',false)" />
+              <div class="progress-bar-wrap" id="founderPhotoProgressWrap"><div class="progress-bar-fill" id="founderPhotoProgressFill"></div></div>
+              <p class="upload-status" id="founderPhotoStatus"></p>
+              <div class="upload-preview" id="founderPhotoPreview"></div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label data-ar="قصتك مع العناية (جملتين أو ثلاث)" data-en="Your story (2-3 sentences)">قصتك مع العناية <span style="color:var(--clr-muted);font-weight:400;">جملتين أو ثلاث — اختياري</span></label>
+          <textarea id="founderStory" rows="3" placeholder="بدأت شموخ من شغفي بالمكونات الطبيعية..."></textarea>
+        </div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- STORE NUMBERS -->
+      <p class="section-label" data-ar="أرقام تثبت حضورك" data-en="Social Proof Numbers">أرقام تثبت حضورك <span style="color:var(--clr-muted);font-weight:400;font-size:12px;">اختيارية</span></p>
+      <div class="field-group">
+        <div class="field-row">
+          <div class="field">
+            <label>👩 عدد الزبونات الراضيات</label>
+            <input type="text" id="statClients" placeholder="+500 زبونة" />
+          </div>
+          <div class="field">
+            <label>🏅 سنوات الخبرة</label>
+            <input type="text" id="statYears" placeholder="3 سنوات" />
+          </div>
+          <div class="field">
+            <label>📦 منتجات مباعة</label>
+            <input type="text" id="statProducts" placeholder="+1000 طلب" />
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- PRODUCT BADGES -->
+      <p class="section-label" data-ar="شارات المنتج" data-en="Product Badges">شارات المنتج <span style="color:var(--clr-muted);font-weight:400;font-size:12px;">اختاري ما ينطبق على منتجاتك</span></p>
+      <div class="checkbox-group" id="productBadges">
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" value="natural100" /> <span>🌿 طبيعي 100%</span></label>
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" value="paraben_free" /> <span>✅ خالٍ من الباراباين</span></label>
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" value="cruelty_free" /> <span>🐰 Cruelty-Free (لا يختبر على الحيوانات)</span></label>
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" value="sensitive_skin" /> <span>❤️ مناسب للبشرة الحساسة</span></label>
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" value="made_in_palestine" /> <span>🇵🇸 صنع في فلسطين</span></label>
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" value="pregnancy_safe" /> <span>🤱 مناسب للحوامل والمرضعات</span></label>
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" value="vegan" /> <span>🌱 Vegan</span></label>
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" value="dermatologist_tested" /> <span>👨‍⚕️ مختبر جلدياً</span></label>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- SKIN CONCERNS -->
+      <p class="section-label" data-ar="مشاكل البشرة/الشعر التي تحلّها منتجاتك" data-en="Skin & Hair Concerns Your Products Solve">مشاكل البشرة/الشعر التي تحلّها</p>
+      <div class="checkbox-group" id="skinConcerns">
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" value="acne" /> <span>🔴 حب الشباب</span></label>
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" value="dryness" /> <span>💧 جفاف البشرة</span></label>
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" value="pigmentation" /> <span>🫹 تصبغات وبقع داكنة</span></label>
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" value="wrinkles" /> <span>⏳ تجاعيد وخطوط</span></label>
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" value="glow" /> <span>✨ إشراق وتوحيد البشرة</span></label>
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" value="hair_loss" /> <span>💇 تساقط الشعر</span></label>
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" value="dandruff" /> <span>❄️ قشرة الرأس</span></label>
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" value="sensitivity" /> <span>🌸 حساسية واحمرار</span></label>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- YOUTUBE VIDEOS -->
+      <p class="section-label">&#x1F3AC; فيديوهات YouTube <span style="color:var(--clr-muted);font-weight:400;font-size:12px;">حتى 4 روابط — اختيارية</span></p>
+      <div class="field-group">
+        <div class="field"><input type="url" id="yt1" placeholder="https://youtube.com/watch?v=..." /></div>
+        <div class="field"><input type="url" id="yt2" placeholder="https://youtube.com/watch?v=..." /></div>
+        <div class="field"><input type="url" id="yt3" placeholder="https://youtube.com/watch?v=..." /></div>
+        <div class="field"><input type="url" id="yt4" placeholder="https://youtube.com/watch?v=..." /></div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- WHATSAPP SCREENSHOT REVIEWS -->
+      <p class="section-label">💬 صور تقييمات واتسآب <span style="color:var(--clr-muted);font-weight:400;font-size:12px;">اختياري — حتى 6 صور</span></p>
+      <div class="upload-zone" onclick="document.getElementById('waScreenshotsInput').click()" ondragover="onDragOver(event,this)" ondragleave="onDragLeave(this)" ondrop="onDrop(event,'waScreenshotsInput','waPreview','waProgressWrap','waStatus','wa_screenshots',true)">
+        <div class="upload-icon">📱</div>
+        <p class="upload-hint">ارفعي صور screenshots من واتسآب</p>
+        <input type="file" id="waScreenshotsInput" class="upload-input" accept="image/*" multiple onchange="handleFileSelect(this,'waPreview','waProgressWrap','waStatus','wa_screenshots',true)" />
+        <div class="progress-bar-wrap" id="waProgressWrap"><div class="progress-bar-fill" id="waProgressFill"></div></div>
+        <p class="upload-status" id="waStatus"></p>
+        <div class="upload-preview" id="waPreview"></div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- FAQ -->
+      <p class="section-label">&#x2753; أسئلة شائعة <span style="color:var(--clr-muted);font-weight:400;font-size:12px;">اختياري — أضيفي أكثر سؤال تسأله الزبونات وجوابه</span></p>
+      <div class="field-group" id="faqContainer">
+        <div class="field-row" style="align-items:flex-start;gap:12px;">
+          <div class="field" style="flex:1;"><label>سؤال 1</label><input type="text" id="faq1q" placeholder="هل المنتجات طبيعية 100%؟" /></div>
+          <div class="field" style="flex:2;"><label>الجواب</label><input type="text" id="faq1a" placeholder="نعم، كل مكوناتنا طبيعية 100%" /></div>
+        </div>
+        <div class="field-row" style="align-items:flex-start;gap:12px;">
+          <div class="field" style="flex:1;"><label>سؤال 2</label><input type="text" id="faq2q" placeholder="كم يستغرق التوصيل؟" /></div>
+          <div class="field" style="flex:2;"><label>الجواب</label><input type="text" id="faq2a" placeholder="2–3 أيام لكل فلسطين" /></div>
+        </div>
+        <div class="field-row" style="align-items:flex-start;gap:12px;">
+          <div class="field" style="flex:1;"><label>سؤال 3</label><input type="text" id="faq3q" placeholder="هل يوجد سياسة إرجاع؟" /></div>
+          <div class="field" style="flex:2;"><label>الجواب</label><input type="text" id="faq3a" placeholder="نعم، خلال 7 أيام من الاستلام" /></div>
+        </div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- SHIPPING & RETURNS -->
+      <p class="section-label">📦 الشحن والإرجاع</p>
+      <div class="field-group">
+        <div class="field-row">
+          <div class="field">
+            <label>مناطق التوصيل</label>
+            <input type="text" id="shippingAreas" placeholder="كل فلسطين / الضفة فقط / الأردن" />
+          </div>
+          <div class="field">
+            <label>مدة التوصيل</label>
+            <input type="text" id="shippingDays" placeholder="2–3 أيام عمل" />
+          </div>
+          <div class="field">
+            <label>تكلفة الشحن</label>
+            <input type="text" id="shippingCost" placeholder="15 ₪ / مجاني فوق 150 ₪" />
+          </div>
+        </div>
+        <div class="field">
+          <label>سياسة الإرجاع والاستبدال</label>
+          <textarea id="returnPolicy" rows="2" placeholder="مثال: قبول الإرجاع خلال 7 أيام من الاستلام شريطة عدم فتح المنتج"></textarea>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>عملة الدفع</label>
+            <select id="currency">
+              <option value="ILS">₪ شيكل (ILS)</option>
+              <option value="JOD">دينار أردني (JOD)</option>
+              <option value="USD">$ دولار (USD)</option>
+              <option value="SAR">ريال سعودي (SAR)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>كود خصم ترحيبي <span style="color:var(--clr-muted);font-weight:400;">اختياري</span></label>
+            <input type="text" id="discountCode" placeholder="SHMOUKH10" />
+          </div>
+          <div class="field">
+            <label>قيمة الخصم</label>
+            <input type="text" id="discountValue" placeholder="10%" />
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- GIFT WRAPPING -->
+      <p class="section-label">🎁 خدمات إضافية <span style="color:var(--clr-muted);font-weight:400;font-size:12px;">اختيارية</span></p>
+      <div class="checkbox-group">
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" id="giftWrap" value="gift_wrap" /> <span>🎁 تغليف هدايا</span></label>
+        <label class="checkbox-item" onclick="toggleCheck(this)"><input type="checkbox" id="personalCard" value="personal_card" /> <span>💌 بطاقة شخصية مع كل طلب</span></label>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goStep(4)" data-ar="← السابق" data-en="← Back">← السابق</button>
+        <button class="btn btn-primary" onclick="goStep(6)" data-ar="التالي →" data-en="Next →">التالي →</button>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         STEP 6 — DESIGN + SUBMIT
+    ═══════════════════════════════════════════════ -->
+    <section class="step-panel" id="step-6">
+      <h1 class="step-title" data-ar="اختاري تصميم متجرك" data-en="Choose Your Store Design(s)">اختاري تصميم متجرك</h1>
+      <p class="step-subtitle" data-ar="يمكنك اختيار أكثر من تصميم أو الثلاثة كلهم — زبونتك تقدر تبدّل بينهم في أي وقت" data-en="Pick one, several, or all three — your visitors can switch between them anytime">يمكنك اختيار أكثر من تصميم أو الثلاثة كلهم — زبونتك تقدر تبدّل بينهم في أي وقت</p>
+
+      <div class="design-grid">
+
+        <!-- Minimal -->
+        <div class="design-card" id="card-minimal" onclick="toggleTheme('minimal')">
+          <div class="design-check">✓</div>
+          <div class="design-thumb">
+            <div class="thumb-minimal" style="height:130px;">
+              <div class="t-bar wide"></div>
+              <div class="t-bar" style="width:40%;"></div>
+              <div class="t-grid">
+                <div class="t-box"></div>
+                <div class="t-box"></div>
+                <div class="t-box"></div>
+              </div>
+            </div>
+          </div>
+          <div class="design-info">
+            <p class="design-name" data-ar="مينيمال" data-en="Minimal">مينيمال</p>
+            <p class="design-desc" data-ar="نظيف، أبيض، مع تركيز على المنتجات" data-en="Clean, white, product-focused">نظيف، أبيض، مع تركيز على المنتجات</p>
+            <a href="/sample1" target="_blank" class="btn-preview" onclick="event.stopPropagation()" data-ar="معاينة" data-en="Preview">معاينة</a>
+          </div>
+        </div>
+
+        <!-- Elegant -->
+        <div class="design-card" id="card-elegant" onclick="toggleTheme('elegant')">
+          <div class="design-check">✓</div>
+          <div class="design-thumb">
+            <div class="thumb-elegant" style="height:130px;">
+              <div class="t-logo"></div>
+              <div class="t-title"></div>
+              <div class="t-sub"></div>
+              <div class="t-strip">
+                <div></div><div></div><div></div>
+              </div>
+            </div>
+          </div>
+          <div class="design-info">
+            <p class="design-name" data-ar="إليجانت" data-en="Elegant">إليجانت</p>
+            <p class="design-desc" data-ar="فاخر، ذهبي، مع خطوط كلاسيكية" data-en="Luxury, gold accents, serif fonts">فاخر، ذهبي، مع خطوط كلاسيكية</p>
+            <a href="/sample2" target="_blank" class="btn-preview" onclick="event.stopPropagation()" data-ar="معاينة" data-en="Preview">معاينة</a>
+          </div>
+        </div>
+
+        <!-- Bold -->
+        <div class="design-card" id="card-bold" onclick="toggleTheme('bold')">
+          <div class="design-check">✓</div>
+          <div class="design-thumb">
+            <div class="thumb-bold" style="height:130px;">
+              <div class="t-hero"><div class="t-hero-txt"></div></div>
+              <div class="t-row">
+                <div></div><div></div><div></div>
+              </div>
+            </div>
+          </div>
+          <div class="design-info">
+            <p class="design-name" data-ar="بولد" data-en="Bold">بولد</p>
+            <p class="design-desc" data-ar="جريء، بانرات قوية، طاقة سوشيال ميديا" data-en="High-contrast, strong banners, social energy">جريء، بانرات قوية، طاقة سوشيال ميديا</p>
+            <a href="/sample3" target="_blank" class="btn-preview" onclick="event.stopPropagation()" data-ar="معاينة" data-en="Preview">معاينة</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align:center;margin:8px 0 4px;">
+        <button type="button" class="btn btn-secondary" style="font-size:13px;padding:6px 18px;" onclick="selectAllThemes()">✨ اختاري الثلاثة كلهم</button>
+        <button type="button" class="btn btn-secondary" style="font-size:13px;padding:6px 18px;margin-inline-start:8px;" onclick="clearAllThemes()">× إلغاء التحديد</button>
+      </div>
+
+      <!-- Submit -->
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="goStep(5)" data-ar="← السابق" data-en="← Back">← السابق</button>
+        <button class="btn btn-submit" onclick="submitForm()" id="submitBtn">🚀 إنشاء المتجر</button>
+      </div>
+
+      <!-- Feedback banners -->
+      <div class="banner banner-success" id="bannerSuccess">
+        <p class="banner-title">✅ تم حفظ بيانات متجرك بنجاح!</p>
+        <p class="banner-body">سنتواصل معك قريباً على البريد الإلكتروني المسجّل لمراجعة المتجر قبل الإطلاق.</p>
+      </div>
+      <div class="banner banner-demo" id="bannerDemo">
+        <p class="banner-title">⚠️ وضع تجريبي</p>
+        <p class="banner-body">البيانات محفوظة محلياً فقط (Demo Mode). سيتم رفعها للخادم عند الاتصال.</p>
+      </div>
+      <div class="banner banner-error" id="bannerError">
+        <p class="banner-title">❌ حدث خطأ</p>
+        <p class="banner-body" id="bannerErrorMsg"></p>
+      </div>
+
+    </section>
+
+  </main><!-- end .container -->
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       JAVASCRIPT
+  ════════════════════════════════════════════════════════════════════ -->
+  <script>
+    // ── CONFIG ─────────────────────────────────────────────────────────────────
+    const WORKER_URL = "https://shmoukh-care.com/api"; // change if using a different domain
+
+    // ── STATE ──────────────────────────────────────────────────────────────────
+    let currentStep = 1;
+    let selectedThemes = [];  // multi-select array
+    let lang = "ar";
+
+    // Uploaded media URLs (from R2 or object URLs for demo)
+    const uploadedUrls = {
+      logo: null,
+      hero: null,
+      products: {},   // keyed by product index
+    };
+
+    // ── LANGUAGE TOGGLE ────────────────────────────────────────────────────────
+    function toggleLang() {
+      lang = lang === "ar" ? "en" : "ar";
+      document.documentElement.lang = lang;
+      document.body.classList.toggle("lang-en", lang === "en");
+      document.getElementById("langToggle").textContent = lang === "ar" ? "English" : "العربية";
+      document.querySelectorAll("[data-ar]").forEach(el => {
+        el.textContent = lang === "ar" ? el.dataset.ar : el.dataset.en;
+      });
+    }
+
+    // ── PROGRESS ───────────────────────────────────────────────────────────────
+    function goStep(n) {
+      if (n === 2 && !validateStep1()) return;
+
+      // Update dots and lines
+      for (let i = 1; i <= 6; i++) {
+        const dot   = document.getElementById(`dot-${i}`);
+        const label = document.getElementById(`label-${i}`);
+        const line  = document.getElementById(`line-${i}`);
+
+        dot.classList.remove("active", "done");
+        label.classList.remove("active", "done");
+
+        if (i < n)       { dot.classList.add("done");   label.classList.add("done");   }
+        else if (i === n){ dot.classList.add("active");  label.classList.add("active"); }
+
+        if (line) {
+          line.classList.toggle("done", i < n);
+        }
+      }
+
+      // Show / hide panels
+      document.querySelectorAll(".step-panel").forEach(p => p.classList.remove("active"));
+      document.getElementById(`step-${n}`).classList.add("active");
+      currentStep = n;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // ── VALIDATION ─────────────────────────────────────────────────────────────
+    function validateStep1() {
+      const email = document.getElementById("bizEmail").value.trim();
+      const name  = document.getElementById("bizNameAr").value.trim();
+      if (!name) { alert("الرجاء إدخال اسم المتجر بالعربي"); return false; }
+      if (!email || !email.includes("@")) { alert("الرجاء إدخال بريد إلكتروني صحيح"); return false; }
+      return true;
+    }
+
+    // ── LOAD PREVIOUS DATA ─────────────────────────────────────────────────────
+    async function loadPreviousData() {
+      const email = document.getElementById("loadEmail").value.trim().toLowerCase();
+      if (!email) { alert("الرجاء إدخال البريد الإلكتروني أولاً"); return; }
+
+      showToast("⏳ جاري البحث عن بياناتك...");
+
+      try {
+        const res = await fetch(`${WORKER_URL}/get-config?email=${encodeURIComponent(email)}`);
+        if (res.status === 404) { showToast("⚠️ لا توجد بيانات مسجّلة لهذا البريد"); return; }
+        if (!res.ok) throw new Error("Server error");
+
+        const { data } = await res.json();
+        prefillForm(data);
+        showToast("✅ تم تحميل بياناتك السابقة بنجاح!");
+      } catch {
+        // Fallback: try localStorage
+        const stored = localStorage.getItem("shmoukh_demo");
+        if (stored) {
+          try {
+            const parsed = JSON.parse(stored);
+            if (parsed.business?.email?.toLowerCase() === email) {
+              prefillForm(parsed);
+              showToast("✅ تم تحميل البيانات من الذاكرة المحلية");
+              return;
+            }
+          } catch {}
+        }
+        showToast("⚠️ تعذّر الاتصال بالخادم. تأكد من اتصالك بالإنترنت.");
+      }
+    }
+
+    function prefillForm(data) {
+      if (!data) return;
+      const b = data.business || {};
+      setValue("bizNameAr",   b.nameAr);
+      setValue("bizNameEn",   b.nameEn);
+      setValue("bizTagline",  b.tagline);
+      setValue("bizEmail",    b.email);
+      setValue("bizPhone",    b.phone);
+      setValue("bizLocation", b.location);
+      setValue("bizHours",    b.hours);
+      setValue("socialInsta",    (data.social || {}).instagram);
+      setValue("socialTiktok",   (data.social || {}).tiktok);
+      setValue("socialWhatsapp", (data.social || {}).whatsapp);
+      setValue("socialFb",       (data.social || {}).facebook);
+
+      // Payment
+      (data.payments || []).forEach(val => {
+        const cb = document.querySelector(`#paymentMethods input[value="${val}"]`);
+        if (cb) { cb.checked = true; cb.closest(".checkbox-item").classList.add("checked"); }
+      });
+
+      // Products
+      if (Array.isArray(data.products) && data.products.length > 0) {
+        document.getElementById("productsContainer").innerHTML = "";
+        data.products.forEach(p => addProduct(p));
+      }
+
+      // Testimonials
+      if (Array.isArray(data.testimonials) && data.testimonials.length > 0) {
+        document.getElementById("testimonialsContainer").innerHTML = "";
+        data.testimonials.forEach(t => addTestimonial(t));
+      }
+
+      // Theme (multi-select) — restore from themes array or legacy theme string
+      const themes = data.themes || (data.theme ? [data.theme] : []);
+      themes.forEach(t => { if (!selectedThemes.includes(t)) toggleTheme(t); });
+    }
+
+    function setValue(id, val) {
+      const el = document.getElementById(id);
+      if (el && val !== undefined && val !== null) el.value = val;
+    }
+
+    // ── PRODUCTS ───────────────────────────────────────────────────────────────
+    let productCount = 0;
+
+    function addProduct(data = {}) {
+      productCount++;
+      const idx = productCount;
+      const container = document.getElementById("productsContainer");
+
+      const card = document.createElement("div");
+      card.className = "card";
+      card.id = `product-card-${idx}`;
+      card.innerHTML = `
+        <div class="card-header">
+          <span class="card-title">منتج #${idx}</span>
+          <button class="btn-remove-card" title="حذف المنتج" onclick="removeCard('product-card-${idx}')">×</button>
+        </div>
+        <div class="field-group">
+          <div class="field-row">
+            <div class="field">
+              <label>اسم المنتج (عربي) <span class="required-mark">*</span></label>
+              <input type="text" name="p_nameAr_${idx}" placeholder="كريم مرطّب" value="${esc(data.nameAr)}" />
+            </div>
+            <div class="field">
+              <label>Product Name (English)</label>
+              <input type="text" name="p_nameEn_${idx}" placeholder="Moisturising Cream" value="${esc(data.nameEn)}" />
+            </div>
+          </div>
+          <div class="field">
+            <label>الوصف</label>
+            <textarea name="p_desc_${idx}" placeholder="وصف المنتج وفوائده...">${esc(data.description)}</textarea>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>السعر (₪)</label>
+              <input type="number" name="p_price_${idx}" placeholder="49.90" min="0" step="0.01" value="${esc(data.price)}" />
+            </div>
+            <div class="field">
+              <label>الفئة</label>
+              <select name="p_cat_${idx}">
+                <option value="">-- اختر --</option>
+                <option value="skin"  ${data.category==='skin'  ?'selected':''}>بشرة</option>
+                <option value="hair"  ${data.category==='hair'  ?'selected':''}>شعر</option>
+                <option value="oils"  ${data.category==='oils'  ?'selected':''}>زيوت</option>
+                <option value="creams"${data.category==='creams'?'selected':''}>كريمات</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>نوع البشرة المناسب</label>
+              <input type="text" name="p_skinType_${idx}" placeholder="جافة / دهنية / مختلطة" value="${esc(data.skinType)}" />
+            </div>
+            <div class="field">
+              <label>نوع الشعر المناسب</label>
+              <input type="text" name="p_hairType_${idx}" placeholder="ناعم / مجعّد / مصبوغ" value="${esc(data.hairType)}" />
+            </div>
+          </div>
+          <div class="field">
+            <label>المكوّنات الرئيسية</label>
+            <input type="text" name="p_ingredients_${idx}" placeholder="زيت الأرغان، حمض الهيالورونيك..." value="${esc(data.ingredients)}" />
+          </div>
+          <div class="field">
+            <label>طريقة الاستخدام</label>
+            <textarea name="p_usage_${idx}" placeholder="ضعي كميّة صغيرة على البشرة...">${esc(data.usage)}</textarea>
+          </div>
+          <!-- Product images -->
+          <div class="field">
+            <label>صور المنتج</label>
+            <div class="upload-zone" onclick="document.getElementById('pImgInput_${idx}').click()"
+                 ondragover="onDragOver(event,this)" ondragleave="onDragLeave(this)"
+                 ondrop="onDrop(event,'pImgInput_${idx}','pImgPreview_${idx}','pImgProg_${idx}','pImgStatus_${idx}','product_${idx}',true)">
+              <div class="upload-icon">📷</div>
+              <p class="upload-hint">اضغط أو اسحب الصور هنا (PNG, JPG, WEBP)</p>
+              <input type="file" id="pImgInput_${idx}" class="upload-input" accept="image/*" multiple
+                     onchange="handleFileSelect(this,'pImgPreview_${idx}','pImgProg_${idx}','pImgStatus_${idx}','product_${idx}',true)" />
+              <div class="progress-bar-wrap" id="pImgProg_${idx}"><div class="progress-bar-fill" id="pImgFill_${idx}"></div></div>
+              <p class="upload-status" id="pImgStatus_${idx}"></p>
+              <div class="upload-preview" id="pImgPreview_${idx}"></div>
+            </div>
+          </div>
+          <!-- Product video -->
+          <div class="field">
+            <label>فيديو المنتج (اختياري)</label>
+            <div class="upload-zone" onclick="document.getElementById('pVidInput_${idx}').click()"
+                 ondragover="onDragOver(event,this)" ondragleave="onDragLeave(this)"
+                 ondrop="onDrop(event,'pVidInput_${idx}','pVidPreview_${idx}','pVidProg_${idx}','pVidStatus_${idx}','product_video_${idx}',false)">
+              <div class="upload-icon">🎬</div>
+              <p class="upload-hint">اضغط أو اسحب الفيديو هنا (MP4, MOV)</p>
+              <input type="file" id="pVidInput_${idx}" class="upload-input" accept="video/*"
+                     onchange="handleFileSelect(this,'pVidPreview_${idx}','pVidProg_${idx}','pVidStatus_${idx}','product_video_${idx}',false)" />
+              <div class="progress-bar-wrap" id="pVidProg_${idx}"><div class="progress-bar-fill" id="pVidFill_${idx}"></div></div>
+              <p class="upload-status" id="pVidStatus_${idx}"></p>
+              <div class="upload-preview" id="pVidPreview_${idx}"></div>
+            </div>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    }
+
+    // ── TESTIMONIALS ───────────────────────────────────────────────────────────
+    let testimonialCount = 0;
+
+    function addTestimonial(data = {}) {
+      testimonialCount++;
+      const idx = testimonialCount;
+      const container = document.getElementById("testimonialsContainer");
+
+      const card = document.createElement("div");
+      card.className = "card";
+      card.id = `testi-card-${idx}`;
+      card.innerHTML = `
+        <div class="card-header">
+          <span class="card-title">شهادة عميلة #${idx}</span>
+          <button class="btn-remove-card" onclick="removeCard('testi-card-${idx}')">×</button>
+        </div>
+        <div class="field-group">
+          <div class="field">
+            <label>اسم العميلة</label>
+            <input type="text" name="t_name_${idx}" placeholder="سارة محمد" value="${esc(data.name)}" />
+          </div>
+          <div class="field">
+            <label>الشهادة / الرأي</label>
+            <textarea name="t_text_${idx}" placeholder="المنتج رائع جداً...">${esc(data.text)}</textarea>
+          </div>
+          <div class="field">
+            <label>التقييم</label>
+            <div class="star-rating" id="stars_${idx}">
+              ${[5,4,3,2,1].map(v => `
+                <input type="radio" name="t_rating_${idx}" id="star_${idx}_${v}" value="${v}" ${(data.rating||5)==v?'checked':''}>
+                <label for="star_${idx}_${v}">★</label>
+              `).join("")}
+            </div>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    }
+
+    function removeCard(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    // ── CHECKBOXES ─────────────────────────────────────────────────────────────
+    function toggleCheck(label) {
+      const cb = label.querySelector("input[type='checkbox']");
+      label.classList.toggle("checked", cb.checked);
+    }
+
+    // ── DESIGN SELECTION (multi-select) ───────────────────────────────────────
+    function toggleTheme(theme) {
+      const idx = selectedThemes.indexOf(theme);
+      if (idx === -1) selectedThemes.push(theme);
+      else selectedThemes.splice(idx, 1);
+      ["minimal", "elegant", "bold"].forEach(t => {
+        document.getElementById(`card-${t}`).classList.toggle("selected", selectedThemes.includes(t));
+      });
+    }
+    function selectAllThemes() {
+      selectedThemes = ["minimal", "elegant", "bold"];
+      ["minimal", "elegant", "bold"].forEach(t =>
+        document.getElementById(`card-${t}`).classList.add("selected")
+      );
+    }
+    function clearAllThemes() {
+      selectedThemes = [];
+      ["minimal", "elegant", "bold"].forEach(t =>
+        document.getElementById(`card-${t}`).classList.remove("selected")
+      );
+    }
+
+    // ── FILE UPLOAD ────────────────────────────────────────────────────────────
+
+    // Drag-and-drop helpers
+    function onDragOver(e, zone) {
+      e.preventDefault();
+      zone.classList.add("dragover");
+    }
+
+    function onDragLeave(zone) {
+      zone.classList.remove("dragover");
+    }
+
+    function onDrop(e, inputId, previewId, progressId, statusId, mediaKey, multi) {
+      e.preventDefault();
+      const zone = e.currentTarget;
+      zone.classList.remove("dragover");
+      const input = document.getElementById(inputId);
+      // Assign dropped files to the hidden input (read-only, so we handle directly)
+      const files = e.dataTransfer.files;
+      if (!files.length) return;
+      uploadFiles(Array.from(files), previewId, progressId, statusId, mediaKey, multi);
+    }
+
+    function handleFileSelect(input, previewId, progressId, statusId, mediaKey, multi) {
+      const files = Array.from(input.files);
+      if (!files.length) return;
+      uploadFiles(files, previewId, progressId, statusId, mediaKey, multi);
+    }
+
+    async function uploadFiles(files, previewId, progressId, statusId, mediaKey, multi) {
+      const progressWrap = document.getElementById(progressId);
+      const statusEl     = document.getElementById(statusId);
+      const previewEl    = document.getElementById(previewId);
+
+      // Validate MIME client-side (mirrors Worker validation)
+      const allowedPrefixes = ["image/", "video/"];
+      for (const f of files) {
+        if (!allowedPrefixes.some(p => f.type.startsWith(p))) {
+          alert(`نوع الملف غير مدعوم: ${f.type}`);
+          return;
+        }
+        if (f.size > 50 * 1024 * 1024) {
+          alert(`الملف ${f.name} أكبر من 50 ميجابايت`);
+          return;
+        }
+      }
+
+      const targetFiles = multi ? files : [files[0]];
+      if (!multi) previewEl.innerHTML = ""; // reset single-upload preview
+
+      if (progressWrap) progressWrap.style.display = "block";
+      const fillId = progressId.replace("ProgressWrap", "ProgressFill").replace("Prog_", "Fill_");
+      const fill = document.getElementById(fillId);
+
+      for (let i = 0; i < targetFiles.length; i++) {
+        const file = targetFiles[i];
+        if (statusEl) statusEl.textContent = `جاري رفع ${file.name}…`;
+
+        // Animated progress (simulated since XHR streaming isn't available in fetch)
+        if (fill) {
+          fill.style.width = "0%";
+          let prog = 0;
+          const interval = setInterval(() => {
+            prog = Math.min(prog + Math.random() * 15, 85);
+            fill.style.width = prog + "%";
+          }, 200);
+
+          try {
+            const url = await uploadToWorker(file);
+            clearInterval(interval);
+            fill.style.width = "100%";
+
+            // Store URL
+            if (multi) {
+              if (!uploadedUrls[mediaKey]) uploadedUrls[mediaKey] = [];
+              uploadedUrls[mediaKey].push(url);
+            } else {
+              uploadedUrls[mediaKey] = url;
+            }
+
+            // Show preview
+            renderPreview(previewEl, file, url);
+            if (statusEl) statusEl.textContent = `✅ تم رفع ${file.name}`;
+          } catch (err) {
+            clearInterval(interval);
+            fill.style.width = "0%";
+            // Fallback: use object URL for demo
+            const localUrl = URL.createObjectURL(file);
+            if (multi) {
+              if (!uploadedUrls[mediaKey]) uploadedUrls[mediaKey] = [];
+              uploadedUrls[mediaKey].push(localUrl);
+            } else {
+              uploadedUrls[mediaKey] = localUrl;
+            }
+            renderPreview(previewEl, file, localUrl);
+            if (statusEl) statusEl.textContent = `⚠️ وضع تجريبي — ${file.name}`;
+          }
+        }
+      }
+
+      setTimeout(() => {
+        if (progressWrap) progressWrap.style.display = "none";
+      }, 1200);
+    }
+
+    async function uploadToWorker(file) {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch(`${WORKER_URL}/upload`, { method: "POST", body: fd });
+      if (!res.ok) throw new Error("Upload failed");
+      const data = await res.json();
+      return data.url;
+    }
+
+    function renderPreview(container, file, url) {
+      if (file.type.startsWith("image/")) {
+        const img = document.createElement("img");
+        img.src = url;
+        img.className = "preview-thumb";
+        img.alt = file.name;
+        container.appendChild(img);
+      } else {
+        const tag = document.createElement("div");
+        tag.className = "preview-file";
+        tag.textContent = `🎬 ${file.name}`;
+        container.appendChild(tag);
+      }
+    }
+
+    // ── COLLECT FORM DATA ──────────────────────────────────────────────────────
+    function collectFormData() {
+      // Business
+      const business = {
+        nameAr:   val("bizNameAr"),
+        nameEn:   val("bizNameEn"),
+        tagline:  val("bizTagline"),
+        email:    val("bizEmail").toLowerCase(),
+        phone:    val("bizPhone"),
+        location: val("bizLocation"),
+        hours:    val("bizHours"),
+      };
+
+      // Social
+      const social = {
+        instagram: val("socialInsta"),
+        tiktok:    val("socialTiktok"),
+        whatsapp:  val("socialWhatsapp"),
+        facebook:  val("socialFb"),
+      };
+
+      // Payments
+      const payments = Array.from(
+        document.querySelectorAll("#paymentMethods input:checked")
+      ).map(cb => cb.value);
+
+      // Products
+      const products = [];
+      document.querySelectorAll("[id^='product-card-']").forEach(card => {
+        const idx = card.id.split("-").pop();
+        products.push({
+          nameAr:      val(`p_nameAr_${idx}`,   card),
+          nameEn:      val(`p_nameEn_${idx}`,   card),
+          description: val(`p_desc_${idx}`,     card),
+          price:       val(`p_price_${idx}`,    card),
+          category:    val(`p_cat_${idx}`,      card),
+          skinType:    val(`p_skinType_${idx}`, card),
+          hairType:    val(`p_hairType_${idx}`, card),
+          ingredients: val(`p_ingredients_${idx}`, card),
+          usage:       val(`p_usage_${idx}`,    card),
+          images:      uploadedUrls[`product_${idx}`] || [],
+          video:       uploadedUrls[`product_video_${idx}`] || null,
+        });
+      });
+
+      // Testimonials
+      const testimonials = [];
+      document.querySelectorAll("[id^='testi-card-']").forEach(card => {
+        const idx = card.id.split("-").pop();
+        const ratingInput = card.querySelector(`input[name="t_rating_${idx}"]:checked`);
+        testimonials.push({
+          name:   val(`t_name_${idx}`, card),
+          text:   val(`t_text_${idx}`, card),
+          rating: ratingInput ? parseInt(ratingInput.value) : 5,
+        });
+      });
+
+      // Media
+      const media = {
+        logo: uploadedUrls.logo   || null,
+        hero: uploadedUrls.hero   || null,
+      };
+
+      // Credibility (Step 5)
+      const credibility = {
+        founderName:  val("founderName"),
+        founderStory: val("founderStory"),
+        founderPhoto: uploadedUrls.founder_photo || null,
+        stats: {
+          clients:  val("statClients"),
+          years:    val("statYears"),
+          products: val("statProducts"),
+        },
+        badges: Array.from(document.querySelectorAll("#productBadges input:checked")).map(cb => cb.value),
+        skinConcerns: Array.from(document.querySelectorAll("#skinConcerns input:checked")).map(cb => cb.value),
+        youtubeVideos: [val("yt1"), val("yt2"), val("yt3"), val("yt4")].filter(Boolean),
+        waScreenshots: uploadedUrls.wa_screenshots || [],
+        faq: [
+          { q: val("faq1q"), a: val("faq1a") },
+          { q: val("faq2q"), a: val("faq2a") },
+          { q: val("faq3q"), a: val("faq3a") },
+        ].filter(f => f.q),
+        shipping: {
+          areas:        val("shippingAreas"),
+          days:         val("shippingDays"),
+          cost:         val("shippingCost"),
+          returnPolicy: val("returnPolicy"),
+        },
+        currency:      val("currency"),
+        discountCode:  val("discountCode"),
+        discountValue: val("discountValue"),
+        giftWrap:     document.getElementById("giftWrap")?.checked  || false,
+        personalCard: document.getElementById("personalCard")?.checked || false,
+      };
+
+      return { business, social, payments, products, testimonials, media, credibility, themes: selectedThemes };
+    }
+
+    function val(nameOrId, scope = document) {
+      const el = scope.querySelector(`[name="${nameOrId}"]`) ||
+                 scope.getElementById(nameOrId);
+      return el ? el.value.trim() : "";
+    }
+
+    function esc(str) {
+      if (!str) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    // ── SUBMIT ─────────────────────────────────────────────────────────────────
+    async function submitForm() {
+      if (!validateStep1()) { goStep(1); return; }
+      if (!selectedThemes.length) { alert("الرجاء اختيار تصميم واحد على الأقل"); return; }
+
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.textContent = "⏳ جاري الحفظ...";
+
+      hideBanners();
+      const payload = collectFormData();
+
+      try {
+        const res = await fetch(`${WORKER_URL}/save-config`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error || `HTTP ${res.status}`);
+        }
+
+        document.getElementById("bannerSuccess").style.display = "block";
+        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+      } catch (err) {
+        // Fallback — save to localStorage
+        try {
+          localStorage.setItem("shmoukh_demo", JSON.stringify(payload));
+          document.getElementById("bannerDemo").style.display = "block";
+        } catch {
+          document.getElementById("bannerErrorMsg").textContent = err.message;
+          document.getElementById("bannerError").style.display = "block";
+        }
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "🚀 إنشاء المتجر";
+      }
+    }
+
+    function hideBanners() {
+      ["bannerSuccess", "bannerDemo", "bannerError"].forEach(id => {
+        document.getElementById(id).style.display = "none";
+      });
+    }
+
+    // ── TOAST ──────────────────────────────────────────────────────────────────
+    let toastTimer;
+    function showToast(msg) {
+      const el = document.getElementById("globalUploadStatus");
+      el.textContent = msg;
+      el.style.display = "block";
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => { el.style.display = "none"; }, 3500);
+    }
+
+    // ── INIT ───────────────────────────────────────────────────────────────────
+    document.addEventListener("DOMContentLoaded", () => {
+      // Pre-fill one product and one testimonial
+      addProduct({
+        nameAr: "كريم مرطّب يومي",
+        nameEn: "Daily Moisturiser",
+        description: "كريم خفيف يومي مناسب لجميع أنواع البشرة، يمنح ترطيباً لمدة 24 ساعة.",
+        price: "49.90",
+        category: "creams",
+        skinType: "جميع أنواع البشرة",
+        ingredients: "حمض الهيالورونيك، زبدة الشيا، فيتامين E",
+        usage: "ضعي كميّة صغيرة على بشرة نظيفة صباحاً ومساءً ودلّكي بحركات دائرية.",
+      });
+
+      addTestimonial({
+        name: "سارة محمد",
+        text: "المنتج رائع جداً! بشرتي أصبحت أكثر نضارة وإشراقاً بعد أسبوع واحد فقط. أنصح به جميع صديقاتي.",
+        rating: 5,
+      });
+    });
+  </script>
+</body>
+</html>
