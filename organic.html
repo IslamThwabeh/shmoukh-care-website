@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>معاينة: التصميم العضوي — شموخ كير</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --off-white:  #f5f0e8;
+      --parchment:  #ece3d4;
+      --sage:       #4a7c59;
+      --sage-lt:    #6fa880;
+      --sage-dk:    #2d4a35;
+      --terra:      #c4714a;
+      --terra-lt:   #e09070;
+      --sand:       #d4a574;
+      --bark:       #5a3e28;
+      --text:       #2a1f12;
+      --text-lt:    #7a6048;
+      --white:      #ffffff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Tajawal', sans-serif; background: var(--off-white); color: var(--text); overflow-x: hidden; }
+
+    /* ── PREVIEW BAR ─────────────────────────────────────── */
+    .preview-bar {
+      background: var(--sage-dk);
+      color: #b8d4c0;
+      padding: 10px 20px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      position: sticky; top: 0; z-index: 999;
+      white-space: nowrap;
+    }
+    .preview-bar .pb-label { opacity: .65; flex-shrink: 0; }
+    .preview-bar .pb-themes { display: flex; gap: 6px; flex-shrink: 0; }
+    .preview-bar .pb-themes a {
+      color: #b8d4c0;
+      border: 1px solid rgba(184,212,192,.35);
+      padding: 4px 13px; border-radius: 20px;
+      text-decoration: none; font-size: 12px; font-weight: 600;
+      white-space: nowrap; transition: background .15s;
+    }
+    .preview-bar .pb-themes a.active,
+    .preview-bar .pb-themes a:hover { background: var(--sage); color: #fff; border-color: var(--sage); }
+    .preview-bar .pb-back {
+      background: rgba(255,255,255,.1); color: #b8d4c0;
+      padding: 4px 14px; border-radius: 20px;
+      text-decoration: none; font-size: 12px; font-weight: 600;
+      white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    .site-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: var(--white);
+      border-bottom: 2px solid var(--parchment);
+      position: sticky; top: 38px; z-index: 900;
+    }
+    .nav-brand {
+      font-size: 22px; font-weight: 900; color: var(--bark);
+      text-decoration: none; display: flex; align-items: center; gap: 10px;
+    }
+    .nav-brand .leaf { font-size: 20px; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--text-lt); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--sage); }
+    .nav-cta {
+      background: var(--sage); color: #fff;
+      border: none; padding: 10px 24px;
+      font-family: 'Tajawal', sans-serif; font-size: 13px; font-weight: 700;
+      border-radius: 24px; cursor: pointer; transition: all .2s;
+    }
+    .nav-cta:hover { background: var(--sage-dk); }
+    @media (max-width: 768px) {
+      .site-nav { padding: 14px 20px; top: 37px; }
+      .nav-links { display: none; }
+    }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    .hero {
+      background: var(--parchment);
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 82vh;
+    }
+    @media (max-width: 768px) { .hero { grid-template-columns: 1fr; min-height: auto; } }
+
+    /* Decorative botanical circles */
+    .hero::before {
+      content: '';
+      position: absolute; bottom: -80px; right: -80px;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,124,89,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; top: -60px; left: 20%;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,113,74,.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 56px; position: relative; z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(74,124,89,.12);
+      color: var(--sage-dk);
+      border: 1px solid rgba(74,124,89,.25);
+      border-radius: 24px;
+      padding: 6px 16px; font-size: 12px; font-weight: 700;
+      align-self: flex-start; margin-bottom: 28px;
+    }
+    .hero-h1 {
+      font-size: clamp(38px, 4.5vw, 66px);
+      font-weight: 900;
+      color: var(--bark);
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .hero-h1 em {
+      font-style: normal;
+      color: var(--sage);
+      display: block;
+      font-weight: 300;
+      font-size: 0.6em;
+    }
+    .hero-sub {
+      font-size: 15px; color: var(--text-lt); line-height: 1.85;
+      margin-bottom: 40px; max-width: 380px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--terra); color: #fff;
+      text-decoration: none; padding: 14px 32px;
+      border-radius: 8px; font-size: 15px; font-weight: 700;
+      transition: all .2s; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { background: var(--bark); transform: translateY(-2px); }
+    .btn-secondary {
+      background: transparent; color: var(--sage-dk);
+      text-decoration: none; padding: 14px 24px;
+      border: 2px solid var(--sage);
+      border-radius: 8px; font-size: 15px; font-weight: 700;
+      transition: all .2s;
+    }
+    .btn-secondary:hover { background: var(--sage); color: #fff; }
+
+    .hero-visual {
+      display: flex; align-items: center; justify-content: center;
+      padding: 60px 40px; position: relative; z-index: 1;
+    }
+    @media (max-width: 768px) {
+      .hero-content { padding: 48px 24px; }
+      .hero-visual { padding: 40px 24px 60px; }
+    }
+    .ingredients-display {
+      position: relative;
+      width: 320px; height: 320px;
+    }
+    .ing-circle {
+      position: absolute;
+      border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      font-size: 11px; font-weight: 700; color: var(--bark);
+      line-height: 1.4;
+    }
+    .ing-main {
+      width: 180px; height: 180px;
+      background: linear-gradient(135deg, var(--sage), var(--sage-dk));
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      color: #fff; font-size: 13px;
+      box-shadow: 0 20px 60px rgba(45,74,53,.3);
+    }
+    .ing-main .ing-emoji { font-size: 36px; margin-bottom: 6px; }
+    .ing-a {
+      width: 100px; height: 100px;
+      background: var(--terra-lt);
+      color: #fff;
+      top: 0; right: 0;
+      box-shadow: 0 8px 24px rgba(196,113,74,.25);
+    }
+    .ing-a .ing-emoji { font-size: 24px; margin-bottom: 4px; }
+    .ing-b {
+      width: 90px; height: 90px;
+      background: var(--sand);
+      color: #fff;
+      bottom: 10px; right: 20px;
+      box-shadow: 0 8px 24px rgba(212,165,116,.3);
+    }
+    .ing-b .ing-emoji { font-size: 22px; margin-bottom: 4px; }
+    .ing-c {
+      width: 80px; height: 80px;
+      background: var(--parchment);
+      color: var(--bark);
+      bottom: 20px; left: 10px;
+      box-shadow: 0 8px 24px rgba(90,62,40,.1);
+    }
+    .ing-c .ing-emoji { font-size: 20px; margin-bottom: 4px; }
+    .ing-d {
+      width: 75px; height: 75px;
+      background: rgba(74,124,89,.15);
+      color: var(--sage-dk);
+      top: 20px; left: 20px;
+      border: 2px solid rgba(74,124,89,.3);
+    }
+    .ing-d .ing-emoji { font-size: 18px; margin-bottom: 4px; }
+
+    /* ── TRUST STRIP ─────────────────────────────────────── */
+    .trust-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      background: var(--sage-dk);
+    }
+    @media (max-width: 600px) { .trust-strip { grid-template-columns: 1fr; } }
+    .trust-item {
+      display: flex; align-items: center; gap: 16px;
+      padding: 28px 36px;
+      border-left: 1px solid rgba(255,255,255,.1);
+    }
+    .trust-item:last-child { border-left: none; }
+    .trust-icon-wrap {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+    .trust-text .trust-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .trust-text .trust-sub { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.5; }
+
+    /* ── SECTION HEADER ──────────────────────────────────── */
+    .sec-header { text-align: center; padding: 72px 20px 44px; }
+    .sec-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(74,124,89,.1); color: var(--sage-dk);
+      border: 1px solid rgba(74,124,89,.2); border-radius: 20px;
+      padding: 5px 16px; font-size: 12px; font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .sec-h2 { font-size: clamp(26px, 3.5vw, 44px); font-weight: 900; color: var(--bark); line-height: 1.2; margin-bottom: 12px; }
+    .sec-h2 span { color: var(--sage); }
+    .sec-sub { font-size: 15px; color: var(--text-lt); max-width: 480px; margin: 0 auto; line-height: 1.7; }
+
+    /* ── PRODUCTS ────────────────────────────────────────── */
+    .products-wrap { padding: 0 48px 80px; }
+    .products-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; max-width: 1160px; margin: 0 auto;
+    }
+    @media (max-width: 900px) { .products-grid { grid-template-columns: repeat(2, 1fr); } .products-wrap { padding: 0 20px 60px; } }
+    @media (max-width: 480px) { .products-grid { gap: 14px; } }
+
+    .product-card {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition: all .3s;
+      box-shadow: 0 2px 12px rgba(42,31,18,.06);
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(42,31,18,.12);
+    }
+    .p-img {
+      aspect-ratio: 1;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 64px;
+      border-radius: 16px 16px 0 0;
+    }
+    .p-hover {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: var(--sage); color: #fff;
+      text-align: center; padding: 14px;
+      font-size: 14px; font-weight: 700;
+      transform: translateY(100%); transition: transform .3s;
+      border-radius: 0;
+    }
+    .product-card:hover .p-hover { transform: translateY(0); }
+    .p-badge {
+      position: absolute; top: 12px; right: 12px;
+      background: var(--terra); color: #fff;
+      font-size: 11px; font-weight: 700;
+      padding: 4px 12px; border-radius: 20px;
+    }
+    .p-body { padding: 22px 20px 20px; }
+    .p-ingredients {
+      display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;
+    }
+    .p-ing-tag {
+      background: rgba(74,124,89,.08); color: var(--sage-dk);
+      border: 1px solid rgba(74,124,89,.2);
+      font-size: 10px; font-weight: 600;
+      padding: 2px 8px; border-radius: 20px;
+    }
+    .p-name { font-size: 17px; font-weight: 700; color: var(--bark); margin-bottom: 6px; line-height: 1.3; }
+    .p-desc { font-size: 13px; color: var(--text-lt); line-height: 1.65; margin-bottom: 16px; }
+    .p-foot {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 14px; border-top: 1px solid var(--parchment);
+    }
+    .p-price { font-size: 22px; font-weight: 900; color: var(--bark); }
+    .p-price small { font-size: 13px; font-weight: 400; color: var(--text-lt); }
+    .p-add {
+      background: var(--terra); color: #fff; border: none;
+      padding: 8px 18px; border-radius: 8px;
+      font-family: 'Tajawal', sans-serif; font-size: 13px; font-weight: 700;
+      cursor: pointer; transition: all .2s;
+    }
+    .p-add:hover { background: var(--bark); }
+
+    /* ── INGREDIENTS HIGHLIGHT ───────────────────────────── */
+    .ing-section {
+      background: var(--sage-dk);
+      padding: 80px 48px;
+      position: relative; overflow: hidden;
+    }
+    .ing-section::before {
+      content: '';
+      position: absolute; bottom: -60px; left: -60px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: rgba(255,255,255,.04);
+    }
+    .ing-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 24px; max-width: 900px; margin: 40px auto 0;
+    }
+    @media (max-width: 768px) { .ing-grid { grid-template-columns: repeat(2, 1fr); } .ing-section { padding: 60px 20px; } }
+    .ing-card {
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 12px; padding: 28px 20px; text-align: center;
+      transition: all .2s;
+    }
+    .ing-card:hover { background: rgba(255,255,255,.12); transform: translateY(-3px); }
+    .ing-card-icon { font-size: 36px; margin-bottom: 12px; }
+    .ing-card-name { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .ing-card-desc { font-size: 12px; color: rgba(255,255,255,.55); line-height: 1.5; }
+
+    /* ── TESTIMONIALS ────────────────────────────────────── */
+    .testimonials { padding: 80px 48px; background: var(--parchment); }
+    @media (max-width: 768px) { .testimonials { padding: 60px 20px; } }
+    .t-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; max-width: 1100px; margin: 44px auto 0;
+    }
+    @media (max-width: 900px) { .t-grid { grid-template-columns: 1fr; max-width: 480px; } }
+    .t-card {
+      background: var(--white);
+      border-radius: 16px; padding: 32px 28px;
+      box-shadow: 0 4px 20px rgba(42,31,18,.06);
+      border-right: 4px solid var(--sage);
+    }
+    .t-stars { color: var(--terra); font-size: 15px; letter-spacing: 2px; margin-bottom: 14px; }
+    .t-text { font-size: 15px; color: var(--text); line-height: 1.8; margin-bottom: 20px; font-weight: 300; }
+    .t-author { display: flex; align-items: center; gap: 12px; }
+    .t-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--sage), var(--sage-dk));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 16px; font-weight: 700;
+    }
+    .t-name { font-size: 14px; font-weight: 700; color: var(--bark); }
+    .t-loc { font-size: 12px; color: var(--text-lt); }
+
+    /* ── ORIGIN BANNER ───────────────────────────────────── */
+    .origin-banner {
+      background: var(--terra);
+      padding: 60px 48px;
+      display: grid; grid-template-columns: 1fr auto;
+      align-items: center; gap: 40px;
+    }
+    @media (max-width: 768px) { .origin-banner { grid-template-columns: 1fr; text-align: center; padding: 48px 24px; } }
+    .origin-text .origin-tag { font-size: 11px; letter-spacing: 4px; color: rgba(255,255,255,.7); margin-bottom: 12px; }
+    .origin-text h2 { font-size: clamp(24px, 3vw, 40px); font-weight: 900; color: #fff; margin-bottom: 12px; }
+    .origin-text p { font-size: 15px; color: rgba(255,255,255,.75); line-height: 1.75; max-width: 520px; }
+    .origin-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #fff; color: var(--terra);
+      text-decoration: none; padding: 16px 36px;
+      border-radius: 8px; font-size: 15px; font-weight: 900;
+      transition: all .2s; white-space: nowrap;
+    }
+    .origin-cta:hover { background: var(--bark); color: #fff; }
+    .origin-cta::after { content: '💬'; }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    .site-footer {
+      background: var(--bark);
+      padding: 32px 40px; text-align: center;
+      color: rgba(255,255,255,.4); font-size: 13px;
+    }
+    .site-footer a { color: var(--sand); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- PREVIEW BAR -->
+  <div class="preview-bar">
+    <span class="pb-label">🎨 التصاميم:</span>
+    <div class="pb-themes">
+      <a href="/sample1">مينيمال</a>
+      <a href="/sample2">إليجانت</a>
+      <a href="/sample3">بولد</a>
+      <a href="/sample4">لوكس</a>
+      <a href="/sample5" class="active">عضوي 🌿</a>
+      <a href="/sample6">عصري</a>
+    </div>
+    <a href="/questionnaire" class="pb-back">← العودة</a>
+  </div>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a href="#" class="nav-brand"><span class="leaf">🌿</span> شموخ كير</a>
+    <ul class="nav-links">
+      <li><a href="#">الرئيسية</a></li>
+      <li><a href="#">المنتجات</a></li>
+      <li><a href="#">مكوّناتنا</a></li>
+      <li><a href="#">قصتنا</a></li>
+      <li><a href="#">تواصلي</a></li>
+    </ul>
+    <button class="nav-cta">🛒 السلة</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🌱 من أرض فلسطين الطيبة</div>
+      <h1 class="hero-h1">
+        طبيعية تماماً
+        <em>لبشرة تُحكي جمالها</em>
+      </h1>
+      <p class="hero-sub">مستحضرات عناية مُصنّعة من نباتات ومكوّنات طبيعية مختارة — بدون كيماويات، بدون مواد صناعية، فقط ما أعطتنا إياه الأرض.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">تسوّقي الآن 🛒</a>
+        <a href="#" class="btn-secondary">اكتشفي المكوّنات</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="ingredients-display">
+        <div class="ing-circle ing-main">
+          <span class="ing-emoji">🌿</span>
+          شموخ<br>كير
+        </div>
+        <div class="ing-circle ing-a">
+          <span class="ing-emoji">🌹</span>
+          ورد<br>الجبل
+        </div>
+        <div class="ing-circle ing-b">
+          <span class="ing-emoji">🍯</span>
+          عسل<br>جبلي
+        </div>
+        <div class="ing-circle ing-c">
+          <span class="ing-emoji">🌾</span>
+          سدر
+        </div>
+        <div class="ing-circle ing-d">
+          <span class="ing-emoji">🫒</span>
+          زيتون
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="trust-item">
+      <div class="trust-icon-wrap">🌿</div>
+      <div class="trust-text">
+        <p class="trust-title">١٠٠٪ مكوّنات طبيعية</p>
+        <p class="trust-sub">بدون كيماويات أو مواد صناعية ضارة</p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon-wrap">🇵🇸</div>
+      <div class="trust-text">
+        <p class="trust-title">فلسطيني الصنع</p>
+        <p class="trust-sub">مصنوع في فلسطين بأيدٍ فلسطينية بكل فخر</p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon-wrap">♻️</div>
+      <div class="trust-text">
+        <p class="trust-title">صديق للبيئة</p>
+        <p class="trust-sub">تغليف قابل للتدوير وإنتاج مستدام</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="sec-header">
+    <div class="sec-tag">🌿 منتجاتنا الطبيعية</div>
+    <h2 class="sec-h2">مُقطَّر من <span>الطبيعة</span>،<br>إلى بشرتكِ</h2>
+    <p class="sec-sub">كل منتج مُختار بعناية ومجرَّب على بشرة حقيقية — لأن بشرتكِ تستحق الصدق والشفافية.</p>
+  </div>
+  <div class="products-wrap">
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="p-img" style="background:linear-gradient(135deg,#c8e6c9,#81c784);">🌹
+          <span class="p-badge">الأكثر طلباً</span>
+          <div class="p-hover">🛒 أضيفي للسلة</div>
+        </div>
+        <div class="p-body">
+          <div class="p-ingredients">
+            <span class="p-ing-tag">ورد</span>
+            <span class="p-ing-tag">هيالورونيك</span>
+          </div>
+          <h3 class="p-name">سيروم الورد الطبيعي</h3>
+          <p class="p-desc">تركيبة نقية من ورد الجبل الفلسطيني — ترطيب عميق ونضارة تدوم طوال اليوم.</p>
+          <div class="p-foot">
+            <p class="p-price">89 <small>₪</small></p>
+            <button class="p-add">أضيفي</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="p-img" style="background:linear-gradient(135deg,#ffe0b2,#ffb74d);">🍯
+          <div class="p-hover">🛒 أضيفي للسلة</div>
+        </div>
+        <div class="p-body">
+          <div class="p-ingredients">
+            <span class="p-ing-tag">عسل</span>
+            <span class="p-ing-tag">شيا</span>
+            <span class="p-ing-tag">لوز</span>
+          </div>
+          <h3 class="p-name">كريم العسل والشيا</h3>
+          <p class="p-desc">مزيج فاخر من العسل الجبلي وزبدة الشيا — يُرطّب ويُنعّم البشرة الجافة فوراً.</p>
+          <div class="p-foot">
+            <p class="p-price">65 <small>₪</small></p>
+            <button class="p-add">أضيفي</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="p-img" style="background:linear-gradient(135deg,#d7ccc8,#a1887f);">🫒
+          <span class="p-badge">جديد</span>
+          <div class="p-hover">🛒 أضيفي للسلة</div>
+        </div>
+        <div class="p-body">
+          <div class="p-ingredients">
+            <span class="p-ing-tag">زيتون</span>
+            <span class="p-ing-tag">لافندر</span>
+          </div>
+          <h3 class="p-name">زيت الزيتون المُعطَّر</h3>
+          <p class="p-desc">زيت زيتون بكر ممزوج باللافندر الجبلي — للبشرة والشعر معاً.</p>
+          <div class="p-foot">
+            <p class="p-price">55 <small>₪</small></p>
+            <button class="p-add">أضيفي</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="p-img" style="background:linear-gradient(135deg,#b2dfdb,#4db6ac);">🌾
+          <div class="p-hover">🛒 أضيفي للسلة</div>
+        </div>
+        <div class="p-body">
+          <div class="p-ingredients">
+            <span class="p-ing-tag">سدر</span>
+            <span class="p-ing-tag">حبة البركة</span>
+          </div>
+          <h3 class="p-name">غسول السدر للشعر</h3>
+          <p class="p-desc">خلاصة السدر الفلسطيني وحبة البركة — يُقوّي الشعر من الجذر ويُضيف لمعاناً طبيعياً.</p>
+          <div class="p-foot">
+            <p class="p-price">75 <small>₪</small></p>
+            <button class="p-add">أضيفي</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="p-img" style="background:linear-gradient(135deg,#f8bbd0,#f48fb1);">🌸
+          <span class="p-badge">مميّز</span>
+          <div class="p-hover">🛒 أضيفي للسلة</div>
+        </div>
+        <div class="p-body">
+          <div class="p-ingredients">
+            <span class="p-ing-tag">ورد</span>
+            <span class="p-ing-tag">فيتامين C</span>
+          </div>
+          <h3 class="p-name">ماء الورد المُوحِّد</h3>
+          <p class="p-desc">مقطّر بالبرد من ورود جبال القدس — يُوحِّد لون البشرة ويُعطيها انتعاشاً فورياً.</p>
+          <div class="p-foot">
+            <p class="p-price">38 <small>₪</small></p>
+            <button class="p-add">أضيفي</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="p-img" style="background:linear-gradient(135deg,#dcedc8,#aed581);">🍃
+          <div class="p-hover">🛒 أضيفي للسلة</div>
+        </div>
+        <div class="p-body">
+          <div class="p-ingredients">
+            <span class="p-ing-tag">علوّة</span>
+            <span class="p-ing-tag">خيار</span>
+            <span class="p-ing-tag">نعناع</span>
+          </div>
+          <h3 class="p-name">جل الألوّة المُنعِّش</h3>
+          <p class="p-desc">تركيبة خفيفة من الألوّة الطبيعية والخيار — مثالية للبشرة الحسّاسة في الصيف.</p>
+          <div class="p-foot">
+            <p class="p-price">42 <small>₪</small></p>
+            <button class="p-add">أضيفي</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- INGREDIENTS SECTION -->
+  <section class="ing-section">
+    <div class="sec-header" style="padding-top:0;">
+      <div class="sec-tag" style="background:rgba(255,255,255,.12);color:#b8d4c0;border-color:rgba(255,255,255,.2);">🔬 مكوّناتنا</div>
+      <h2 class="sec-h2" style="color:#fff;">كل مكوّن <span style="color:#81c784;">بحكاية</span></h2>
+      <p class="sec-sub" style="color:rgba(255,255,255,.6);">نستخدم فقط ما تجوده الطبيعة الفلسطينية — مكوّنات نعرف مصدرها وتأثيرها.</p>
+    </div>
+    <div class="ing-grid">
+      <div class="ing-card">
+        <div class="ing-card-icon">🌹</div>
+        <p class="ing-card-name">ورد الجبل</p>
+        <p class="ing-card-desc">من جبال القدس، غني بمضادات الأكسدة</p>
+      </div>
+      <div class="ing-card">
+        <div class="ing-card-icon">🍯</div>
+        <p class="ing-card-name">العسل الجبلي</p>
+        <p class="ing-card-desc">مرطّب طبيعي ومضاد للبكتيريا</p>
+      </div>
+      <div class="ing-card">
+        <div class="ing-card-icon">🫒</div>
+        <p class="ing-card-name">زيت الزيتون</p>
+        <p class="ing-card-desc">معصور بارداً من زيتون فلسطين الأصيل</p>
+      </div>
+      <div class="ing-card">
+        <div class="ing-card-icon">🌾</div>
+        <p class="ing-card-name">السدر الفلسطيني</p>
+        <p class="ing-card-desc">مُقوٍّ للشعر ومُحسِّن للبشرة منذ القدم</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="sec-header">
+      <div class="sec-tag">💬 ما يقلنه عميلاتنا</div>
+      <h2 class="sec-h2">تجارب <span>حقيقية</span></h2>
+    </div>
+    <div class="t-grid">
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">"من أول ما جرّبت سيروم الورد ما استخدمت غيره — بشرتي أصبحت أكثر نضارة وانتعاشاً بشكل واضح."</p>
+        <div class="t-author">
+          <div class="t-avatar">س</div>
+          <div>
+            <p class="t-name">سارة أبو حمد</p>
+            <p class="t-loc">رام الله</p>
+          </div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">"منتجات طبيعية بجد — ما فيها ريحة كيماوي ومحسوستش على بشرتي أي تحسّس. استمررت عليها ٣ أشهر."</p>
+        <div class="t-author">
+          <div class="t-avatar">ن</div>
+          <div>
+            <p class="t-name">نور الصالح</p>
+            <p class="t-loc">الخليل</p>
+          </div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★☆</div>
+        <p class="t-text">"غسول السدر غيّر شعري خلال أسبوعين — صار أقوى وأطول. وأسعارهم منطقية جداً."</p>
+        <div class="t-author">
+          <div class="t-avatar">ل</div>
+          <div>
+            <p class="t-name">لينا يوسف</p>
+            <p class="t-loc">نابلس</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORIGIN / CTA BANNER -->
+  <div class="origin-banner">
+    <div class="origin-text">
+      <p class="origin-tag">تواصلي معنا</p>
+      <h2>هل عندك سؤال؟<br>نحن هنا لنساعدك</h2>
+      <p>استشارة مجانية عبر واتساب — أخبرينا عن بشرتكِ ونوصيلك بما يناسبك بالضبط.</p>
+    </div>
+    <a href="#" class="origin-cta">تواصلي الآن</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p>© ٢٠٢٦ شموخ كير — منتجات طبيعية فلسطينية 🇵🇸 · <a href="#">جميع الحقوق محفوظة</a></p>
+  </footer>
+
+</body>
+</html>

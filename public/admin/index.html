@@ -547,7 +547,7 @@
         themes.forEach(t => { freq[t] = (freq[t] || 0) + 1; });
       });
       const top = Object.entries(freq).filter(([k]) => k !== "—").sort((a,b) => b[1]-a[1])[0];
-      const themeLabels = { minimal: "مينيمال", elegant: "إليجانت", bold: "بولد" };
+      const themeLabels = { minimal: "مينيمال", elegant: "إليجانت", bold: "بولد", luxury: "لوكس ✦", organic: "عضوي 🌿", instastyle: "عصري ⚡" };
       document.getElementById("statTopTheme").textContent =
         top ? (themeLabels[top[0]] || top[0]) + ` (${top[1]})` : "—";
     }
