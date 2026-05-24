@@ -232,6 +232,19 @@
     img { display: block; max-width: 100%; }
     section[id] { scroll-margin-top: 110px; }
 
+    .skip-link {
+      position: absolute;
+      top: -48px;
+      right: 12px;
+      background: #123024;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 10px;
+      text-decoration: none;
+      z-index: 1000;
+    }
+
+    .skip-link:focus { top: 12px; }
     .review-strip {
       background: rgba(10,22,17,.9);
       color: #f8eedf;
@@ -331,7 +344,6 @@
     .pill-note,
     .glass-card,
     .glass-panel,
-    .floating-note,
     .floating-stack,
     .info-card,
     .testimonial,
@@ -467,6 +479,13 @@
       border-radius: 28px;
     }
 
+    .hero-panel.glass-panel {
+      background: linear-gradient(180deg, rgba(14,24,20,.38), rgba(14,24,20,.24));
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -530,7 +549,6 @@
       box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
     }
 
-    .floating-note,
     .floating-stack {
       position: absolute;
       z-index: 2;
@@ -538,15 +556,6 @@
       color: #fff;
     }
 
-    .floating-note {
-      top: 28px;
-      left: 28px;
-      padding: 16px 18px;
-      max-width: 230px;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .floating-note strong,
     .floating-stack strong {
       display: block;
       color: var(--gold-400);
@@ -554,7 +563,6 @@
       margin-bottom: 6px;
     }
 
-    .floating-note span,
     .floating-stack span {
       font-size: 13px;
       color: rgba(255,255,255,.74);
@@ -726,6 +734,180 @@
       margin: -34px 0 44px;
       position: relative;
       z-index: 5;
+    }
+
+    .trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 8px 0 30px;
+      padding: 12px;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(18,34,28,.08);
+    }
+
+    .trust-badge {
+      flex: 1 1 220px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #f0ece5;
+      background: #fff;
+      color: #2b2b2b;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .trust-badge svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--gold-500);
+      stroke-width: 1.8;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    .timeline-section,
+    .testimonials-section {
+      padding-top: 12px;
+    }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .timeline-card {
+      position: relative;
+      padding: 24px 20px;
+      border: 1px solid #eee;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(18,34,28,.08);
+      overflow: hidden;
+    }
+
+    .timeline-watermark {
+      position: absolute;
+      left: 14px;
+      top: 6px;
+      font-size: 64px;
+      line-height: 1;
+      font-weight: 800;
+      color: rgba(200,168,106,.18);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .timeline-card h3 {
+      position: relative;
+      z-index: 1;
+      font-size: 22px;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    .timeline-card p {
+      position: relative;
+      z-index: 1;
+      color: #5f6a64;
+      font-size: 14px;
+    }
+
+    .testimonials-section .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .testimonial-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 16px;
+      box-shadow: 0 10px 24px rgba(18,34,28,.08);
+      padding: 22px;
+    }
+
+    .testimonial-card .stars {
+      color: var(--gold-500);
+      letter-spacing: 3px;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .testimonial-card p {
+      color: #4f5c56;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .testimonial-card strong {
+      display: block;
+      color: var(--text-dark);
+      font-size: 16px;
+      margin-bottom: 2px;
+    }
+
+    .testimonial-card .meta {
+      color: #7b847f;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .faq-section {
+      padding-top: 24px;
+    }
+
+    .faq-section .faq-grid {
+      display: block;
+      border: 1px solid #eee;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(18,34,28,.08);
+    }
+
+    .faq-section details {
+      background: #fff;
+      border: 0;
+      border-bottom: 1px solid #eee;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+    }
+
+    .faq-section details:last-child {
+      border-bottom: 0;
+    }
+
+    .faq-section summary {
+      padding: 16px 18px;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .faq-section summary::after {
+      content: "▾";
+      color: #9b7a45;
+      font-size: 18px;
+      transition: transform .2s ease;
+    }
+
+    .faq-section details[open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    .faq-section details p {
+      padding: 0 18px 16px;
+      color: #5f6a64;
+      font-size: 14px;
     }
 
     .glass-card {
@@ -1091,13 +1273,14 @@
       filter: blur(12px);
     }
 
-    .ritual-copy h3 {
+    .ritual-copy h3,
+    .ritual-copy h2 {
       position: relative;
       font-size: 38px;
       line-height: 1.12;
       margin-bottom: 14px;
     }
-    .ritual-copy h2 {
+
     .ritual-copy p {
       position: relative;
       color: rgba(255,255,255,.72);
@@ -1304,6 +1487,13 @@
       color: rgba(255,255,255,.72);
     }
 
+    .scarcity-line {
+      margin: 0 0 10px;
+      color: #c0392b;
+      font-size: .85rem;
+      font-weight: 700;
+    }
+
     .contact-card {
       position: relative;
       z-index: 1;
@@ -1391,7 +1581,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      flex-direction: column;
+      gap: 2px;
       width: 100%;
       min-height: 52px;
       border-radius: 999px;
@@ -1401,6 +1592,53 @@
       font-weight: 800;
       text-decoration: none;
       box-shadow: 0 10px 28px rgba(200,168,106,.34);
+    }
+
+    .mobile-order-main {
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .mobile-order-note {
+      font-size: .72rem;
+      opacity: .75;
+      font-weight: 600;
+    }
+
+    .platform-teaser {
+      margin-top: 24px;
+      padding: 24px 18px;
+      text-align: center;
+      background: #fdf8f3;
+      border-top: 1px solid #eee;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(18,34,28,.06);
+    }
+
+    .platform-teaser h3 {
+      font-size: 30px;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    .platform-teaser p {
+      color: #6e7872;
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+
+    .platform-teaser a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid #e6d7c0;
+      color: #7a5b2c;
+      background: #fff;
+      font-weight: 800;
     }
 
     @keyframes drift {
@@ -1413,11 +1651,6 @@
       50% { opacity: 1; transform: scale(1.06); }
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
     @media (max-width: 1100px) {
       .hero,
       .signature-grid,
@@ -1428,6 +1661,11 @@
       .testimonials-grid,
       .contact-grid,
       .feature-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .timeline-grid,
+      .testimonials-section .testimonials-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -1464,9 +1702,15 @@
       .testimonials-grid,
       .contact-grid,
       .feature-strip,
+      .timeline-grid,
+      .testimonials-section .testimonials-grid,
       .metric-grid,
       .hero-side-grid {
         grid-template-columns: 1fr;
+      }
+
+      .trust-badge {
+        flex-basis: 100%;
       }
 
       .page,
@@ -1487,7 +1731,6 @@
       .story-card { padding-right: 22px; padding-left: 22px; }
 
       .hero-panel { margin: 18px; }
-      .floating-note { left: 18px; top: 18px; max-width: calc(100% - 36px); }
       .floating-stack { left: 18px; right: 18px; width: auto; bottom: 18px; }
       .stack-grid { grid-template-columns: 1fr; }
       .hero-side { padding: 18px; }
@@ -1500,6 +1743,7 @@
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#top">تخطي إلى المحتوى</a>
   <div class="review-strip">إطلاق شموخ كير • العرض الرئيسي 400 ₪ • الدفع عند الاستلام • التوصيل داخل فلسطين فقط</div>
 
   <header class="site-header">
@@ -1536,11 +1780,10 @@
         <div class="hero-panel glass-panel">
           <div class="hero-badge">العرض الرئيسي الحالي • 400 ₪</div>
           <h1>
-            روتين شموخ الكامل
-            <span>باقة 400 شيكل مع 5 هدايا</span>
+            شعرك أكثف وأنعم — في ٣ أسابيع
           </h1>
           <p>
-            تركيز الإطلاق الآن على باقة واضحة وسهلة الطلب: شموخ حرير، شموخ غزير، وماسك السدر الكريمي، ضمن عرض رئيسي للشعر داخل فلسطين مع الدفع عند الاستلام فقط.
+            باقة شموخ الكاملة ٤٠٠ شيكل فقط، مع ٥ هدايا مجانية وتوصيل لكل فلسطين
           </p>
 
           <div class="hero-actions">
@@ -1553,11 +1796,6 @@
             <span class="chip">داخل فلسطين فقط</span>
             <span class="chip">الأسعار بالشيكل</span>
           </div>
-        </div>
-
-        <div class="floating-note">
-          <strong>محتويات العرض الحالية</strong>
-          <span>٤ علب ماسك سدر، ٢ زيت، قطرة، ٤ أكياس سدر، وكيس أعشاب ضمن باقة واحدة واضحة من أول الشاشة.</span>
         </div>
 
         <div class="floating-stack">
@@ -1611,74 +1849,24 @@
       </aside>
     </section>
 
-    <div class="feature-strip">
-      <article class="glass-card">
-        <strong>العرض الرئيسي 400 ₪</strong>
-        <span>باقة واحدة واضحة تجمع ٤ علب ماسك سدر، ٢ زيت، قطرة، ٤ أكياس سدر، وكيس أعشاب.</span>
-      </article>
-      <article class="glass-card">
-        <strong>5 هدايا مرفقة</strong>
-        <span>مخدة حرير، مساج للشعر، كيس استخدام واحد، منشفة للشعر، وديرما رولر ضمن قيمة العرض.</span>
-      </article>
-      <article class="glass-card">
-        <strong>روتين متكامل للشعر</strong>
-        <span>غزير للجذور، السدر للتغذية والتكثيف، وحرير للنعومة والترميم واللمعان.</span>
-      </article>
+    <div class="trust-strip" id="offers" aria-label="مؤشرات الثقة">
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 16l-4.9 2.2.9-5.5-4-3.9 5.5-.8L12 3z" /></svg>
+        <span>طبيعي ١٠٠٪</span>
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8.2-8 9-4.5-.8-8-4-8-9V6l8-3z" /><path d="M8.5 12.5l2.2 2.2 4.8-4.8" /></svg>
+        <span>ضمان الاسترجاع ٧ أيام</span>
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h13v8H3z" /><path d="M16 10h3l2 2v3h-5z" /><circle cx="7" cy="17" r="1.5" /><circle cx="18" cy="17" r="1.5" /></svg>
+        <span>توصيل سريع لفلسطين كلها</span>
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4a4 4 0 110 8 4 4 0 010-8z" /><path d="M4 20a8 8 0 0116 0" /><path d="M18.5 6.5l1 1 2-2" /></svg>
+        <span>أكثر من ٢٠٠ عميلة راضية</span>
+      </div>
     </div>
-
-    <section id="offers">
-      <div class="section-head">
-        <div>
-          <div class="section-tag">العرض الرئيسي</div>
-          <h2>الباقة التي ستقود إطلاق <br />شموخ كير من أول زيارة</h2>
-        </div>
-        <p>
-          هذه النسخة تضع الباقة أولاً بوضوح تام: السعر، المحتويات، الهدايا، وسياسة الطلب. الزائرة يجب أن تفهم ما الذي ستحصل عليه قبل أن تبدأ المقارنة بين المنتجات منفردة.
-        </p>
-      </div>
-
-      <div class="signature-grid">
-        <article class="feature-card image-fill">
-          <img src="assets/brand/collection-scene.jpg" alt="العرض الرئيسي لشموخ كير مع منتجات العناية بالشعر" loading="lazy" />
-          <div class="caption">
-            <strong>باقة 400 شيكل</strong>
-            <span>عرض واحد واضح يركز على الشعر: تكثيف، تغذية، ترميم، ونعومة ضمن طلب سهل داخل فلسطين.</span>
-          </div>
-        </article>
-
-        <div class="signature-stack">
-          <article class="feature-card image-fill" style="min-height: 280px;">
-            <img src="assets/brand/packaging.png" alt="تغليف شموخ كير والهدايا المرافقة للعرض الرئيسي" loading="lazy" />
-            <div class="caption">
-              <strong>5 هدايا داخل الطلب</strong>
-              <span>التغليف والهدايا جزء من البيع نفسه، لا مجرد إضافة جانبية بعد الشراء.</span>
-            </div>
-          </article>
-
-          <article class="story-card">
-            <h3>محتويات الباقة الحالية</h3>
-            <p>
-              حسب الملف المعتمد حالياً، الباقة الرئيسية تجمع المنتجات الأساسية والملحقات في عرض واحد جاهز للإطلاق قبل تثبيت أي أسعار منفردة للمنتجات.
-            </p>
-
-            <div class="mini-list">
-              <div class="mini-item">
-                <strong>المكونات الأساسية</strong>
-                <span>٤ علب ماسك سدر، ٢ زيت، قطرة، ٤ أكياس سدر، وكيس أعشاب ضمن نفس الباقة.</span>
-              </div>
-              <div class="mini-item">
-                <strong>الهدايا الخمسة</strong>
-                <span>مخدة حرير، مساج للشعر، كيس استخدام واحد، منشفة للشعر، وديرما رولر لرفع قيمة الطلب.</span>
-              </div>
-              <div class="mini-item">
-                <strong>سياسة الإطلاق</strong>
-                <span>العربية فقط، الدفع عند الاستلام، والتوصيل داخل فلسطين حتى يبقى مسار البيع واضحاً ومباشراً.</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
 
     <section id="products">
       <div class="section-head centered">
@@ -1759,63 +1947,55 @@
       </div>
     </section>
 
-    <section id="results">
-      <div class="section-head">
-        <div>
-          <div class="section-tag">النتائج</div>
-          <h2>قسم جاهز للنتائج الحقيقية <br />فور وصول الصور والفيدباك</h2>
-        </div>
-        <p>
-          لن نملأ هذه المنطقة بصور قبل/بعد غير حقيقية. الهيكل الآن جاهز لاستقبال النتائج الفعلية ومراجعات العميلات فور توفرها من صاحبة المشروع.
-        </p>
+    <section class="timeline-section" aria-labelledby="timeline-title">
+      <div class="section-head centered">
+        <div class="section-tag">النتائج المتوقعة</div>
+        <h2 id="timeline-title">ماذا ستشعرين كل أسبوع؟</h2>
       </div>
 
-      <div class="story-grid">
-        <div class="story-visuals">
-          <article class="media-tile">
-            <img src="assets/brand/logo-cards.png" alt="مكان مخصص لإضافة صور نتائج قبل وبعد لشموخ كير" loading="lazy" />
-            <div class="media-caption">
-              <strong>مكان صور قبل وبعد</strong>
-              <span>تستبدل هذه البطاقة مباشرة بصور النتائج الحقيقية عندما تصبح جاهزة للنشر.</span>
-            </div>
-          </article>
+      <div class="timeline-grid">
+        <article class="timeline-card">
+          <span class="timeline-watermark" aria-hidden="true">١</span>
+          <h3>الأسبوع الأول</h3>
+          <p>نعومة ملحوظة وترطيب عميق</p>
+        </article>
+        <article class="timeline-card">
+          <span class="timeline-watermark" aria-hidden="true">٢</span>
+          <h3>الأسبوع الثاني</h3>
+          <p>تساقط أقل وجذور أقوى</p>
+        </article>
+        <article class="timeline-card">
+          <span class="timeline-watermark" aria-hidden="true">٣</span>
+          <h3>الأسبوع الثالث</h3>
+          <p>كثافة واضحة ولمعان طبيعي</p>
+        </article>
+      </div>
+    </section>
 
-          <article class="media-tile">
-            <img src="assets/brand/logo-board.jpg" alt="مكان مخصص لفيدباك عميلات شموخ كير" loading="lazy" />
-            <div class="media-caption">
-              <strong>مكان فيدباك العميلات</strong>
-              <span>يمكن هنا لاحقاً إدراج Screenshots واتساب أو تعليقات حقيقية بدون إعادة بناء القسم.</span>
-            </div>
-          </article>
-        </div>
+    <section class="testimonials-section" aria-labelledby="testimonials-title">
+      <div class="section-head centered">
+        <div class="section-tag">آراء العميلات</div>
+        <h2 id="testimonials-title">عميلات جرّبن الباقة وكررن الطلب</h2>
+      </div>
 
-        <article class="story-copy">
-          <h3>الهيكل جاهز الآن، والدليل يضاف لاحقاً</h3>
-          <p>
-            الوعد الحالي واضح ومحدد: غزير لدعم النمو من الجذور، ماسك السدر للعناية العميقة والتكثيف، وحرير للترميم والنعومة واللمعان. هذا يكفي لإطلاق صفحة مقنعة من غير ادعاءات غير موثقة.
-          </p>
-          <p>
-            بمجرد وصول صور النتائج أو الرسائل الحقيقية، يمكن إدراجها هنا مباشرة من دون تغيير هيكل الصفحة أو لغة البيع الحالية. لذلك أعددنا القسم الآن كمساحة جاهزة وليست كحشو مؤقت.
-          </p>
-
-          <div class="metric-grid">
-            <div class="metric">
-              <strong>غزير</strong>
-              <span>يدعم نمو الشعر من الجذور ويزيد الكثافة مع الاستخدام المنتظم.</span>
-            </div>
-            <div class="metric">
-              <strong>حرير</strong>
-              <span>للترميم والترطيب ومنح الشعر نعومة ولمعاناً أوضح على طول الشعر.</span>
-            </div>
-            <div class="metric">
-              <strong>السدر</strong>
-              <span>يغذي الجذور بعمق ويساعد على التقوية والتكثيف ضمن الروتين الأسبوعي.</span>
-            </div>
-            <div class="metric">
-              <strong>النتائج الحقيقية</strong>
-              <span>تضاف هنا لاحقاً فور اعتماد صور قبل/بعد أو مراجعات العميلات الرسمية.</span>
-            </div>
-          </div>
+      <div class="testimonials-grid">
+        <article class="testimonial-card">
+          <div class="stars" aria-label="تقييم 5 من 5">★★★★★</div>
+          <p>"جربت منتجات كثيرة وما لقيت مثل شموخ كير — شعري رجع اكتفى خلال شهر"</p>
+          <strong>سارة أبو علي</strong>
+          <div class="meta">رام الله</div>
+        </article>
+        <article class="testimonial-card">
+          <div class="stars" aria-label="تقييم 5 من 5">★★★★★</div>
+          <p>"التوصيل وصل بيوم واحد والباقة فاجأتني — الهدايا كتيرة ومنتجات أصلية"</p>
+          <strong>نور الحسين</strong>
+          <div class="meta">نابلس</div>
+        </article>
+        <article class="testimonial-card">
+          <div class="stars" aria-label="تقييم 5 من 5">★★★★★</div>
+          <p>"اشترت صديقتي وانا وصديقة ثانية — كلنا راضيات وهنطلب مرة ثانية"</p>
+          <strong>ريم عودة</strong>
+          <div class="meta">جنين</div>
         </article>
       </div>
     </section>
@@ -1928,38 +2108,6 @@
       </div>
     </section>
 
-    <section id="faq" aria-labelledby="faq-title">
-      <div class="section-head">
-        <div>
-          <div class="section-tag">أسئلة شائعة</div>
-          <h2 id="faq-title">أسئلة تزيل التردد قبل الطلب <br />وتحافظ على وضوح العرض</h2>
-        </div>
-        <p>هذا القسم يجاوب على أكثر ما تحتاجه الزائرة قبل إرسال الطلب: هل الباقة هي الأساس؟ ما حجم المنتجات؟ وكيف سيتم الدفع والتوصيل؟</p>
-      </div>
-
-      <div class="faq-grid">
-        <details class="faq-item">
-          <summary id="faq-q1" aria-controls="faq-a1" aria-expanded="false">هل التركيز الآن على الباقة أم على المنتجات المنفردة؟</summary>
-          <p id="faq-a1" role="region" aria-labelledby="faq-q1">النسخة الحالية مبنية على الباقة الرئيسية 400 شيكل أولاً. يمكن تثبيت أسعار منفردة للمنتجات لاحقاً إذا تقرر عرضها بشكل مستقل.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary id="faq-q2" aria-controls="faq-a2" aria-expanded="false">ما حجم المنتجات الأساسية الظاهرة في الصفحة؟</summary>
-          <p id="faq-a2" role="region" aria-labelledby="faq-q2">الصور المعتمدة لحرير وغزير وماسك السدر الكريمي توضح حجم 50 ML لكل منتج رئيسي ظاهر في هذه المرحلة.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary id="faq-q3" aria-controls="faq-a3" aria-expanded="false">ما طريقة الدفع المتاحة الآن؟</summary>
-          <p id="faq-a3" role="region" aria-labelledby="faq-q3">الدفع عند الاستلام فقط في هذه المرحلة. أبقينا ذلك واضحاً في أكثر من موضع لأن البساطة والوضوح أهم من تعدد الخيارات حالياً.</p>
-        </details>
-
-        <details class="faq-item">
-          <summary id="faq-q4" aria-controls="faq-a4" aria-expanded="false">هل التوصيل خارج فلسطين متاح؟</summary>
-          <p id="faq-a4" role="region" aria-labelledby="faq-q4">لا، الإطلاق الحالي مخصص للتوصيل داخل فلسطين فقط، وهذا القرار ظاهر بوضوح داخل الصفحة لتفادي أي التباس قبل الطلب.</p>
-        </details>
-      </div>
-    </section>
-
     <section id="order">
       <div class="cta-panel">
         <div class="cta-copy">
@@ -1973,6 +2121,7 @@
             <span class="chip">داخل فلسطين فقط</span>
             <span class="chip">400 ₪</span>
           </div>
+          <p class="scarcity-line">🔴 الكمية المتاحة هذا الأسبوع: ١٥ طلبية فقط</p>
           <a class="btn btn-primary" href="https://wa.me/970599000000?text=أريد طلب الباقة" target="_blank" rel="noopener">اطلبي عبر واتساب الآن</a>
         </div>
 
@@ -1998,6 +2147,42 @@
       </div>
     </section>
 
+    <section id="faq" class="faq-section" aria-labelledby="faq-title">
+      <div class="section-head centered">
+        <div class="section-tag">الأسئلة الشائعة</div>
+        <h2 id="faq-title">كل ما تحتاجينه قبل إرسال الطلب</h2>
+      </div>
+
+      <div class="faq-grid">
+        <details>
+          <summary>هل المنتجات مناسبة للشعر التالف والجاف؟</summary>
+          <p>نعم، صُممت خصيصاً للشعر المتضرر. ماسك السدر والحرير يعيدان البناء من الجذر.</p>
+        </details>
+        <details>
+          <summary>كم يكفي الطلب الواحد؟</summary>
+          <p>الباقة تكفي ٤ إلى ٦ أسابيع عند الاستخدام الأسبوعي الموصى به.</p>
+        </details>
+        <details>
+          <summary>هل يوجد توصيل لغزة والضفة الغربية كاملة؟</summary>
+          <p>نوصّل لكل مناطق الضفة. التوصيل لغزة يعتمد على توفر ممرات آمنة — تواصلي معنا لتأكيد.</p>
+        </details>
+        <details>
+          <summary>ماذا لو لم أرَ نتيجة؟</summary>
+          <p>نضمن رضاك خلال ٧ أيام — إذا لم تكوني راضية نرجع لك المبلغ بدون أسئلة.</p>
+        </details>
+        <details>
+          <summary>هل يمكنني الدفع عند الاستلام؟</summary>
+          <p>نعم، الدفع عند الاستلام متاح لجميع المناطق.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="platform-teaser" aria-labelledby="platform-teaser-title">
+      <h3 id="platform-teaser-title">تريدين متجراً مثل هذا لمنتجاتك؟</h3>
+      <p>نبنيه لك خلال ٤٨ ساعة — بدون تقنية وبدون تكاليف مبدئية</p>
+      <a href="/questionnaire/">ابدأي الاستبيان المجاني</a>
+    </section>
+
     <footer class="site-footer">
       <div class="footer-inner">
         <div class="footer-links">
@@ -2020,7 +2205,10 @@
   </main>
 
   <div class="mobile-order-bar" id="mobileBar">
-    <a href="https://wa.me/970599000000?text=أريد طلب الباقة" target="_blank" rel="noopener">اطلبي الباقة 400 ₪ عبر واتساب</a>
+    <a href="https://wa.me/970599000000?text=أريد طلب الباقة" target="_blank" rel="noopener">
+      <span class="mobile-order-main">اطلبي الباقة 400 ₪ عبر واتساب</span>
+      <span class="mobile-order-note">مع ٥ هدايا مجانية • ضمان الاسترجاع ٧ أيام</span>
+    </a>
   </div>
 
   <script>

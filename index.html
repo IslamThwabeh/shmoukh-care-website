@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>شموخ كير — استبيان المتجر</title>
+  <title>شموخ كير — استبيان مراجعة المتجر</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link
     href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Inter:wght@300;400;500&display=swap"
@@ -89,17 +90,15 @@
       letter-spacing: .3px;
     }
 
-    #langToggle {
+    .scope-badge {
       background: var(--clr-accent-lt);
       border: 1px solid var(--clr-border);
       color: var(--clr-accent);
       padding: 6px 14px;
       border-radius: 20px;
       font-size: 13px;
-      font-weight: 500;
-      transition: background var(--transition);
+      font-weight: 600;
     }
-    #langToggle:hover { background: var(--clr-blush); }
 
     .container {
       max-width: 740px;
@@ -837,6 +836,24 @@
 
     .banner-body { font-size: 14px; }
 
+    .project-note {
+      background: var(--clr-accent-lt);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      margin-bottom: 22px;
+      color: var(--clr-text);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .review-hint {
+      color: var(--clr-muted);
+      font-size: 13px;
+      margin: -2px 0 14px;
+      line-height: 1.8;
+    }
+
     /* ══════════════════════════════════════════════
        SECTION DIVIDER
     ══════════════════════════════════════════════ */
@@ -882,7 +899,7 @@
       <div class="brand-logo"></div>
       <span class="brand-name">شموخ كير</span>
     </div>
-    <button id="langToggle" onclick="toggleLang()">English</button>
+    <span class="scope-badge">العربية فقط في المرحلة الأولى</span>
   </header>
 
   <!-- ── GLOBAL UPLOAD TOAST ─────────────────────────────────────────────── -->
@@ -922,12 +939,15 @@
     <section class="step-panel active" id="step-1">
       <h1 class="step-title" data-ar="بيانات متجرك" data-en="Your Business Info">بيانات متجرك</h1>
       <p class="step-subtitle" data-ar="أدخل المعلومات الأساسية لمتجرك" data-en="Enter the core details about your store">أدخل المعلومات الأساسية لمتجرك</p>
+      <div class="project-note">
+        جهزنا هذه النسخة كبداية كاملة للمراجعة: كل التصاميم متاحة، الدفع عند الاستلام مفعّل افتراضياً، والأسئلة تغطي ما نحتاجه لإطلاق النسخة الأولى داخل فلسطين. عدّلي أو احذفي أي خيار غير مناسب قبل الاعتماد النهائي.
+      </div>
 
       <!-- Load previous -->
       <div class="load-section">
         <div class="field">
           <label data-ar="البريد الإلكتروني لاسترجاع بياناتك" data-en="Email to restore your data">البريد الإلكتروني لاسترجاع بياناتك</label>
-          <input type="email" id="loadEmail" placeholder="you@example.com" inputmode="email" />
+          <input type="email" id="loadEmail" placeholder="info@shmoukh-care.com" inputmode="email" />
         </div>
         <button class="btn-load" onclick="loadPreviousData()" data-ar="تحميل البيانات" data-en="Load Data">تحميل البيانات</button>
       </div>
@@ -939,7 +959,7 @@
             <input type="text" id="bizNameAr" placeholder="شموخ كير" required />
           </div>
           <div class="field">
-            <label>Business Name (English)</label>
+            <label>اسم المتجر بالإنجليزية <span style="color:var(--clr-muted);font-weight:400;">اختياري لاحقاً</span></label>
             <input type="text" id="bizNameEn" placeholder="Shmoukh Care" />
           </div>
         </div>
@@ -1007,9 +1027,10 @@
       <hr class="section-divider" />
 
       <p class="section-label" data-ar="طرق الدفع المتاحة" data-en="Payment Methods">طرق الدفع المتاحة</p>
+      <p class="review-hint">الدفع عند الاستلام هو الخيار المعتمد حالياً. أبقينا باقي الخيارات هنا للمراجعة إذا رغبتِ بتفعيلها لاحقاً.</p>
       <div class="checkbox-group" id="paymentMethods">
-        <label class="checkbox-item" onclick="toggleCheck(this)">
-          <input type="checkbox" value="cod" id="pay_cod" />
+        <label class="checkbox-item checked" onclick="toggleCheck(this)">
+          <input type="checkbox" value="cod" id="pay_cod" checked />
           <span data-ar="الدفع عند الاستلام (COD)" data-en="Cash on Delivery (COD)">الدفع عند الاستلام (COD)</span>
         </label>
         <label class="checkbox-item" onclick="toggleCheck(this)">
@@ -1230,15 +1251,15 @@
         <div class="field-row">
           <div class="field">
             <label>مناطق التوصيل</label>
-            <input type="text" id="shippingAreas" placeholder="كل فلسطين / الضفة فقط / الأردن" />
+            <input type="text" id="shippingAreas" value="داخل فلسطين فقط" placeholder="داخل فلسطين فقط" />
           </div>
           <div class="field">
             <label>مدة التوصيل</label>
-            <input type="text" id="shippingDays" placeholder="2–3 أيام عمل" />
+            <input type="text" id="shippingDays" placeholder="1–3 أيام عمل داخل فلسطين" />
           </div>
           <div class="field">
             <label>تكلفة الشحن</label>
-            <input type="text" id="shippingCost" placeholder="15 ₪ / مجاني فوق 150 ₪" />
+            <input type="text" id="shippingCost" placeholder="مثال: 15 ₪ داخل فلسطين / مجاني فوق 150 ₪" />
           </div>
         </div>
         <div class="field">
@@ -1286,7 +1307,7 @@
     ═══════════════════════════════════════════════ -->
     <section class="step-panel" id="step-6">
       <h1 class="step-title" data-ar="اختاري تصميم متجرك" data-en="Choose Your Store Design(s)">اختاري تصميم متجرك</h1>
-      <p class="step-subtitle" data-ar="يمكنك اختيار أكثر من تصميم أو الثلاثة كلهم — زبونتك تقدر تبدّل بينهم في أي وقت" data-en="Pick one, several, or all three — your visitors can switch between them anytime">يمكنك اختيار أكثر من تصميم أو الثلاثة كلهم — زبونتك تقدر تبدّل بينهم في أي وقت</p>
+      <p class="step-subtitle" data-ar="جهزنا كل التصاميم كبداية للمراجعة؛ يمكنك إبقاء الكل أو حذف ما لا يناسب قبل الاعتماد النهائي" data-en="All designs are preloaded for review">جهزنا كل التصاميم كبداية للمراجعة؛ يمكنك إبقاء الكل أو حذف ما لا يناسب قبل الاعتماد النهائي</p>
 
       <div class="design-grid">
 
@@ -1433,20 +1454,64 @@
         <button type="button" class="btn btn-secondary" style="font-size:13px;padding:6px 18px;margin-inline-start:8px;" onclick="clearAllThemes()">× إلغاء التحديد</button>
       </div>
 
+      <hr class="section-divider" />
+
+      <p class="section-label">إعدادات الإطلاق الأولي</p>
+      <p class="review-hint">النسخة الأولى ستكون بالعربية، والتوصيل داخل فلسطين فقط. طرق استلام الطلبات أدناه مفعّلة للمراجعة ويمكن تعديلها قبل الإطلاق.</p>
+      <div class="field-group">
+        <div class="field-row">
+          <div class="field">
+            <label>لغة الإطلاق</label>
+            <select id="launchLanguage">
+              <option value="ar_only" selected>العربية فقط في المرحلة الأولى</option>
+              <option value="ar_then_en">العربية الآن وإضافة الإنجليزية لاحقاً</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>نطاق التوصيل عند الإطلاق</label>
+            <select id="launchDeliveryScope">
+              <option value="palestine_only" selected>داخل فلسطين فقط</option>
+              <option value="palestine_then_expand">داخل فلسطين أولاً مع توسعة لاحقاً</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>طرق استلام الطلبات المقترحة</label>
+          <div class="checkbox-group" id="orderChannels">
+            <label class="checkbox-item checked" onclick="toggleCheck(this)">
+              <input type="checkbox" value="whatsapp" checked />
+              <span>واتساب مباشر</span>
+            </label>
+            <label class="checkbox-item checked" onclick="toggleCheck(this)">
+              <input type="checkbox" value="site_form" checked />
+              <span>نموذج طلب داخل الموقع</span>
+            </label>
+            <label class="checkbox-item checked" onclick="toggleCheck(this)">
+              <input type="checkbox" value="instagram" checked />
+              <span>رسائل إنستغرام</span>
+            </label>
+            <label class="checkbox-item checked" onclick="toggleCheck(this)">
+              <input type="checkbox" value="phone" checked />
+              <span>اتصال هاتفي</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
       <!-- Submit -->
       <div class="step-nav">
         <button class="btn btn-secondary" onclick="goStep(5)" data-ar="← السابق" data-en="← Back">← السابق</button>
-        <button class="btn btn-submit" onclick="submitForm()" id="submitBtn">🚀 إنشاء المتجر</button>
+        <button class="btn btn-submit" onclick="submitForm()" id="submitBtn">💾 حفظ نموذج المراجعة</button>
       </div>
 
       <!-- Feedback banners -->
       <div class="banner banner-success" id="bannerSuccess">
-        <p class="banner-title">✅ تم حفظ بيانات متجرك بنجاح!</p>
-        <p class="banner-body">سنتواصل معك قريباً على البريد الإلكتروني المسجّل لمراجعة المتجر قبل الإطلاق.</p>
+        <p class="banner-title">✅ تم حفظ النسخة المبدئية للمراجعة!</p>
+        <p class="banner-body">يمكنك الآن مراجعة الخيارات مع صاحبة المشروع ثم اعتماد ما يبقى للإطلاق.</p>
       </div>
       <div class="banner banner-demo" id="bannerDemo">
         <p class="banner-title">⚠️ وضع تجريبي</p>
-        <p class="banner-body">البيانات محفوظة محلياً فقط (Demo Mode). سيتم رفعها للخادم عند الاتصال.</p>
+        <p class="banner-body">تم حفظ نموذج المراجعة محلياً فقط حالياً، وسيتم رفعه للخادم عند الاتصال.</p>
       </div>
       <div class="banner banner-error" id="bannerError">
         <p class="banner-title">❌ حدث خطأ</p>
@@ -1468,6 +1533,7 @@
     let currentStep = 1;
     let selectedThemes = [];  // multi-select array
     let lang = "ar";
+    const DEFAULT_ORDER_CHANNELS = ["whatsapp", "site_form", "instagram", "phone"];
 
     // Uploaded media URLs (from R2 or object URLs for demo)
     const uploadedUrls = {
@@ -1559,6 +1625,9 @@
     function prefillForm(data) {
       if (!data) return;
       const b = data.business || {};
+      const credibility = data.credibility || {};
+      const shipping = credibility.shipping || {};
+      const launch = data.launch || {};
       setValue("bizNameAr",   b.nameAr);
       setValue("bizNameEn",   b.nameEn);
       setValue("bizTagline",  b.tagline);
@@ -1571,11 +1640,43 @@
       setValue("socialWhatsapp", (data.social || {}).whatsapp);
       setValue("socialFb",       (data.social || {}).facebook);
 
-      // Payment
-      (data.payments || []).forEach(val => {
-        const cb = document.querySelector(`#paymentMethods input[value="${val}"]`);
-        if (cb) { cb.checked = true; cb.closest(".checkbox-item").classList.add("checked"); }
-      });
+      setCheckboxGroupValues(
+        "#paymentMethods input",
+        Array.isArray(data.payments) && data.payments.length ? data.payments : ["cod"]
+      );
+
+      setValue("founderName", credibility.founderName);
+      setValue("founderStory", credibility.founderStory);
+      setValue("statClients", credibility.stats?.clients);
+      setValue("statYears", credibility.stats?.years);
+      setValue("statProducts", credibility.stats?.products);
+      setCheckboxGroupValues("#productBadges input", credibility.badges || []);
+      setCheckboxGroupValues("#skinConcerns input", credibility.skinConcerns || []);
+      setValue("yt1", credibility.youtubeVideos?.[0]);
+      setValue("yt2", credibility.youtubeVideos?.[1]);
+      setValue("yt3", credibility.youtubeVideos?.[2]);
+      setValue("yt4", credibility.youtubeVideos?.[3]);
+      setValue("faq1q", credibility.faq?.[0]?.q);
+      setValue("faq1a", credibility.faq?.[0]?.a);
+      setValue("faq2q", credibility.faq?.[1]?.q);
+      setValue("faq2a", credibility.faq?.[1]?.a);
+      setValue("faq3q", credibility.faq?.[2]?.q);
+      setValue("faq3a", credibility.faq?.[2]?.a);
+      setValue("shippingAreas", shipping.areas || "داخل فلسطين فقط");
+      setValue("shippingDays", shipping.days);
+      setValue("shippingCost", shipping.cost);
+      setValue("returnPolicy", shipping.returnPolicy);
+      setValue("currency", credibility.currency || "ILS");
+      setValue("discountCode", credibility.discountCode);
+      setValue("discountValue", credibility.discountValue);
+      setChecked("giftWrap", credibility.giftWrap);
+      setChecked("personalCard", credibility.personalCard);
+      setValue("launchLanguage", launch.language || "ar_only");
+      setValue("launchDeliveryScope", launch.deliveryScope || "palestine_only");
+      setCheckboxGroupValues(
+        "#orderChannels input",
+        Array.isArray(launch.orderChannels) && launch.orderChannels.length ? launch.orderChannels : DEFAULT_ORDER_CHANNELS
+      );
 
       // Products
       if (Array.isArray(data.products) && data.products.length > 0) {
@@ -1590,13 +1691,29 @@
       }
 
       // Theme (multi-select) — restore from themes array or legacy theme string
-      const themes = data.themes || (data.theme ? [data.theme] : []);
+      clearAllThemes();
+      const themes = data.themes || (data.theme ? [data.theme] : [...ALL_THEMES]);
       themes.forEach(t => { if (!selectedThemes.includes(t)) toggleTheme(t); });
     }
 
     function setValue(id, val) {
       const el = document.getElementById(id);
       if (el && val !== undefined && val !== null) el.value = val;
+    }
+
+    function setChecked(id, checked) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.checked = Boolean(checked);
+      el.closest(".checkbox-item")?.classList.toggle("checked", el.checked);
+    }
+
+    function setCheckboxGroupValues(selector, values = []) {
+      const selected = new Set(values);
+      document.querySelectorAll(selector).forEach((cb) => {
+        cb.checked = selected.has(cb.value);
+        cb.closest(".checkbox-item")?.classList.toggle("checked", cb.checked);
+      });
     }
 
     // ── PRODUCTS ───────────────────────────────────────────────────────────────
@@ -1622,8 +1739,8 @@
               <input type="text" name="p_nameAr_${idx}" placeholder="كريم مرطّب" value="${esc(data.nameAr)}" />
             </div>
             <div class="field">
-              <label>Product Name (English)</label>
-              <input type="text" name="p_nameEn_${idx}" placeholder="Moisturising Cream" value="${esc(data.nameEn)}" />
+              <label>اسم المنتج بالإنجليزية <span style="color:var(--clr-muted);font-weight:400;">اختياري لاحقاً</span></label>
+              <input type="text" name="p_nameEn_${idx}" placeholder="Shmoukh Care Cream" value="${esc(data.nameEn)}" />
             </div>
           </div>
           <div class="field">
@@ -1992,7 +2109,13 @@
         personalCard: document.getElementById("personalCard")?.checked || false,
       };
 
-      return { business, social, payments, products, testimonials, media, credibility, themes: selectedThemes };
+      const launch = {
+        language: val("launchLanguage"),
+        deliveryScope: val("launchDeliveryScope"),
+        orderChannels: Array.from(document.querySelectorAll("#orderChannels input:checked")).map(cb => cb.value),
+      };
+
+      return { business, social, payments, products, testimonials, media, credibility, launch, themes: selectedThemes };
     }
 
     function val(nameOrId, scope = document) {
@@ -2047,7 +2170,7 @@
         }
       } finally {
         btn.disabled = false;
-        btn.textContent = "🚀 إنشاء المتجر";
+        btn.textContent = "💾 حفظ نموذج المراجعة";
       }
     }
 
@@ -2069,6 +2192,8 @@
 
     // ── INIT ───────────────────────────────────────────────────────────────────
     document.addEventListener("DOMContentLoaded", () => {
+      selectAllThemes();
+
       // Pre-fill one product and one testimonial
       addProduct({
         nameAr: "كريم مرطّب يومي",
