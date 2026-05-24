@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الصفحة غير موجودة | شموخ كير</title>
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <style>
+    :root {
+      --bg: #0f1c16;
+      --panel: rgba(255, 255, 255, 0.09);
+      --line: rgba(255, 255, 255, 0.14);
+      --text: #f4efe5;
+      --muted: rgba(244, 239, 229, 0.7);
+      --gold: #c9a766;
+      --gold-strong: #dbbf86;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: "Tajawal", sans-serif;
+      background: radial-gradient(circle at 20% 15%, rgba(201, 167, 102, 0.18), transparent 30%),
+                  linear-gradient(165deg, #13261e 0%, #0f1c16 100%);
+      color: var(--text);
+      padding: 24px;
+    }
+
+    .card {
+      width: min(760px, 100%);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 36px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.1;
+    }
+
+    p {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .btn-home {
+      background: linear-gradient(135deg, var(--gold-strong), var(--gold));
+      color: #18271f;
+    }
+
+    .btn-wa {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--line);
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>404</h1>
+    <p>الصفحة التي تبحثين عنها غير موجودة. يمكنك الرجوع للواجهة الرئيسية أو إكمال الطلب مباشرة عبر واتساب.</p>
+    <div class="actions">
+      <a class="btn btn-home" href="/">العودة للرئيسية</a>
+      <a class="btn btn-wa" href="https://wa.me/970599000000?text=مرحباً، وصلت إلى صفحة غير موجودة وأريد المساعدة" target="_blank" rel="noopener">تواصل عبر واتساب</a>
+    </div>
+  </main>
+</body>
+</html>

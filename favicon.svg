@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Shmoukh Care">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f3e3bc"/>
+      <stop offset="100%" stop-color="#c39f58"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#10221c"/>
+  <path d="M24 43c7-2 12-9 12-17v-2c-8 2-14 8-14 16 0 1 0 2 2 3z" fill="url(#gold)"/>
+  <path d="M40 47c5-2 9-7 9-13v-1c-6 1-10 5-11 11 0 1 0 2 2 3z" fill="url(#gold)"/>
+</svg>
