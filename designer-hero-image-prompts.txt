@@ -1,0 +1,272 @@
+SHMOUKH CARE - HERO IMAGE PROMPT PACK FOR DESIGNER
+Date: 2026-05-24
+
+============================================================
+1) CURRENT IMAGE AUDIT (KEEP OR REPLACE)
+============================================================
+Primary hero usage now:
+- assets/brand/collection-scene.jpg
+
+Decision for final homepage hero:
+- REPLACE for final hero generation.
+Reason:
+- It already contains embedded text and product cards inside the image.
+- This conflicts with live overlay headline/CTA and reduces premium clarity.
+
+Can still be used now (temporary / non-hero use):
+- assets/brand/packaging.png -> good for support card/secondary section.
+- assets/brand/feedback-1.jpg
+- assets/brand/feedback-2.jpg
+- assets/brand/feedback-3.jpg
+  (all three are good for social proof/testimonials section, not hero)
+- assets/brand/logo-board.jpg -> reference/logo usage only.
+
+Use as visual references (not final hero background):
+- assets/brand/hero-spa.jpg
+- assets/brand/out-products.png
+- assets/brand/logo-cards.png
+- assets/brand/harir.jpg
+- assets/brand/ghazir.jpg
+- assets/brand/sidr-mask.jpg
+
+Summary:
+- We can reuse several current images in other sections.
+- We still need NEW dedicated hero images for best conversion and professional look.
+
+============================================================
+2) WHAT TO UPLOAD TO CHATGPT IMAGE GENERATOR
+============================================================
+Required uploads:
+1. Shmoukh Identity.png
+2. color paletter.png
+3. typography.png
+4. en typography.png
+5. حرير.jpg
+6. غزير.jpg
+7. ماسك السدر الكريمي.jpg
+8. Current homepage hero screenshot (to indicate overlay safe area)
+
+Optional uploads:
+1. logo cards.png
+2. packaging.png
+3. out products.png
+4. shower.png
+
+Do NOT upload as primary hero style references:
+- Thank you page.png
+- شكل الكرتونة.png
+
+============================================================
+3) HOW TO RUN (ORDER)
+============================================================
+Step A:
+- Send PROMPT 0 once after uploads.
+
+Step B:
+- Generate Desktop sets with PROMPT 1 and PROMPT 2.
+
+Step C:
+- Generate Mobile set with PROMPT 3.
+
+Step D:
+- If needed, generate alternative styles with PROMPT 4 and PROMPT 5.
+
+Step E:
+- Refine selected candidates with PROMPT 6.
+
+============================================================
+4) COPY-PASTE PROMPTS
+============================================================
+
+PROMPT 0 - MASTER BRAND LOCK
+Use the uploaded references as strict brand guidance.
+Create photorealistic luxury hair-care hero images for an Arabic-first e-commerce homepage.
+Brand mood: premium, natural, trustworthy, elegant, modern Middle Eastern aesthetic.
+Color direction: deep botanical green, warm gold accents, soft cream highlights.
+Style: real product photography look, not CGI, no fantasy scenes, no heavy smoke, no visual noise.
+Important: no added text in the image, no watermark, no fake typography, no random logos.
+Keep product labels clean and believable.
+Make composition conversion-friendly with clear negative space for headline and CTA overlay.
+
+PROMPT 1 - DESKTOP HERO (RIGHT SAFE AREA)
+Generate 4 desktop hero options, 1920x1080.
+Scene: premium bathroom vanity or natural botanical studio setup with soft directional light.
+Show 2 to 4 Shmoukh products (oil and mask family), sharp focus on front product, subtle depth of field.
+Reserve a clean darkened negative-space zone on the right side occupying around 35% to 45% of frame for website text overlay.
+Keep background elegant and soft, with natural textures and gentle highlights.
+No people in this set.
+No text in image.
+
+PROMPT 2 - DESKTOP HERO (LEFT SAFE AREA, MIRRORED)
+Generate 4 desktop hero options, 1920x1080.
+Same style and brand constraints as above, but mirror composition so negative space is on the left side (35% to 45%).
+This is for alternate layout flexibility.
+No text in image.
+
+PROMPT 3 - MOBILE HERO
+Generate 4 mobile hero options, 1080x1350.
+Vertical composition.
+Product cluster centered in lower-middle area.
+Keep upper third cleaner for headline overlay.
+Keep premium natural mood, realistic lighting, rich green and gold palette, minimal clutter.
+No text in image.
+
+PROMPT 4 - CLEAN STUDIO VARIANT
+Generate 3 hero options, 1920x1080.
+Scene: minimal luxury studio tabletop with subtle botanical accents only.
+Use one hero product dominant in foreground and two supporting products softly behind.
+Strong realism in glass, oil reflections, label print, and cap materials.
+Keep one clean safe area for text overlay.
+No text in image.
+
+PROMPT 5 - HUMAN TOUCH VARIANT
+Generate 3 hero options, 1920x1080, with subtle human presence.
+Include only female hand placing or holding one product.
+No face, no full body, no fashion focus.
+Product remains the hero.
+Keep clean overlay-safe area on right side.
+No text in image.
+
+PROMPT 6 - REFINEMENT (USE AFTER CHOOSING A CANDIDATE)
+Keep this exact composition and lighting.
+Increase realism of product materials and reflections.
+Reduce background detail by 20% so product stands out more.
+Improve label clarity without adding any extra text.
+Maintain empty overlay-safe zone exactly as is.
+Output in high detail, web-ready style.
+
+PROMPT 7 - FINAL EXPORT REQUEST
+Export this selected image in:
+1) 1920x1080 desktop hero
+2) 1600x900 desktop backup
+3) 1080x1350 mobile hero crop/variant
+No text overlay.
+No watermark.
+Preserve same color mood and product realism.
+
+============================================================
+5) ACCEPTANCE CHECKLIST (DESIGNER)
+============================================================
+Accept only if all points pass:
+1. Product focus is obvious in first 1 second.
+2. Overlay-safe area is genuinely readable for headline + CTA.
+3. No fake text or gibberish on labels/background.
+4. No excessive smoke, glow, or fantasy effects.
+5. Premium and believable, not synthetic.
+6. Works for both desktop and mobile crop logic.
+
+============================================================
+6) FILE NAMING SUGGESTION
+============================================================
+Use these names when saving final candidates:
+- hero-desktop-right-01.webp
+- hero-desktop-right-02.webp
+- hero-desktop-left-01.webp
+- hero-mobile-01.webp
+- hero-mobile-02.webp
+
+Preferred optimization target:
+- WebP quality around 80
+- Try to keep each hero under 280 KB if possible
+
+============================================================
+7) NEW VISITOR PAGE TEST PROMPTS (10K LOOK)
+============================================================
+Use different prompts, not the exact same prompt.
+Reason:
+- GPT Web Designer usually responds better to concrete implementation constraints (layout system, CSS variables, sections).
+- Claude Designer usually responds better to narrative art direction and editorial sequencing.
+- Keeping a shared brand core but different prompt style gives stronger A/B diversity.
+
+Shared hard constraints for BOTH prompts:
+- Arabic-first, RTL, mobile-first responsive, desktop + mobile polished.
+- Keep it retail-clean and conversion-first (not glassmorphism-heavy, not noisy gradients).
+- One-page visitor landing with clear sections and strong WhatsApp conversion CTA.
+- Use existing brand assets only from:
+  - assets/brand/logo-cards.png (primary logo)
+  - assets/brand/collection-scene.jpg (main hero/product group)
+  - assets/brand/harir.jpg
+  - assets/brand/ghazir.jpg
+  - assets/brand/sidr-mask.jpg
+  - assets/brand/packaging.png
+  - assets/brand/feedback-1.jpg
+  - assets/brand/feedback-2.jpg
+  - assets/brand/feedback-3.jpg
+  - assets/brand/hero-spa.jpg (support/background only)
+- Keep pricing and trust facts visible: 400 ILS, 5 free gifts, COD, delivery in فلسطين only.
+- No fake logos, no random stock text, no English-first hierarchy.
+
+PROMPT A - GPT WEB DESIGNER (BUILD-SPEC STYLE)
+Create a premium Arabic RTL landing page concept for "Shmoukh Care" that feels like a $10K direct-response beauty brand website.
+
+Deliverables:
+1) full section-by-section layout plan,
+2) visual direction + component specs,
+3) production-ready HTML/CSS structure guidance.
+
+Brand and image usage:
+- Header logo: assets/brand/logo-cards.png
+- Hero image: assets/brand/collection-scene.jpg
+- Product cards: assets/brand/harir.jpg, assets/brand/ghazir.jpg, assets/brand/sidr-mask.jpg
+- Trust/support visuals: assets/brand/packaging.png, assets/brand/feedback-1.jpg, assets/brand/feedback-2.jpg, assets/brand/feedback-3.jpg
+- Optional soft background insert: assets/brand/hero-spa.jpg
+
+Visual system:
+- Style: premium natural beauty, clean retail surfaces, refined editorial spacing.
+- Palette: deep botanical green + warm gold accents + cream neutrals.
+- Typography: Arabic display + readable Arabic body, clear scale (hero, section titles, body, captions).
+- Effects: subtle reveal animations only (hero load, staggered cards, testimonial fade), no gimmicks.
+
+Required sections and details:
+- Sticky top bar with trust line (COD + Palestine delivery + 400 ILS offer).
+- Hero with bold Arabic headline, one-line proof statement, 2 CTAs (WhatsApp primary, details secondary).
+- Offer summary strip: "400 شيكل + 5 هدايا".
+- 3-product benefit cards with before/after style micro-copy.
+- Social proof/testimonial block using feedback images.
+- Routine/how-to-use section (3 clear steps).
+- FAQ accordion focused on objections.
+- Final CTA panel with urgent but elegant tone.
+- Sticky mobile bottom CTA button for WhatsApp.
+
+Output constraints:
+- Provide semantic HTML section IDs ready for anchors (#offers, #products, #care, #faq, #order).
+- Include CSS variable tokens for colors, spacing, radius, shadow, and motion timing.
+- Ensure strong accessibility contrast and touch targets.
+
+PROMPT B - CLAUDE DESIGNER (ART-DIRECTION STYLE)
+Design a high-converting Arabic RTL landing page for "Shmoukh Care" with the visual confidence of a $10K boutique e-commerce experience.
+Think: premium beauty editorial meets performance landing page.
+
+Narrative arc to design:
+1) Immediate trust and desire,
+2) Product clarity,
+3) Social proof,
+4) Objection handling,
+5) Frictionless WhatsApp conversion.
+
+Use these real brand assets explicitly:
+- Logo: assets/brand/logo-cards.png
+- Hero anchor: assets/brand/collection-scene.jpg
+- Product portraits: assets/brand/harir.jpg, assets/brand/ghazir.jpg, assets/brand/sidr-mask.jpg
+- Packaging/proof details: assets/brand/packaging.png
+- Testimonials: assets/brand/feedback-1.jpg, assets/brand/feedback-2.jpg, assets/brand/feedback-3.jpg
+- Ambient support: assets/brand/hero-spa.jpg
+
+Brand language and feel:
+- Arabic-first luxury that still feels trustworthy and practical.
+- Calm, premium composition with clean white/cream surfaces and thin elegant borders.
+- Restrained gold accents, no loud neon, no over-designed glass cards.
+- Copy tone: confident, feminine, credible, direct.
+
+Must include:
+- Hero statement around thicker, softer hair in 3 weeks.
+- Offer framing: 400 ILS bundle + 5 gifts.
+- COD and Palestine-only delivery clarity in multiple places.
+- Product ritual explanation in 3 simple steps.
+- FAQ and risk-reversal language.
+- Persistent WhatsApp CTA on mobile.
+
+Quality bar:
+- Every section should look intentional and premium, with generous spacing and polished rhythm.
+- Desktop and mobile should both look launch-ready, not template-like.
+- Avoid generic SaaS blocks; this must feel like a real beauty commerce brand.

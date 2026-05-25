@@ -344,7 +344,6 @@
     .pill-note,
     .glass-card,
     .glass-panel,
-    .floating-stack,
     .info-card,
     .testimonial,
     details,
@@ -364,7 +363,6 @@
     .pill-note {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
       min-height: 46px;
       padding: 0 16px;
       border-radius: 999px;
@@ -443,6 +441,7 @@
       object-fit: cover;
       object-position: center center;
       transform: scale(1.03);
+      animation: heroPhotoDrift 18s ease-in-out infinite alternate;
     }
 
     .hero-stage::before {
@@ -450,9 +449,9 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(135deg, rgba(8,17,14,.72) 12%, rgba(11,23,18,.28) 44%, rgba(8,17,14,.8) 100%),
-        radial-gradient(circle at 78% 22%, rgba(200,168,106,.32), transparent 24%),
-        radial-gradient(circle at 22% 78%, rgba(76,138,108,.18), transparent 24%);
+        linear-gradient(135deg, rgba(8,17,14,.52) 10%, rgba(11,23,18,.2) 46%, rgba(8,17,14,.56) 100%),
+        radial-gradient(circle at 78% 22%, rgba(200,168,106,.22), transparent 24%),
+        radial-gradient(circle at 22% 78%, rgba(76,138,108,.12), transparent 24%);
       z-index: 1;
     }
 
@@ -473,17 +472,18 @@
     .hero-panel {
       position: relative;
       z-index: 2;
-      max-width: 480px;
-      margin: 36px;
+      max-width: 430px;
+      margin: 32px;
       padding: 30px 28px;
       border-radius: 28px;
+      animation: fadeUp .7s ease both;
     }
 
     .hero-panel.glass-panel {
-      background: linear-gradient(180deg, rgba(14,24,20,.38), rgba(14,24,20,.24));
-      border: 1px solid rgba(255,255,255,.18);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(14,24,20,.28), rgba(14,24,20,.16));
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
     }
 
     .hero-badge {
@@ -529,6 +529,14 @@
       margin-bottom: 22px;
     }
 
+    .hero-actions .btn {
+      animation: fadeUp .8s ease both;
+    }
+
+    .hero-actions .btn:nth-child(2) {
+      animation-delay: .08s;
+    }
+
     .chip-row {
       display: flex;
       gap: 10px;
@@ -547,58 +555,6 @@
       background: rgba(255,255,255,.07);
       border: 1px solid rgba(255,255,255,.12);
       box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
-    }
-
-    .floating-stack {
-      position: absolute;
-      z-index: 2;
-      border-radius: 22px;
-      color: #fff;
-    }
-
-    .floating-stack strong {
-      display: block;
-      color: var(--gold-400);
-      font-size: 14px;
-      margin-bottom: 6px;
-    }
-
-    .floating-stack span {
-      font-size: 13px;
-      color: rgba(255,255,255,.74);
-    }
-
-    .floating-stack {
-      right: 28px;
-      bottom: 28px;
-      width: min(340px, calc(100% - 56px));
-      padding: 16px;
-    }
-
-    .stack-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .stack-grid div {
-      padding: 12px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.08);
-      text-align: center;
-    }
-
-    .stack-grid strong {
-      margin: 0 0 4px;
-      font-size: 18px;
-      color: #fff;
-    }
-
-    .stack-grid span {
-      font-size: 12px;
-      color: rgba(255,255,255,.66);
     }
 
     .hero-side {
@@ -770,6 +726,26 @@
       stroke-width: 1.8;
       fill: none;
       flex-shrink: 0;
+    }
+
+    .trust-badge {
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+
+    .trust-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(18,34,28,.08);
+    }
+
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .timeline-section,
@@ -1646,6 +1622,16 @@
       50% { transform: translateY(-10px) translateX(8px); }
     }
 
+    @keyframes heroPhotoDrift {
+      0% { transform: scale(1.03) translateX(0); }
+      100% { transform: scale(1.06) translateX(10px); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     @keyframes glowPulse {
       0%, 100% { opacity: .82; transform: scale(1); }
       50% { opacity: 1; transform: scale(1.06); }
@@ -1731,9 +1717,18 @@
       .story-card { padding-right: 22px; padding-left: 22px; }
 
       .hero-panel { margin: 18px; }
-      .floating-stack { left: 18px; right: 18px; width: auto; bottom: 18px; }
-      .stack-grid { grid-template-columns: 1fr; }
       .hero-side { padding: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-photo,
+      .hero-panel,
+      .hero-actions .btn,
+      .reveal-on-scroll,
+      .trust-badge {
+        animation: none !important;
+        transition: none !important;
+      }
     }
 
     @media (max-width: 780px) {
@@ -1798,24 +1793,6 @@
           </div>
         </div>
 
-        <div class="floating-stack">
-          <strong>ما الذي يرفع قيمة الباقة؟</strong>
-          <span>ثلاثة منتجات أساسية، خمس هدايا مرفقة، وروتين واضح يجمع التكثيف والتغذية والترميم في طلب واحد.</span>
-          <div class="stack-grid">
-            <div>
-              <strong>400 ₪</strong>
-              <span>العرض الرئيسي</span>
-            </div>
-            <div>
-              <strong>5 هدايا</strong>
-              <span>مع كل باقة</span>
-            </div>
-            <div>
-              <strong>3 منتجات</strong>
-              <span>ضمن الروتين</span>
-            </div>
-          </div>
-        </div>
       </div>
 
       <aside class="hero-side">
@@ -2234,6 +2211,32 @@
         syncState();
         item.addEventListener('toggle', syncState);
       });
+
+      var revealTargets = document.querySelectorAll(
+        '.trust-strip, #products .product-grid, .timeline-section, .testimonials-section, #care .ritual-shell, #order .cta-panel, #faq.faq-section, .platform-teaser, .hero-side'
+      );
+
+      revealTargets.forEach(function (el) {
+        el.classList.add('reveal-on-scroll');
+      });
+
+      if (window.IntersectionObserver) {
+        var revealObserver = new IntersectionObserver(function (entries, observer) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0.14, rootMargin: '0px 0px -6% 0px' });
+
+        revealTargets.forEach(function (el) {
+          revealObserver.observe(el);
+        });
+      } else {
+        revealTargets.forEach(function (el) {
+          el.classList.add('is-visible');
+        });
+      }
     })();
   </script>
 </body>
