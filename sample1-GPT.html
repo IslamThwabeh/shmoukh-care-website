@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>شموخ كير | هبوط زوار - GPT</title>
-  <meta name="description" content="صفحة هبوط عربية RTL لباقة شموخ كير: 400 ILS مع 5 هدايا مجانية، دفع عند الاستلام، وتوصيل داخل فلسطين فقط." />
+  <title>شموخ | هبوط زوار - GPT</title>
+  <meta name="description" content="صفحة هبوط عربية RTL لباقة شموخ: 400 ILS مع 5 هدايا مجانية، دفع عند الاستلام، وتوصيل داخل فلسطين فقط." />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="canonical" href="https://shmoukh-care.com/sample1-GPT/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="ar_PS" />
-  <meta property="og:site_name" content="شموخ كير" />
-  <meta property="og:title" content="شموخ كير | هبوط زوار - GPT" />
-  <meta property="og:description" content="عرض شموخ كير: 400 ILS + 5 هدايا، دفع عند الاستلام، وتوصيل داخل فلسطين فقط." />
+  <meta property="og:site_name" content="شموخ" />
+  <meta property="og:title" content="شموخ | هبوط زوار - GPT" />
+  <meta property="og:description" content="عرض شموخ: 400 ILS + 5 هدايا، دفع عند الاستلام، وتوصيل داخل فلسطين فقط." />
   <meta property="og:url" content="https://shmoukh-care.com/sample1-GPT/" />
   <meta property="og:image" content="https://shmoukh-care.com/assets/brand/collection-scene.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="شموخ كير | هبوط زوار - GPT" />
-  <meta name="twitter:description" content="عرض شموخ كير: 400 ILS + 5 هدايا، دفع عند الاستلام، وتوصيل داخل فلسطين فقط." />
+  <meta name="twitter:title" content="شموخ | هبوط زوار - GPT" />
+  <meta name="twitter:description" content="عرض شموخ: 400 ILS + 5 هدايا، دفع عند الاستلام، وتوصيل داخل فلسطين فقط." />
   <meta name="twitter:image" content="https://shmoukh-care.com/assets/brand/collection-scene.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -39,6 +39,8 @@
       --color-cream: #fcf6eb;
       --color-gold-500: #b7883f;
       --color-gold-300: #dfbf84;
+      --glow-gold: rgba(183, 136, 63, 0.22);
+      --glow-green: rgba(54, 113, 88, 0.18);
       --color-wa: #1f8b5d;
       --color-wa-hover: #16704a;
       --color-focus: #1a74d8;
@@ -107,6 +109,18 @@
       z-index: -1;
     }
 
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 12% 18%, var(--glow-gold), transparent 22%),
+        radial-gradient(circle at 86% 14%, var(--glow-green), transparent 24%),
+        radial-gradient(circle at 50% 88%, rgba(223, 191, 132, 0.12), transparent 26%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
     img {
       display: block;
       max-width: 100%;
@@ -119,7 +133,7 @@
     }
 
     section[id] {
-      scroll-margin-top: 120px;
+      scroll-margin-top: 92px;
     }
 
     .container {
@@ -158,17 +172,20 @@
       background: var(--color-brand-900);
       color: var(--color-cream);
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      max-height: 40px;
+      overflow: hidden;
+      transition: max-height var(--motion-mid) var(--easing-soft), opacity var(--motion-mid) var(--easing-soft), border-color var(--motion-mid) var(--easing-soft);
     }
 
     .trust-line {
-      min-height: 40px;
-      padding: 0.4rem 0;
+      min-height: 30px;
+      padding: 0.2rem 0;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
-      gap: var(--space-2) var(--space-4);
-      font-size: 0.84rem;
+      gap: var(--space-2) var(--space-3);
+      font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.1px;
       text-align: center;
@@ -185,21 +202,46 @@
     }
 
     .header-inner {
-      min-height: 72px;
+      min-height: 56px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: var(--space-3);
-      padding: 0.5rem 0;
+      padding: 0.3rem 0;
+      transition: min-height var(--motion-mid) var(--easing-soft), padding var(--motion-mid) var(--easing-soft);
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
+      min-width: 0;
     }
 
     .brand img {
-      width: min(168px, 44vw);
+      width: min(122px, 35vw);
+      transition: width var(--motion-mid) var(--easing-soft), opacity var(--motion-mid) var(--easing-soft), transform var(--motion-mid) var(--easing-soft);
+    }
+
+    .sticky-shell.compact {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .sticky-shell.compact .trust-topbar {
+      max-height: 0;
+      opacity: 0;
+      border-bottom-color: transparent;
+    }
+
+    .sticky-shell.compact .header-inner {
+      min-height: 46px;
+      padding: 0.15rem 0;
+    }
+
+    .sticky-shell.compact .brand img {
+      width: 0;
+      opacity: 0;
+      transform: scale(0.9);
     }
 
     .nav-links {
@@ -211,8 +253,8 @@
     }
 
     .nav-links a {
-      min-height: 44px;
-      padding: 0 0.95rem;
+      min-height: 36px;
+      padding: 0 0.7rem;
       display: inline-flex;
       align-items: center;
       border-radius: var(--radius-sm);
@@ -278,7 +320,30 @@
     }
 
     .hero {
+      position: relative;
       padding: var(--space-10) 0 var(--space-8);
+    }
+
+    
+    .cta-note {
+      margin-top: var(--space-3);
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .hero::before {
+            <a class="btn btn-ghost" href="#results">شاهدي النتائج أولاً</a>
+      position: absolute;
+          
+          <p class="cta-note">ابدئي بمشاهدة النتيجة والدليل الاجتماعي، ثم احجزي الباقة مباشرة عبر واتساب إذا شعرت أنها مناسبة لك.</p>
+      top: -2rem;
+      left: 50%;
+              الطلب يتم بتأكيد يدوي عبر واتساب للحفاظ على وضوح التفاصيل وسرعة المتابعة. العرض الحالي: 400 ILS مع 5 هدايا مجانية، والدفع عند الاستلام داخل فلسطين.
+      height: 320px;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(183, 136, 63, 0.18) 0%, rgba(54, 113, 88, 0.1) 45%, transparent 74%);
+      filter: blur(26px);
+      pointer-events: none;
     }
 
     .hero-grid {
@@ -355,6 +420,36 @@
       gap: var(--space-3);
     }
 
+    .hero-evidence {
+      margin-top: var(--space-5);
+      display: grid;
+      gap: var(--space-3);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .hero-evidence-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 0.9rem 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-evidence-card strong {
+      display: block;
+      font-family: "Noto Kufi Arabic", sans-serif;
+      font-size: 0.98rem;
+      color: var(--color-brand-900);
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-evidence-card span {
+      display: block;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--color-text-muted);
+    }
+
     .hero-media {
       border-radius: var(--radius-xl);
       overflow: hidden;
@@ -388,6 +483,8 @@
     .offer-card {
       display: grid;
       gap: var(--space-5);
+      position: relative;
+      isolation: isolate;
       border-radius: var(--radius-xl);
       padding: var(--space-7);
       background: linear-gradient(140deg, #143327 0%, #204a38 55%, #2f5f49 100%);
@@ -395,6 +492,18 @@
       box-shadow: var(--shadow-lg);
       animation: rise var(--motion-slow) var(--easing-soft) both;
       animation-delay: 80ms;
+    }
+
+    .offer-card::before {
+      content: "";
+      position: absolute;
+      inset: auto 10% -24% 10%;
+      height: 170px;
+      background: radial-gradient(circle, rgba(223, 191, 132, 0.28), transparent 70%);
+      filter: blur(28px);
+      opacity: 0.9;
+      z-index: -1;
+      pointer-events: none;
     }
 
     .offer-card h2 {
@@ -485,6 +594,11 @@
       animation-delay: var(--delay, 0ms);
     }
 
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 40px rgba(20, 44, 33, 0.14), 0 0 0 1px rgba(190, 169, 130, 0.32);
+    }
+
     .product-card img {
       width: 100%;
       aspect-ratio: 4 / 5;
@@ -540,6 +654,8 @@
     }
 
     .proof-shell {
+      position: relative;
+      isolation: isolate;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-xl);
@@ -547,10 +663,31 @@
       box-shadow: var(--shadow-sm);
     }
 
+    .proof-shell::before {
+      content: "";
+      position: absolute;
+      top: -40px;
+      left: -20px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(183, 136, 63, 0.14), transparent 72%);
+      filter: blur(24px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
     .proof-intro {
       margin: 0 0 var(--space-4);
       color: var(--color-text-muted);
       max-width: 52ch;
+    }
+
+    .evidence-note {
+      margin: 0 0 var(--space-4);
+      color: var(--color-brand-700);
+      font-size: 0.92rem;
+      font-weight: 700;
+      max-width: 58ch;
     }
 
     .trust-chips {
@@ -594,7 +731,9 @@
     .feedback-card img {
       width: 100%;
       aspect-ratio: 4 / 5;
-      object-fit: cover;
+      object-fit: contain;
+      background: #fffdf8;
+      padding: 0.7rem;
     }
 
     .feedback-card figcaption {
@@ -634,6 +773,11 @@
       box-shadow: var(--shadow-sm);
       animation: rise var(--motion-slow) var(--easing-soft) both;
       animation-delay: var(--delay, 0ms);
+    }
+
+    .step:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 36px rgba(20, 44, 33, 0.1);
     }
 
     .step::before {
@@ -750,12 +894,27 @@
     .order-panel {
       display: grid;
       gap: var(--space-6);
+      position: relative;
+      isolation: isolate;
       background: linear-gradient(140deg, #143327 0%, #23503d 58%, #30644c 100%);
       color: var(--color-cream);
       border-radius: var(--radius-xl);
       padding: var(--space-8);
       box-shadow: var(--shadow-lg);
       animation: rise var(--motion-slow) var(--easing-soft) both;
+    }
+
+    .order-panel::before {
+      content: "";
+      position: absolute;
+      top: -20%;
+      left: -6%;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(223, 191, 132, 0.22), transparent 72%);
+      filter: blur(34px);
+      z-index: -1;
+      pointer-events: none;
     }
 
     .order-panel h2 {
@@ -903,7 +1062,45 @@
       }
     }
 
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px) scale(0.985);
+      filter: blur(4px);
+      transition:
+        opacity 620ms var(--easing-soft),
+        transform 620ms var(--easing-soft),
+        filter 620ms var(--easing-soft);
+      transition-delay: var(--delay, 0ms);
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    .glow-card {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .glow-card::after {
+      content: "";
+      position: absolute;
+      inset: auto 12% -14% 12%;
+      height: 120px;
+      background: radial-gradient(circle, var(--glow-gold), transparent 72%);
+      filter: blur(26px);
+      opacity: 0.72;
+      z-index: -1;
+      pointer-events: none;
+    }
+
     @media (min-width: 700px) {
+      .hero-evidence {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
       .product-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -976,6 +1173,18 @@
         animation: none !important;
         transition-duration: 0ms !important;
       }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+    }
+
+    @media (max-width: 699px) {
+      .hero-evidence {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -994,7 +1203,7 @@
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href="#top" aria-label="العودة إلى أعلى الصفحة">
-          <img src="/assets/brand/logo-cards.png" alt="شعار شموخ كير" width="168" height="56" loading="eager" decoding="async" />
+          <img src="/assets/brand/logo-cards.png" alt="شعار شموخ" width="168" height="56" loading="eager" decoding="async" />
         </a>
 
         <nav class="nav-links" aria-label="روابط الأقسام">
@@ -1007,10 +1216,10 @@
 
         <a
           class="btn btn-wa desktop-cta"
-          href="https://wa.me/970599000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A8%D8%AF%D9%8A%20%D8%A3%D8%B7%D9%84%D8%A8%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%B4%D9%85%D9%88%D8%AE%20%D9%83%D9%8A%D8%B1%20400%20%D8%B4%D9%8A%D9%83%D9%84"
+          href="https://wa.me/970599000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A8%D8%AF%D9%8A%20%D8%A3%D8%B7%D9%84%D8%A8%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%B4%D9%85%D9%88%D8%AE%20400%20%D8%B4%D9%8A%D9%83%D9%84"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="اطلبي باقة شموخ كير عبر واتساب"
+          aria-label="اطلبي باقة شموخ عبر واتساب"
         >
           اطلبي عبر واتساب
         </a>
@@ -1021,24 +1230,24 @@
   <main id="main-content">
     <section class="hero" aria-label="مقدمة الصفحة">
       <div class="container hero-grid">
-        <div class="hero-copy">
-          <span class="eyebrow">عناية شعر طبيعية بمظهر Retail فاخر</span>
-          <h1>حوّلي روتين شعرك إلى نتيجة واضحة من أول أسبوع</h1>
+      <div class="hero-copy reveal glow-card">
+          <span class="eyebrow">للشعر الجاف والمتعب والمتقصف</span>
+          <h1>من شعر جاف ومتعب إلى كثافة ونعومة أوضح خلال 3 أسابيع</h1>
           <p class="hero-proof">
-            باقة شموخ كير صممت لاحتياج الشعر الجاف والمتعب: ترطيب، كثافة، وفروة أنظف بتوازن يومي ونتيجة ملموسة.
+            روتين شموخ من 3 خطوات صُمم ليمنح شعرك ترطيباً أعمق، لمعة أنظف، وإحساساً أوضح بالكثافة من غير تعقيد أو مواد قاسية.
           </p>
 
           <ul class="hero-facts" aria-label="مزايا العرض الأساسية">
-            <li>سعر الباقة الكامل: 400 ILS (شيكل)</li>
-            <li>5 هدايا مجانية ضمن الطلب</li>
-            <li>الدفع عند الاستلام فقط</li>
-            <li>التوصيل داخل فلسطين فقط</li>
+            <li>مناسبة للشعر الجاف والمتعب والذي فقد لمعانه</li>
+            <li>تركيز واضح على الكثافة والنعومة وراحة الفروة</li>
+            <li>أكثر من 200 عميلة جرّبن الباقة داخل فلسطين</li>
+            <li>تقييم 4.9/5 على تجارب موثقة ومتابعات فعلية</li>
           </ul>
 
           <div class="hero-cta">
             <a
               class="btn btn-wa"
-              href="https://wa.me/970599000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A8%D8%AF%D9%8A%20%D8%A3%D8%B7%D9%84%D8%A8%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%B4%D9%85%D9%88%D8%AE%20%D9%83%D9%8A%D8%B1%20400%20%D8%B4%D9%8A%D9%83%D9%84"
+              href="https://wa.me/970599000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A8%D8%AF%D9%8A%20%D8%A3%D8%B7%D9%84%D8%A8%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%B4%D9%85%D9%88%D8%AE%20400%20%D8%B4%D9%8A%D9%83%D9%84"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="الطلب الفوري عبر واتساب"
@@ -1047,12 +1256,27 @@
             </a>
             <a class="btn btn-ghost" href="#products">شاهدي تفاصيل المنتجات</a>
           </div>
+
+          <div class="hero-evidence reveal" aria-label="دلائل الثقة السريعة">
+            <div class="hero-evidence-card">
+              <strong>200+ عميلة</strong>
+              <span>جرّبن الباقة وشاركن متابعات حقيقية بعد الاستخدام.</span>
+            </div>
+            <div class="hero-evidence-card">
+              <strong>4.9 / 5</strong>
+              <span>رضا مرتفع على التجربة والنتيجة وسهولة الطلب.</span>
+            </div>
+            <div class="hero-evidence-card">
+              <strong>7 أيام ضمان</strong>
+              <span>استرجاع واضح مع دفع عند الاستلام داخل فلسطين فقط.</span>
+            </div>
+          </div>
         </div>
 
-        <figure class="hero-media">
+        <figure class="hero-media reveal glow-card">
           <img
             src="/assets/brand/collection-scene.jpg"
-            alt="مجموعة منتجات شموخ كير الكاملة"
+            alt="مجموعة منتجات شموخ الكاملة"
             width="960"
             height="720"
             loading="eager"
@@ -1065,11 +1289,11 @@
 
     <section id="offers" class="offer-strip" aria-label="ملخص العرض">
       <div class="container">
-        <div class="offer-card">
+        <div class="offer-card reveal glow-card">
           <div>
-            <h2>400 شيكل + 5 هدايا مجانية في باقة واحدة</h2>
+            <h2>باقة واحدة لنتيجة أوضح: كثافة، نعومة، ولمعان مع 5 هدايا</h2>
             <p>
-              عرض مباشر ومركز للنتيجة: تجهيز سريع، تأكيد عبر واتساب، ودفع عند الاستلام داخل فلسطين.
+              بعد أن تتأكدي أن الروتين مناسب لك، يصبح العرض بسيطاً: 400 شيكل، تأكيد سريع عبر واتساب، ودفع عند الاستلام داخل فلسطين.
             </p>
             <ul class="offer-points">
               <li>تأكيد الطلب خلال دقائق عبر واتساب</li>
@@ -1081,7 +1305,7 @@
           <div class="offer-visual">
             <img
               src="/assets/brand/packaging.png"
-              alt="تغليف شموخ كير للطلبات"
+              alt="تغليف شموخ للطلبات"
               width="900"
               height="680"
               loading="lazy"
@@ -1094,7 +1318,7 @@
 
     <section id="products" class="products" aria-label="المنتجات الرئيسية">
       <div class="container">
-        <header class="section-head">
+        <header class="section-head reveal">
           <p class="section-kicker">المنتجات الأساسية</p>
           <h2 class="section-title">3 منتجات متكاملة لنتيجة قبل وبعد واضحة</h2>
           <p class="section-copy">
@@ -1103,7 +1327,7 @@
         </header>
 
         <div class="product-grid">
-          <article class="product-card" style="--delay: 0ms;">
+          <article class="product-card reveal glow-card" style="--delay: 0ms;">
             <img
               src="/assets/brand/harir.jpg"
               alt="زيت شموخ حرير"
@@ -1122,7 +1346,7 @@
             </div>
           </article>
 
-          <article class="product-card" style="--delay: 120ms;">
+          <article class="product-card reveal glow-card" style="--delay: 120ms;">
             <img
               src="/assets/brand/ghazir.jpg"
               alt="زيت شموخ غزير"
@@ -1141,7 +1365,7 @@
             </div>
           </article>
 
-          <article class="product-card" style="--delay: 240ms;">
+          <article class="product-card reveal glow-card" style="--delay: 240ms;">
             <img
               src="/assets/brand/sidr-mask.jpg"
               alt="ماسك السدر الكريمي"
@@ -1165,14 +1389,15 @@
 
     <section class="social-proof" aria-label="آراء وتجارب العميلات">
       <div class="container">
-        <div class="proof-shell">
+        <div class="proof-shell reveal glow-card">
           <header class="section-head">
-            <p class="section-kicker">ثقة حقيقية</p>
-            <h2 class="section-title">تجارب عميلات شموخ كير من أرض الواقع</h2>
+            <p class="section-kicker">دليل اجتماعي حقيقي</p>
+            <h2 class="section-title">لقطات متابعة حقيقية من عميلات شموخ</h2>
           </header>
 
+          <p class="evidence-note">هذه ليست عبارات تسويقية عامة، بل لقطات متابعة وصور مشاركة من عميلات فعليات بعد الالتزام بالروتين.</p>
           <p class="proof-intro">
-            صور المتابعة من العميلات تعكس التحسن التدريجي في الملمس والكثافة عند الالتزام بالروتين الصحيح.
+            صور المتابعة من العميلات تعكس التحسن التدريجي في الملمس والكثافة والراحة العامة للشعر عند استخدام الباقة بشكل منتظم.
           </p>
 
           <ul class="trust-chips" aria-label="نقاط الثقة">
@@ -1183,40 +1408,40 @@
           </ul>
 
           <div class="feedback-grid">
-            <figure class="feedback-card" style="--delay: 0ms;">
+            <figure class="feedback-card reveal glow-card" style="--delay: 0ms;">
               <img
                 src="/assets/brand/feedback-1.jpg"
-                alt="مراجعة عميلة شموخ كير رقم 1"
+                alt="مراجعة عميلة شموخ رقم 1"
                 width="900"
                 height="1100"
                 loading="lazy"
                 decoding="async"
               />
-              <figcaption>نتيجة أولية خلال أسابيع مع التزام منتظم</figcaption>
+              <figcaption>متابعة فعلية توضح بداية النتيجة خلال أسابيع من الالتزام</figcaption>
             </figure>
 
-            <figure class="feedback-card" style="--delay: 130ms;">
+            <figure class="feedback-card reveal glow-card" style="--delay: 130ms;">
               <img
                 src="/assets/brand/feedback-2.jpg"
-                alt="مراجعة عميلة شموخ كير رقم 2"
+                alt="مراجعة عميلة شموخ رقم 2"
                 width="900"
                 height="1100"
                 loading="lazy"
                 decoding="async"
               />
-              <figcaption>ملمس أنعم ومظهر أكثر ترتيبًا</figcaption>
+              <figcaption>تحسن ملموس في النعومة والانسياب ومظهر الشعر العام</figcaption>
             </figure>
 
-            <figure class="feedback-card" style="--delay: 260ms;">
+            <figure class="feedback-card reveal glow-card" style="--delay: 260ms;">
               <img
                 src="/assets/brand/feedback-3.jpg"
-                alt="مراجعة عميلة شموخ كير رقم 3"
+                alt="مراجعة عميلة شموخ رقم 3"
                 width="900"
                 height="1100"
                 loading="lazy"
                 decoding="async"
               />
-              <figcaption>تحسن واضح في الإحساس بالكثافة</figcaption>
+              <figcaption>إحساس أوضح بالكثافة مع روتين أبسط وأسهل للاستمرار</figcaption>
             </figure>
           </div>
         </div>
@@ -1225,28 +1450,28 @@
 
     <section id="care" class="care" aria-label="طريقة الاستخدام">
       <div class="container">
-        <header class="section-head">
+        <header class="section-head reveal">
           <p class="section-kicker">روتين واضح من 3 خطوات</p>
           <h2 class="section-title">كيف تستخدمي الباقة لتحقيق أفضل نتيجة</h2>
         </header>
 
         <div class="care-layout">
           <ol class="steps">
-            <li class="step" style="--delay: 0ms;">
+            <li class="step reveal glow-card" style="--delay: 0ms;">
               <h3>تنظيف وتحضير الفروة</h3>
               <p>ابدئي بماسك السدر على فروة نظيفة لتهيئة الجلد وتقليل التراكم قبل الزيوت.</p>
             </li>
-            <li class="step" style="--delay: 120ms;">
+            <li class="step reveal glow-card" style="--delay: 120ms;">
               <h3>تغذية الأطراف بمنتج حرير</h3>
               <p>وزعي كمية مناسبة على طول الشعر والأطراف لتخفيف الهيشان واستعادة النعومة.</p>
             </li>
-            <li class="step" style="--delay: 240ms;">
+            <li class="step reveal glow-card" style="--delay: 240ms;">
               <h3>دعم الجذور بمنتج غزير</h3>
               <p>طبقي غزير على مناطق الجذور المستهدفة مع تدليك خفيف وبشكل منتظم خلال الأسبوع.</p>
             </li>
           </ol>
 
-          <aside class="care-side" aria-label="مشهد داعم للروتين">
+          <aside class="care-side reveal glow-card" aria-label="مشهد داعم للروتين">
             <img
               src="/assets/brand/hero-spa.jpg"
               alt="مشهد سبا ناعم داعم لأجواء العناية"
@@ -1265,7 +1490,7 @@
 
     <section id="faq" class="faq" aria-label="الأسئلة المتكررة">
       <div class="container">
-        <header class="section-head">
+        <header class="section-head reveal">
           <p class="section-kicker">الأسئلة الشائعة</p>
           <h2 class="section-title">إجابات سريعة قبل اتخاذ قرار الطلب</h2>
         </header>
@@ -1302,7 +1527,7 @@
           <details class="faq-item">
             <summary>كيف أؤكد طلبي بسرعة؟</summary>
             <p>
-              اضغطي زر واتساب في الصفحة، وارسلي "أريد باقة شموخ كير" وسيتم تأكيد التفاصيل مباشرة.
+              اضغطي زر واتساب في الصفحة، وارسلي "أريد باقة شموخ" وسيتم تأكيد التفاصيل مباشرة.
             </p>
           </details>
         </div>
@@ -1311,7 +1536,7 @@
 
     <section id="order" class="order" aria-label="الدعوة النهائية للطلب">
       <div class="container">
-        <div class="order-panel">
+        <div class="order-panel reveal glow-card">
           <div>
             <h2>جاهزة لبدء روتينك؟ احجزي الباقة قبل اكتمال دفعة اليوم</h2>
             <p>
@@ -1328,10 +1553,10 @@
             <div class="order-actions">
               <a
                 class="btn btn-wa"
-                href="https://wa.me/970599000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%AD%D8%AC%D8%B2%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%B4%D9%85%D9%88%D8%AE%20%D9%83%D9%8A%D8%B1%20%D8%A8%D8%B3%D8%B9%D8%B1%20400%20%D8%B4%D9%8A%D9%83%D9%84"
+                href="https://wa.me/970599000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%AD%D8%AC%D8%B2%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%B4%D9%85%D9%88%D8%AE%20%D8%A8%D8%B3%D8%B9%D8%B1%20400%20%D8%B4%D9%8A%D9%83%D9%84"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="حجز باقة شموخ كير عبر واتساب"
+                aria-label="حجز باقة شموخ عبر واتساب"
               >
                 احجزي عبر واتساب الآن
               </a>
@@ -1342,7 +1567,7 @@
           <figure class="order-visual">
             <img
               src="/assets/brand/packaging.png"
-              alt="تغليف طلبات شموخ كير"
+              alt="تغليف طلبات شموخ"
               width="900"
               height="680"
               loading="lazy"
@@ -1357,18 +1582,51 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>شموخ كير - عناية طبيعية بلمسة احترافية</p>
+      <p>شموخ - عناية طبيعية بلمسة احترافية</p>
     </div>
   </footer>
 
   <a
     class="mobile-wa"
-    href="https://wa.me/970599000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A8%D8%AF%D9%8A%20%D8%A3%D8%B7%D9%84%D8%A8%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%B4%D9%85%D9%88%D8%AE%20%D9%83%D9%8A%D8%B1%20400%20%D8%B4%D9%8A%D9%83%D9%84"
+    href="https://wa.me/970599000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A8%D8%AF%D9%8A%20%D8%A3%D8%B7%D9%84%D8%A8%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%B4%D9%85%D9%88%D8%AE%20400%20%D8%B4%D9%8A%D9%83%D9%84"
     target="_blank"
     rel="noopener noreferrer"
     aria-label="زر واتساب ثابت للطلب على الجوال"
   >
     اطلبي الآن عبر واتساب - 400 ILS
   </a>
+
+  <script>
+    (function () {
+      var sticky = document.querySelector('.sticky-shell');
+      var syncCompactHeader = function () {
+        if (!sticky) return;
+        sticky.classList.toggle('compact', window.scrollY > 72);
+      };
+      syncCompactHeader();
+      window.addEventListener('scroll', syncCompactHeader, { passive: true });
+
+      var nodes = document.querySelectorAll('.reveal');
+      if (!nodes.length) return;
+
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('in');
+            obs.unobserve(entry.target);
+          });
+        }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+
+        nodes.forEach(function (node) {
+          observer.observe(node);
+        });
+      } else {
+        nodes.forEach(function (node) {
+          node.classList.add('in');
+        });
+      }
+    })();
+  </script>
 </body>
 </html>

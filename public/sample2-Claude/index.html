@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>شموخ كير — شعر أكثف وأنعم خلال ٣ أسابيع</title>
-  <meta name="description" content="باقة شموخ كير: زيت حرير + زيت غزير + ماسك السدر الكريمي مع ٥ هدايا مجانية بـ ٤٠٠ شيكل. دفع عند الاستلام. توصيل داخل فلسطين فقط." />
+  <title>شموخ — شعر أكثف وأنعم خلال ٣ أسابيع</title>
+  <meta name="description" content="باقة شموخ: زيت حرير + زيت غزير + ماسك السدر الكريمي مع ٥ هدايا مجانية بـ ٤٠٠ شيكل. دفع عند الاستلام. توصيل داخل فلسطين فقط." />
   <meta name="robots" content="noindex, nofollow" />
   <meta name="theme-color" content="#faf6f0" />
   <link rel="canonical" href="https://shmoukh-care.com/sample2-Claude/" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="شموخ كير" />
+  <meta property="og:site_name" content="شموخ" />
   <meta property="og:locale" content="ar_PS" />
   <meta property="og:url" content="https://shmoukh-care.com/sample2-Claude/" />
-  <meta property="og:title" content="شموخ كير — شعر أكثف وأنعم خلال ٣ أسابيع" />
+  <meta property="og:title" content="شموخ — شعر أكثف وأنعم خلال ٣ أسابيع" />
   <meta property="og:description" content="باقة كاملة + ٥ هدايا بـ ٤٠٠ شيكل. الدفع عند الاستلام داخل فلسطين." />
   <meta property="og:image" content="https://shmoukh-care.com/assets/brand/collection-scene.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,6 +36,8 @@
       --gold-deep:   #8a6932;
       --gold-soft:   #e9d6b1;
       --gold-tint:   #f7eed9;
+      --glow-gold:   rgba(176,136,74,.24);
+      --glow-rose:   rgba(200,154,138,.18);
       --rose:        #c89a8a;
       --wa:          #25d366;
       --wa-deep:     #128c7e;
@@ -58,11 +60,24 @@
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 10% 16%, var(--glow-gold), transparent 22%),
+        radial-gradient(circle at 88% 12%, var(--glow-rose), transparent 24%),
+        radial-gradient(circle at 50% 84%, rgba(233,214,177,.18), transparent 28%);
+      pointer-events: none;
+      z-index: -1;
     }
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; height: auto; }
     button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
-    section[id] { scroll-margin-top: 92px; }
+    section[id] { scroll-margin-top: 78px; }
 
     .wrap { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
     .eyebrow {
@@ -91,7 +106,7 @@
     }
     .topstrip-track {
       display: flex; align-items: center; justify-content: center;
-      gap: 28px; padding: 9px 16px; flex-wrap: wrap;
+      gap: 16px; padding: 6px 12px; flex-wrap: wrap;
     }
     .topstrip-track span { display: inline-flex; align-items: center; gap: 6px; opacity: .9; }
     .topstrip-track .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold-soft); }
@@ -106,29 +121,29 @@
     }
     .nav {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 0; gap: 16px;
+      padding: 8px 0; gap: 12px;
     }
     .brand { display: inline-flex; align-items: center; gap: 12px; }
-    .brand img { width: 44px; height: 44px; object-fit: contain; }
+    .brand img { width: 34px; height: 34px; object-fit: contain; }
     .brand-name {
       font-family: var(--serif);
-      font-size: 22px; font-weight: 600; color: var(--ink);
+      font-size: 18px; font-weight: 600; color: var(--ink);
       letter-spacing: .2px;
     }
     .brand-name small {
       display: block;
       font-family: var(--sans);
-      font-size: 10px; font-weight: 600; letter-spacing: 3px;
+      font-size: 8px; font-weight: 600; letter-spacing: 2.4px;
       color: var(--gold-deep); margin-top: -2px;
     }
-    .nav-links { display: flex; gap: 26px; list-style: none; font-size: 14.5px; font-weight: 600; color: var(--ink-soft); }
+    .nav-links { display: flex; gap: 16px; list-style: none; font-size: 13.5px; font-weight: 600; color: var(--ink-soft); }
     .nav-links a { padding: 6px 2px; border-bottom: 1px solid transparent; transition: border-color .2s, color .2s; }
     .nav-links a:hover { color: var(--gold-deep); border-color: var(--gold); }
     .nav-cta {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 18px; border-radius: 999px;
+      padding: 8px 14px; border-radius: 999px;
       background: var(--ink); color: #faf6f0;
-      font-size: 13.5px; font-weight: 700;
+      font-size: 12.5px; font-weight: 700;
       box-shadow: var(--shadow-sm);
       transition: transform .15s, background .2s;
     }
@@ -154,6 +169,18 @@
       background-image: url("/assets/brand/hero-spa.jpg");
       background-size: cover; background-position: center;
       opacity: .05; pointer-events: none;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(84vw, 960px);
+      height: 360px;
+      background: radial-gradient(circle, rgba(176,136,74,.24) 0%, rgba(200,154,138,.12) 38%, transparent 72%);
+      filter: blur(34px);
+      pointer-events: none;
     }
     .hero-grid {
       display: grid;
@@ -258,8 +285,54 @@
     }
     .hero-microtrust svg { width: 16px; height: 16px; color: var(--gold-deep); }
 
+    .hero-cta-note {
+      margin-top: 16px;
+      font-size: 13.5px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .proof-ribbon {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      max-width: 620px;
+    }
+    .proof-ribbon .item {
+      background: rgba(255,255,255,.78);
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      padding: 14px 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .proof-ribbon strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 24px;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .proof-ribbon span {
+      display: block;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
     /* Hero visual */
     .hero-visual { position: relative; }
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      inset: auto 12% -8% 12%;
+      height: 160px;
+      background: radial-gradient(circle, rgba(176,136,74,.26), transparent 72%);
+      filter: blur(26px);
+      z-index: -1;
+      pointer-events: none;
+    }
     .hero-visual-frame {
       position: relative;
       aspect-ratio: 4 / 5;
@@ -307,6 +380,7 @@
       .hero-grid { grid-template-columns: 1fr; gap: 36px; }
       .hero-floating-tag { left: 50%; transform: translateX(-50%); top: -14px; }
       .hero-visual-frame { aspect-ratio: 4 / 4.4; }
+      .proof-ribbon { grid-template-columns: 1fr; }
     }
 
     /* ───── Trust strip ───── */
@@ -371,11 +445,23 @@
       overflow: hidden;
       transition: transform .25s, box-shadow .25s, border-color .25s;
       display: flex; flex-direction: column;
+      position: relative;
+      isolation: isolate;
     }
     .product-card:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-lg);
       border-color: var(--line-strong);
+    }
+    .product-card::after {
+      content: "";
+      position: absolute;
+      inset: auto 16% -10% 16%;
+      height: 110px;
+      background: radial-gradient(circle, rgba(176,136,74,.18), transparent 72%);
+      filter: blur(24px);
+      z-index: -1;
+      pointer-events: none;
     }
     .product-media {
       aspect-ratio: 4 / 3.4;
@@ -446,6 +532,17 @@
       padding: 36px 28px;
       text-align: center;
       position: relative;
+      isolation: isolate;
+    }
+    .ritual-card::after {
+      content: "";
+      position: absolute;
+      inset: auto 18% -12% 18%;
+      height: 96px;
+      background: radial-gradient(circle, rgba(176,136,74,.16), transparent 72%);
+      filter: blur(22px);
+      z-index: -1;
+      pointer-events: none;
     }
     .ritual-num {
       width: 56px; height: 56px; border-radius: 50%;
@@ -488,6 +585,18 @@
       border-radius: var(--r-lg);
       overflow: hidden;
       box-shadow: var(--shadow-md);
+      position: relative;
+      isolation: isolate;
+    }
+    .bundle-shell::after {
+      content: "";
+      position: absolute;
+      inset: auto 14% -10% 14%;
+      height: 160px;
+      background: radial-gradient(circle, rgba(176,136,74,.2), transparent 72%);
+      filter: blur(28px);
+      z-index: -1;
+      pointer-events: none;
     }
     .bundle-media {
       aspect-ratio: 5 / 5;
@@ -573,13 +682,31 @@
       border-radius: var(--r-lg);
       overflow: hidden;
       display: flex; flex-direction: column;
+      position: relative;
+      isolation: isolate;
+    }
+    .test-card::after {
+      content: "";
+      position: absolute;
+      inset: auto 14% -12% 14%;
+      height: 110px;
+      background: radial-gradient(circle, rgba(176,136,74,.16), transparent 72%);
+      filter: blur(24px);
+      z-index: -1;
+      pointer-events: none;
     }
     .test-media {
       aspect-ratio: 4 / 4.6;
       background: var(--cream-deep);
       overflow: hidden;
     }
-    .test-media img { width: 100%; height: 100%; object-fit: cover; }
+    .test-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #fffdfa;
+      padding: 12px;
+    }
     .test-body { padding: 22px 22px 24px; }
     .test-stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; margin-bottom: 10px; }
     .test-body p {
@@ -594,6 +721,14 @@
     }
     .test-author strong { color: var(--ink); font-weight: 700; }
     .test-author span { color: var(--muted); }
+    .evidence-note {
+      text-align: center;
+      color: var(--gold-deep);
+      font-size: 13.5px;
+      font-weight: 700;
+      margin: -22px auto 28px;
+      max-width: 720px;
+    }
     @media (max-width: 900px) {
       .test-grid { grid-template-columns: 1fr; }
     }
@@ -637,6 +772,18 @@
       border: 1px solid rgba(208,176,124,.22);
       border-radius: var(--r-md);
       padding: 24px 22px;
+      position: relative;
+      isolation: isolate;
+    }
+    .reverse-pillar::after {
+      content: "";
+      position: absolute;
+      inset: auto 18% -18% 18%;
+      height: 90px;
+      background: radial-gradient(circle, rgba(233,214,177,.16), transparent 72%);
+      filter: blur(24px);
+      z-index: -1;
+      pointer-events: none;
     }
     .reverse-pillar svg {
       width: 26px; height: 26px; color: var(--gold-soft); margin-bottom: 14px;
@@ -699,7 +846,7 @@
       content: ""; position: absolute;
       width: 140px; height: 140px; border-radius: 50%;
       background: var(--gold-tint); opacity: .6;
-      filter: blur(0);
+      filter: blur(20px);
     }
     .final-shell::before { top: -60px; right: -60px; }
     .final-shell::after { bottom: -60px; left: -60px; }
@@ -781,11 +928,30 @@
     }
 
     /* ───── Reveal ───── */
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
-    .reveal.in { opacity: 1; transform: none; }
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px) scale(.985);
+      filter: blur(4px);
+      transition: opacity .75s ease, transform .75s ease, filter .75s ease;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+      filter: blur(0);
+    }
+    .hero-copy.reveal { transition-delay: .04s; }
+    .hero-visual.reveal { transition-delay: .12s; }
+    .product-card.reveal:nth-child(2),
+    .ritual-card.reveal:nth-child(2),
+    .test-card.reveal:nth-child(2),
+    .reverse-pillar.reveal:nth-child(2) { transition-delay: .12s; }
+    .product-card.reveal:nth-child(3),
+    .ritual-card.reveal:nth-child(3),
+    .test-card.reveal:nth-child(3),
+    .reverse-pillar.reveal:nth-child(3) { transition-delay: .22s; }
 
     @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1; transform: none; transition: none; }
+      .reveal { opacity: 1; transform: none; filter: none; transition: none; }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -796,20 +962,20 @@
     "@graph": [
       {
         "@type": "Organization",
-        "name": "شموخ كير",
+        "name": "شموخ",
         "url": "https://shmoukh-care.com/",
         "logo": "https://shmoukh-care.com/assets/brand/logo-cards.png",
         "areaServed": "PS"
       },
       {
         "@type": "Product",
-        "name": "باقة شموخ كير الكاملة",
+        "name": "باقة شموخ الكاملة",
         "image": [
           "https://shmoukh-care.com/assets/brand/collection-scene.jpg",
           "https://shmoukh-care.com/assets/brand/packaging.png"
         ],
-        "description": "باقة شموخ كير: زيت حرير + زيت غزير + ماسك السدر الكريمي مع ٥ هدايا مجانية.",
-        "brand": { "@type": "Brand", "name": "شموخ كير" },
+        "description": "باقة شموخ: زيت حرير + زيت غزير + ماسك السدر الكريمي مع ٥ هدايا مجانية.",
+        "brand": { "@type": "Brand", "name": "شموخ" },
         "offers": {
           "@type": "Offer",
           "priceCurrency": "ILS",
@@ -852,9 +1018,9 @@
   <!-- Header -->
   <header class="header">
     <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="شموخ كير">
-        <img src="/assets/brand/logo-cards.png" alt="شعار شموخ كير" />
-        <span class="brand-name">شموخ كير<small>SHMOUKH · CARE</small></span>
+      <a class="brand" href="#top" aria-label="شموخ">
+        <img src="/assets/brand/logo-cards.png" alt="شعار شموخ" />
+        <span class="brand-name">شموخ<small>SHMOUKH</small></span>
       </a>
       <ul class="nav-links" aria-label="التنقل الرئيسي">
         <li><a href="#products">المنتجات</a></li>
@@ -862,7 +1028,7 @@
         <li><a href="#testimonials">آراء العميلات</a></li>
         <li><a href="#faq">أسئلة شائعة</a></li>
       </ul>
-      <a class="nav-cta" href="https://wa.me/970599000000?text=السلام%20عليكم%20أرغب%20بطلب%20باقة%20شموخ%20كير" target="_blank" rel="noopener">
+      <a class="nav-cta" href="https://wa.me/970599000000?text=السلام%20عليكم%20أرغب%20بطلب%20باقة%20شموخ" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.6 11.6 0 0012.07 0C5.62 0 .37 5.24.37 11.7c0 2.06.54 4.08 1.57 5.86L0 24l6.6-1.73a11.6 11.6 0 005.47 1.39h.01c6.45 0 11.7-5.25 11.7-11.7 0-3.13-1.22-6.07-3.28-8.46zm-8.43 18a9.7 9.7 0 01-4.95-1.36l-.36-.21-3.92 1.03 1.05-3.83-.23-.39A9.74 9.74 0 012.34 11.7c0-5.37 4.37-9.74 9.73-9.74 2.6 0 5.04 1.02 6.88 2.86a9.65 9.65 0 012.85 6.88c-.01 5.37-4.38 9.7-9.73 9.7z"/></svg>
         اطلبي الآن
       </a>
@@ -873,14 +1039,14 @@
   <section class="hero" id="top">
     <div class="wrap hero-grid">
       <div class="hero-copy reveal">
-        <span class="eyebrow">طبيعية · بنتائج محسوسة</span>
+        <span class="eyebrow">للشعر الجاف والمتعب الذي فقد لمعانه</span>
         <h1>
           شعر <span class="underline">أكثف وأنعم</span><br/>
           خلال <em>٣ أسابيع</em> فقط
         </h1>
         <p class="hero-sub">
-          روتين شموخ كير الكامل بزيوت طبيعية مدروسة وماسك السدر الكريمي،
-          صُمّم ليُعيد لشعرك الكثافة، اللمعان، والترطيب العميق من أول استخدام.
+          روتين شموخ الكامل بزيوت طبيعية مدروسة وماسك السدر الكريمي،
+          صُمّم خصيصاً ليعيد للشعر الجاف والمتعب الكثافة، اللمعان، وراحة الفروة بدون تعقيد أو مواد قاسية.
         </p>
 
         <div class="hero-offer">
@@ -896,12 +1062,14 @@
         </div>
 
         <div class="hero-cta-row">
-          <a class="btn btn-wa" href="https://wa.me/970599000000?text=السلام%20عليكم%20أرغب%20بطلب%20باقة%20شموخ%20كير%20الكاملة%20بـ%20400%20شيكل" target="_blank" rel="noopener">
+          <a class="btn btn-wa" href="https://wa.me/970599000000?text=السلام%20عليكم%20أرغب%20بطلب%20باقة%20شموخ%20الكاملة%20بـ%20400%20شيكل" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.6 11.6 0 0012.07 0C5.62 0 .37 5.24.37 11.7c0 2.06.54 4.08 1.57 5.86L0 24l6.6-1.73a11.6 11.6 0 005.47 1.39h.01c6.45 0 11.7-5.25 11.7-11.7 0-3.13-1.22-6.07-3.28-8.46zm-8.43 18a9.7 9.7 0 01-4.95-1.36l-.36-.21-3.92 1.03 1.05-3.83-.23-.39A9.74 9.74 0 012.34 11.7c0-5.37 4.37-9.74 9.73-9.74 2.6 0 5.04 1.02 6.88 2.86a9.65 9.65 0 012.85 6.88c-.01 5.37-4.38 9.7-9.73 9.7zm5.34-7.28c-.29-.15-1.73-.85-2-.95-.27-.1-.46-.15-.66.15s-.76.94-.93 1.14c-.17.2-.34.22-.63.07-.29-.15-1.24-.46-2.36-1.46-.87-.78-1.46-1.74-1.63-2.03-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.2-.29.29-.49.1-.2.05-.37-.03-.51-.07-.15-.66-1.59-.9-2.18-.24-.57-.49-.5-.66-.5h-.56c-.2 0-.51.07-.78.36-.27.29-1.02 1-1.02 2.44 0 1.44 1.05 2.83 1.2 3.03.15.2 2.06 3.15 5 4.42.7.3 1.24.48 1.66.62.7.22 1.33.19 1.83.12.56-.08 1.73-.71 1.98-1.39.24-.69.24-1.27.17-1.39-.07-.12-.27-.2-.56-.34z"/></svg>
             اطلبي عبر واتساب
           </a>
-          <a class="btn btn-ghost" href="#products">شاهدي المنتجات</a>
+          <a class="btn btn-ghost" href="#testimonials">شاهدي النتائج أولاً</a>
         </div>
+
+        <p class="hero-cta-note">الترتيب هنا مقصود: شاهدي النتيجة والدليل أولاً، ثم ابدئي الطلب إذا شعرت أن الباقة تناسب شعرك.</p>
 
         <div class="hero-microtrust">
           <span>
@@ -917,12 +1085,27 @@
             تقييم ٤٫٩ من ٥
           </span>
         </div>
+
+        <div class="proof-ribbon reveal" aria-label="دلائل الثقة السريعة">
+          <div class="item">
+            <strong>200+</strong>
+            <span>عميلة داخل فلسطين جرّبن الباقة وشاركن متابعاتهن.</span>
+          </div>
+          <div class="item">
+            <strong>4.9/5</strong>
+            <span>رضا مرتفع على النتيجة والتجهيز وسهولة الطلب.</span>
+          </div>
+          <div class="item">
+            <strong>7 أيام</strong>
+            <span>ضمان استرجاع واضح مع دفع عند الاستلام.</span>
+          </div>
+        </div>
       </div>
 
       <div class="hero-visual reveal">
         <span class="hero-floating-tag">باقة ٢٠٢٦ الجديدة</span>
         <div class="hero-visual-frame">
-          <img src="/assets/brand/collection-scene.jpg" alt="باقة منتجات شموخ كير للعناية بالشعر" loading="eager" />
+          <img src="/assets/brand/collection-scene.jpg" alt="باقة منتجات شموخ للعناية بالشعر" loading="eager" />
         </div>
         <div class="hero-badge">
           <div>
@@ -959,7 +1142,7 @@
       <div class="trust-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-4.5-9-9a5 5 0 019-3 5 5 0 019 3c-2 4.5-9 9-9 9z" stroke-linejoin="round"/></svg>
         <strong>أكثر من ٢٠٠ عميلة</strong>
-        <span>يثقن بنا داخل فلسطين</span>
+        <span>متابعات وصور وتجارب موثقة داخل فلسطين</span>
       </div>
     </div>
   </div>
@@ -1065,12 +1248,12 @@
     <div class="wrap">
       <div class="bundle-shell reveal">
         <div class="bundle-media">
-          <img src="/assets/brand/packaging.png" alt="تغليف باقة شموخ كير" loading="lazy" />
+          <img src="/assets/brand/packaging.png" alt="تغليف باقة شموخ" loading="lazy" />
         </div>
         <div class="bundle-content">
           <span class="eyebrow">العرض الكامل</span>
-          <h2>باقة شموخ كير + ٥ هدايا فاخرة</h2>
-          <p>كل ما تحتاجينه لروتين عناية متكامل في باقة واحدة، مع هدايا مختارة بعناية لتجربة استثنائية من أول طلب.</p>
+          <h2>باقة شموخ + ٥ هدايا لروتين نتيجة متكاملة</h2>
+          <p>هذه ليست مجرد باقة سعرية؛ هي روتين كامل مصمم ليختصر عليك التشتت بين منتجات متعددة، ويمنحك مساراً واضحاً نحو شعر أنعم وأكثر امتلاءً.</p>
 
           <ul class="gifts-list">
             <li class="gifts-title">٥ هدايا مع كل باقة</li>
@@ -1113,23 +1296,25 @@
   <section class="testimonials" id="testimonials">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="eyebrow">آراء حقيقية</span>
-        <h2>عميلات شموخ كير يحكين تجربتهن</h2>
-        <p>مئات العميلات داخل فلسطين شاركن نتائجهن خلال أسابيع — وهذه بعض قصصهن.</p>
+        <span class="eyebrow">دليل اجتماعي حقيقي</span>
+        <h2>لقطات وتجارب فعلية من عميلات شموخ</h2>
+        <p>هذه المساحة لا تكتفي بكلمات جميلة؛ هي مبنية على لقطات وصور متابعة وتجارب من عميلات فعليات داخل فلسطين.</p>
       </div>
+
+      <p class="evidence-note">لقطات واتساب وصور مشاركة تعكس التحسن التدريجي في النعومة والكثافة مع الالتزام بالروتين، وليست اقتباسات تجميلية عامة.</p>
 
       <div class="test-grid">
         <article class="test-card reveal">
-          <div class="test-media"><img src="/assets/brand/feedback-1.jpg" alt="تجربة عميلة شموخ كير" loading="lazy"/></div>
+          <div class="test-media"><img src="/assets/brand/feedback-1.jpg" alt="تجربة عميلة شموخ" loading="lazy"/></div>
           <div class="test-body">
             <div class="test-stars">★★★★★</div>
-            <p>«جربت كتير منتجات قبل، بس شموخ كير غيّر شكل شعري فعلياً. الكثافة بانت من ثاني أسبوع.»</p>
+            <p>«جربت كتير منتجات قبل، بس شموخ غيّر شكل شعري فعلياً. الكثافة بانت من ثاني أسبوع.»</p>
             <div class="test-author"><strong>عميلة موثّقة</strong><span>الضفة الغربية</span></div>
           </div>
         </article>
 
         <article class="test-card reveal">
-          <div class="test-media"><img src="/assets/brand/feedback-2.jpg" alt="تجربة عميلة شموخ كير" loading="lazy"/></div>
+          <div class="test-media"><img src="/assets/brand/feedback-2.jpg" alt="تجربة عميلة شموخ" loading="lazy"/></div>
           <div class="test-body">
             <div class="test-stars">★★★★★</div>
             <p>«ماسك السدر الكريمي تحفة، شعري صار ناعم ولامع وقلّ التساقط بشكل واضح. أنصح فيه بقوة.»</p>
@@ -1138,7 +1323,7 @@
         </article>
 
         <article class="test-card reveal">
-          <div class="test-media"><img src="/assets/brand/feedback-3.jpg" alt="تجربة عميلة شموخ كير" loading="lazy"/></div>
+          <div class="test-media"><img src="/assets/brand/feedback-3.jpg" alt="تجربة عميلة شموخ" loading="lazy"/></div>
           <div class="test-body">
             <div class="test-stars">★★★★★</div>
             <p>«التعامل راقي والمنتج وصلني بتغليف فخم مع الهدايا. النتيجة فاقت توقعاتي بصراحة.»</p>
@@ -1152,7 +1337,7 @@
   <!-- Risk reversal -->
   <section class="reverse">
     <div class="wrap reverse-inner">
-      <span class="eyebrow">لماذا شموخ كير</span>
+      <span class="eyebrow">لماذا شموخ</span>
       <h2>نتائج <em>مضمونة</em> أو نُعيد لك أموالك خلال ٧ أيام</h2>
       <p>نُؤمن بأن المنتج الجيد لا يحتاج كلاماً كثيراً. ولأننا واثقات من تركيبتنا، نمنحك ضماناً كاملاً لتجرّبيها بثقة.</p>
 
@@ -1174,7 +1359,7 @@
         </div>
       </div>
 
-      <a class="btn btn-wa" href="https://wa.me/970599000000?text=السلام%20عليكم%20أرغب%20بطلب%20باقة%20شموخ%20كير" target="_blank" rel="noopener">
+      <a class="btn btn-wa" href="https://wa.me/970599000000?text=السلام%20عليكم%20أرغب%20بطلب%20باقة%20شموخ" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.6 11.6 0 0012.07 0C5.62 0 .37 5.24.37 11.7c0 2.06.54 4.08 1.57 5.86L0 24l6.6-1.73a11.6 11.6 0 005.47 1.39h.01c6.45 0 11.7-5.25 11.7-11.7 0-3.13-1.22-6.07-3.28-8.46zm-8.43 18a9.7 9.7 0 01-4.95-1.36l-.36-.21-3.92 1.03 1.05-3.83-.23-.39A9.74 9.74 0 012.34 11.7c0-5.37 4.37-9.74 9.73-9.74 2.6 0 5.04 1.02 6.88 2.86a9.65 9.65 0 012.85 6.88c-.01 5.37-4.38 9.7-9.73 9.7z"/></svg>
         ابدئي الآن مع ضمان كامل
       </a>
@@ -1196,7 +1381,7 @@
         </details>
         <details class="faq-item">
           <summary>هل المنتجات مناسبة لجميع أنواع الشعر؟</summary>
-          <div class="faq-body">نعم، تركيبات شموخ كير مدروسة لتناسب جميع أنواع الشعر — الجاف، الدهني، والمختلط — بفضل المكونات الطبيعية المتوازنة.</div>
+          <div class="faq-body">نعم، تركيبات شموخ مدروسة لتناسب جميع أنواع الشعر — الجاف، الدهني، والمختلط — بفضل المكونات الطبيعية المتوازنة.</div>
         </details>
         <details class="faq-item">
           <summary>كيف يتم الدفع والتوصيل؟</summary>
@@ -1224,11 +1409,11 @@
       <div class="final-shell reveal">
         <div class="final-inner">
           <span class="eyebrow">ابدئي رحلتك اليوم</span>
-          <h2>شعرك يستحق روتين شموخ كير الكامل</h2>
-          <p>اطلبي الباقة الآن مع ٥ هدايا مجانية، وادفعي عند الاستلام داخل فلسطين بكل راحة.</p>
+          <h2>إذا شعرت أن هذه النتيجة تناسبك، ابدئي بروتين شموخ الكامل</h2>
+          <p>اطلبي الباقة الآن مع ٥ هدايا مجانية، وسيتم تأكيد طلبك يدوياً عبر واتساب قبل التجهيز والدفع عند الاستلام داخل فلسطين.</p>
 
           <div class="final-cta-row">
-            <a class="btn btn-wa" href="https://wa.me/970599000000?text=السلام%20عليكم%20أرغب%20بطلب%20باقة%20شموخ%20كير%20الكاملة" target="_blank" rel="noopener">
+            <a class="btn btn-wa" href="https://wa.me/970599000000?text=السلام%20عليكم%20أرغب%20بطلب%20باقة%20شموخ%20الكاملة" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.6 11.6 0 0012.07 0C5.62 0 .37 5.24.37 11.7c0 2.06.54 4.08 1.57 5.86L0 24l6.6-1.73a11.6 11.6 0 005.47 1.39h.01c6.45 0 11.7-5.25 11.7-11.7 0-3.13-1.22-6.07-3.28-8.46zm-8.43 18a9.7 9.7 0 01-4.95-1.36l-.36-.21-3.92 1.03 1.05-3.83-.23-.39A9.74 9.74 0 012.34 11.7c0-5.37 4.37-9.74 9.73-9.74 2.6 0 5.04 1.02 6.88 2.86a9.65 9.65 0 012.85 6.88c-.01 5.37-4.38 9.7-9.73 9.7z"/></svg>
               اطلبي عبر واتساب الآن
             </a>
@@ -1250,8 +1435,8 @@
     <div class="wrap">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="/assets/brand/logo-cards.png" alt="شموخ كير" />
-          <div class="brand-name">شموخ كير<small style="color:var(--gold-soft);">SHMOUKH · CARE</small></div>
+          <img src="/assets/brand/logo-cards.png" alt="شموخ" />
+          <div class="brand-name">شموخ<small style="color:var(--gold-soft);">SHMOUKH</small></div>
           <p>عناية طبيعية بالشعر بتركيبات مدروسة. منتجات نُحبّها ونثق بها — صُنعت لكِ بكل حب.</p>
         </div>
         <div>
@@ -1274,7 +1459,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© ٢٠٢٦ شموخ كير · جميع الحقوق محفوظة</span>
+        <span>© ٢٠٢٦ شموخ · جميع الحقوق محفوظة</span>
         <span>عناية طبيعية بالشعر · صُنع بحب في فلسطين</span>
       </div>
     </div>
@@ -1282,7 +1467,7 @@
 
   <!-- Sticky mobile WA -->
   <div class="mobile-wa" id="mobileWa">
-    <a href="https://wa.me/970599000000?text=السلام%20عليكم%20أرغب%20بطلب%20باقة%20شموخ%20كير" target="_blank" rel="noopener">
+    <a href="https://wa.me/970599000000?text=السلام%20عليكم%20أرغب%20بطلب%20باقة%20شموخ" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.6 11.6 0 0012.07 0C5.62 0 .37 5.24.37 11.7c0 2.06.54 4.08 1.57 5.86L0 24l6.6-1.73a11.6 11.6 0 005.47 1.39h.01c6.45 0 11.7-5.25 11.7-11.7 0-3.13-1.22-6.07-3.28-8.46z"/></svg>
       <span>
         <span class="mobile-wa-main">اطلبي الباقة · ٤٠٠ ₪</span>
@@ -1312,7 +1497,7 @@
           entries.forEach(function (e) {
             if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
           });
-        }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+        }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
         els.forEach(function (el) { ro.observe(el); });
       } else {
         els.forEach(function (el) { el.classList.add('in'); });
